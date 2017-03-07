@@ -1,0 +1,16 @@
+{
+  "name" : "commercial_platform",
+  "description" : "the ThinkPHP Framework",
+  "require" : {
+    "php" : ">=5.3.0"
+  },
+  "license" : "Apache2",
+  "keywords" : [ "framework", "thinkphp", "ORM" ],
+  "minimum-stability" : "dev",
+  "type" : "framework",
+  "homepage" : "http://thinkphp.cn/",
+  "authors" : [ {
+    "name" : "liu21st",
+    "email" : "liu21st@gmail.com"
+  } ]
+}
