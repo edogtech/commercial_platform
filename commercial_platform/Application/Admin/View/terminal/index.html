@@ -1,0 +1,78 @@
+<extend name="Public/base" />
+<block name="title">终端管理</block>
+<block name="main">
+<!--状态栏-->
+	<div class="status" style="float:left">
+		<div class="status-left" style="float:left" >
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:55px;">总桩数：</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:80px;">直流桩：</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:80px;">交流桩：</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:80px;">今日充电次数：</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:80px;">工作：</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:80px;">空闲：</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:80px;">故障：</div>
+			
+		</div>
+		<div class="status-right" style="float:left;margin-left:10px;">
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;padding-left:15px;">充电站</div>
+			<div><img src="__PUBLIC__/pic/arrow.png" style="padding-top:13px;width:20px;padding-left:9px;" /></div>
+		</div>
+	</div>
+	
+	<!--内容-->
+	<div class="content" style="float:left;">
+		<!--搜索框-->
+		<div style="height:40px;margin-top:20px;">
+			<div style="float:left;font-size:13px;color:red;padding-top:14px;padding-left:57px;">查询：</font></div>
+			<div style="float:left;padding-top:5px;padding-left:18px">
+				<input type='text' name='txtSearch'  id="txtSearch" style=" width:220px;height:20px;" value="请输入内容"/>
+			</div>
+			<div style="float:left;width:25px;height:25px;background-color:red;margin-top:5px;margin-left:20px;">
+				<img src="__PUBLIC__/pic/search.png" style="width:12px;padding-top:8px;padding-left:8px;"/>
+			</div>
+		</div>
+		<!--数据表格-->
+		<div id="termianltbl">
+			<table rules="none">
+				<tr>
+					<th width="10%" >序号</th>
+					<th width="20%">充电站名称</th>
+					<th width="10%">总电量（度）</th>
+					<th width="10%">总桩数（个）</th>
+					<th width="15%">今日充电次数（次）</th>
+					<th width="25%">充电桩当前状态</th>
+					<th width="10%">查看</th>
+				</tr>
+				<tr>
+					<td>1-1</td>
+					<td>1-1</td>
+					<td>1-1</td>
+					<td>1-1</td>
+					<td>1-1</td>
+					<td>1-1</td>
+					<td>1-1</td>
+				</tr>
+				<tr>
+					<td>2-1</td>
+					<td>2-1</td>
+					<td>2-1</td>
+					<td>2-1</td>
+					<td>2-1</td>
+					<td>2-1</td>
+					<td>2-1</td>
+				</tr>				
+				<tr>
+					<td>3-1</td>
+					<td>3-1</td>
+					<td>3-1</td>
+					<td>3-1</td>
+					<td>3-1</td>
+					<td>3-1</td>
+					<td>3-1</td>
+				</tr>					
+			</table>
+		</div>
+		
+	</div>
+</block>
+
