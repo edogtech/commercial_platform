@@ -40,7 +40,7 @@
 	
 	<!--标题栏-->
 	<div class="header" style="float:left;width:1160px">
-		<div style=" float:left;font-size:12px; padding-left:515px;margin-top:30px;">
+		<div style=" float:left;font-size:12px; padding-left:468px;margin-top:30px;">
 			<label><?php echo ($curdate); ?></label>
 		</div>
 		<div style=" float:left;font-size:12px; margin-left:50px;margin-top:17px; ">
