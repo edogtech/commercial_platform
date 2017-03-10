@@ -1,16 +1,22 @@
 <extend name="Public/base" />
+<!-- 继承页面名称 -->
 <block name="title">终端管理</block>
+<!-- 继承系统当前时间 -->
+<block name="curdate">{$curdate}</block>
+<!-- 继承登录用户名 -->
+<block name="curuser">{$curuser}</block>
+
 <block name="main">
 <!--状态栏-->
 	<div class="status" style="float:left">
 		<div class="status-left" style="float:left" >
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:55px;">总桩数：</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:80px;">直流桩：</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:80px;">交流桩：</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:80px;">今日充电次数：</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:80px;">工作：</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:80px;">空闲：</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:80px;">故障：</div>
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:55px;">总桩数：{$pilesinfo['totalQty']}</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:65px;">直流桩：{$pilesinfo['dcQty']}</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:65px;">交流桩：{$pilesinfo['acQty']}</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:65px;">今日充电次数：{$pilesinfo['times']}</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:65px;">工作：{$pilesinfo['occupyQty']}</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:65px;">空闲：{$pilesinfo['idleQty']}</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:65px;">故障：{$pilesinfo['faultQty']}</div>
 			
 		</div>
 		<div class="status-right" style="float:left;margin-left:10px;">
@@ -23,12 +29,12 @@
 	<div class="content" style="float:left;">
 		<!--搜索框-->
 		<div style="height:40px;margin-top:20px;">
-			<div style="float:left;font-size:13px;color:red;padding-top:14px;padding-left:57px;">查询：</font></div>
+			<div style="float:left;font-size:13px;color:red;padding-top:10px;padding-left:57px;">查询：</font></div>
 			<div style="float:left;padding-top:5px;padding-left:18px">
 				<input type='text' name='txtSearch'  id="txtSearch" style=" width:220px;height:20px;" value="请输入内容"/>
 			</div>
 			<div style="float:left;width:25px;height:25px;background-color:red;margin-top:5px;margin-left:20px;">
-				<img src="__PUBLIC__/pic/search.png" style="width:12px;padding-top:8px;padding-left:8px;"/>
+				<img src="__PUBLIC__/pic/search.png" style="width:15px;padding-top:6px;padding-left:6px;"/>
 			</div>
 		</div>
 		<!--数据表格-->
