@@ -10,7 +10,7 @@ class TerminalController extends Controller {
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
         
         // 在header显示系统当前用户
-        $user='我心飞翔';
+        $user=mb_substr('我心飞翔134',0,4).'*';
 
         $ob=M('electric_pile');
         $field='e_number';
