@@ -1,3 +1,5 @@
+a{ text-decoration:none;color:black;}/*去掉超链接的下划线*/
+img{ border:none;}/*去掉图片加完链接之后自带的边框*/
 
 .header{
 	width:auto;
@@ -46,7 +48,7 @@
 
 body{
 	padding: 0px;
-   	margin: 2px;
+   	margin: 0px;
 	background:#F3F3F3;
 	font-family:"微软雅黑";
 }

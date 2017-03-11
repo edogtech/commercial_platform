@@ -3,6 +3,7 @@ $config = array(
 	//'配置项'=>'配置值'
 	
     'DEFAULT_MODULE'     => 'Admin', // 默认模块
+    'DEFAULT_MODULE'	=>'login';
     'APP_USE_NAMESPACE' => false, // 应用类库不再使用命名空间
     'URL_CASE_INSENSITIVE' =>true, // URL忽略大小写
     
