@@ -64,14 +64,14 @@
 			<img src="/gitcode/commercial_platform/Public/pic/refresh.png" style="width:13px;" />
 		</div>
 		<div style=" float:left;font-size:12px; margin-left:8px;margin-top:30px; ">
-			<label>刷新</label>	
+			<label id="PageRefresh" style="cursor:pointer">刷新</label>
 		</div>
 		
 		<div style=" float:left;font-size:12px; margin-left:30px;margin-top:30px; ">
 			<img src="/gitcode/commercial_platform/Public/pic/message.png" style="width:13px;" />
 		</div>
 		<div style=" float:left;font-size:12px; margin-left:8px;margin-top:30px; ">
-			<label>消息</label>	
+			<label id="PageMessage" style="cursor:pointer">消息</label>
 		</div>
 		
 		<div style=" float:left;font-size:12px; margin-left:30px;margin-top:30px; ">
@@ -160,6 +160,8 @@
 	</div>
 
 	
-
+ <!-- jQuery -->
+    <script src="/gitcode/commercial_platform/Public/js/jquery-1.8.3.min.js"></script>
+    <script src="/gitcode/commercial_platform/Public/js/my.js"></script>
 </body>
 </html>

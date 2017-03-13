@@ -9,8 +9,8 @@ class TerminalController extends Controller {
         // 在header显示系统当前时间
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
         
-        // 在header显示系统当前用户
-        $user=mb_substr('我心飞翔134',0,4).'*';
+        // 在header显示系统当前登录的用户名
+		$user=mb_substr($_SESSION['admininfo']['username'],0,4).'***';
 
         $ob=M('electric_pile');
         $field='e_number';

@@ -2,7 +2,7 @@
 $config =array(
 	//'配置项'=>'配置值'
     'DEFAULT_MODULE'     => 'Admin', //默认模块
-    'DEFAULT_ACTION'     => 'index', // 默认操作名称
+//     'DEFAULT_ACTION'     => 'Login/index', // 默认操作名称
     
     /*
      * 0:普通模式 (采用传统癿URL参数模式 )
