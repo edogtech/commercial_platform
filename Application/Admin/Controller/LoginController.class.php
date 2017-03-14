@@ -51,6 +51,7 @@ class LoginController extends Controller {
     			$this->error("此账户已被禁用");
     		}
     		//记录登录信息
+    		$data['username']=$map['user'];
     		$data['last_login_ip']=$_SERVER['REMOTE_ADDR'];//获取客户IP
     		$data['login_count']=$res['login_count']+1;//登录次数
     		$data['last_login_time']=time();//登录时间

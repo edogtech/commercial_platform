@@ -22,11 +22,11 @@ img{ border:none;}/*去掉图片加完链接之后自带的边框*/
 	border-top-color:#464444;
 }
 .status{
-	
+	padding: 0px;
+   	margin: 0px;
 	width:1160px;
 	height:40px;
 	margin-top:1px;
-	margin-left:1px;
 
 }
 .status-left{
@@ -38,6 +38,7 @@ img{ border:none;}/*去掉图片加完链接之后自带的边框*/
 	width:13%;
 	height:40px;
 	background:#E34747;
+	
 }
 
 .content{
@@ -77,6 +78,9 @@ table tr:nth-child(odd){
 }
 table tr:nth-child(even){
 	background: white;
+}
+table tr td{
+	height:40px;
 }
 
 #termianltbl{

@@ -2,12 +2,12 @@
 //数据库配置
 $arr1 = array(
     'DB_TYPE'           => 'mysql',
-    'DB_HOST'           => '127.0.0.1',
-    'DB_NAME'           => 'e_chongdian',
-    'DB_USER'           => 'root4',
-    'DB_PWD'            => 'yydl',
+    'DB_HOST'           => '121.42.53.24',
+    'DB_NAME'           => 'db_app',
+    'DB_USER'           => 'app',
+    'DB_PWD'            => 'app',
     'DB_PORT'           => '3306',
-    'DB_PREFIX'         => 'e_',
+    'DB_PREFIX'         => '',
 
 );
 

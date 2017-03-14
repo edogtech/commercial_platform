@@ -19,7 +19,7 @@
 			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:65px;">故障：{$pilesinfo['faultQty']}</div>
 			
 		</div>
-		<div class="status-right" style="float:left;margin-left:10px;">
+		<div class="status-right" style="float:right;">
 			<div style="float:left;font-size:13px;color:white;padding-top:10px;padding-left:15px;">充电站</div>
 			<div><img src="__PUBLIC__/pic/arrow.png" style="padding-top:13px;width:20px;padding-left:9px;" /></div>
 		</div>
@@ -49,33 +49,26 @@
 					<th width="25%">充电桩当前状态</th>
 					<th width="10%">查看</th>
 				</tr>
+				<volist name="lists" id="vo">
 				<tr>
-					<td>1-1</td>
-					<td>1-1</td>
-					<td>1-1</td>
-					<td>1-1</td>
-					<td>1-1</td>
-					<td>1-1</td>
-					<td>1-1</td>
+					<td>{$vo['sequence']}</td>
+					<td>{$vo['name']}</td>
+					<td>{$vo['electricity_history']}</td>
+					<td>{$vo['pile_total']}</td>
+					<td>{$vo['times_today']}</td>
+					<td style="vertical-align:middle;">
+						<span style="display:inline-block;background-color:#efa627;width:10px;height:10px;"></span>
+						<span style="display:inline-block;">工作：{$vo['pile_occupy']}</span>
+						<span style="display:inline-block;background-color:#48bc24;width:10px;height:10px;"></span>
+						<span >空闲：{$vo['pile_idle']}</span>
+						<span style="display:inline-block;background-color:#969696;width:10px;height:10px;"></span>
+						<span>故障：{$vo['pile_fault']}</span>
+					</td>
+					<td>
+						<div><img src="__PUBLIC__/pic/examine.png" style="width:15px;padding-top:6px;padding-left:6px;"/></div>
+					</td>
 				</tr>
-				<tr>
-					<td>2-1</td>
-					<td>2-1</td>
-					<td>2-1</td>
-					<td>2-1</td>
-					<td>2-1</td>
-					<td>2-1</td>
-					<td>2-1</td>
-				</tr>				
-				<tr>
-					<td>3-1</td>
-					<td>3-1</td>
-					<td>3-1</td>
-					<td>3-1</td>
-					<td>3-1</td>
-					<td>3-1</td>
-					<td>3-1</td>
-				</tr>					
+				</volist>			
 			</table>
 		</div>
 		
