@@ -18,12 +18,12 @@
     });
    
 
-
+    $('#PageRefresh').click(function() {
+    	location.reload();
+    });
 
 })
 
-$('#PageRefresh').click(function() {
-	location.reload();
-});
+
 
 
