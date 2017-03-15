@@ -29,9 +29,9 @@ class TerminalController extends Controller {
         
         
 /*列表分页*/
-        if(!empty($_POST['txtStation'])){
-            $_POST['txtStation']=trim($_POST['txtStation']);
-            $where['name']=array('like',"%{$_POST['txtStation']}%");
+        $station=I('post.txtStation','','trim');
+        if(!empty($station)){
+            $where['name']=array('like',"%{$station}%");
         }
         
         $ob_station=M('charge_station');

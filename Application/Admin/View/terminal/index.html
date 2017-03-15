@@ -28,15 +28,18 @@
 	<!--内容-->
 	<div class="content" style="float:left;">
 		<!--搜索框-->
-		<div style="height:40px;margin-top:20px;">
-			<div style="float:left;font-size:13px;color:red;padding-top:10px;padding-left:57px;">查询：</font></div>
-			<div style="float:left;padding-top:5px;padding-left:18px">
-				<input type="text" name="txtStation" id="txtStation" style=" width:220px;height:20px;" value="充电站名称"/>
+		<form method="post" action="{:U('Terminal/index')}">
+			<div style="height:40px;margin-top:20px;">
+				<div style="float:left;font-size:13px;color:red;padding-top:10px;padding-left:57px;">查询：</font></div>
+				<div style="float:left;padding-top:5px;padding-left:18px">
+					<input type="text" name="txtStation" id="txtStation" style=" width:220px;height:20px;" value="充电站名称"/>
+				</div>
+				<div id="stationSearch" style="float:left;width:25px;height:25px;background-color:red;margin-top:5px;margin-left:20px;cursor:pointer;">
+					<button type="submit" style="width:25px;height:25px;background-color:Transparent;border-color:Transparent;border-style:None;" />
+					<img src="__PUBLIC__/pic/search.png" style="width:15px;padding-top:6px;padding-left:6px;"/>
+				</div>
 			</div>
-			<div id="stationSearch" style="float:left;width:25px;height:25px;background-color:red;margin-top:5px;margin-left:20px;cursor:pointer;">
-				<img src="__PUBLIC__/pic/search.png" style="width:15px;padding-top:6px;padding-left:6px;"/>
-			</div>
-		</div>
+		</form>
 		<!--数据表格-->
 		<div id="termianltbl">
 			<table rules="none">

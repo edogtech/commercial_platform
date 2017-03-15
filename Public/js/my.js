@@ -8,11 +8,13 @@
     })
     
     // 终端管理-查找电站
-    $("#stationSearch").click(function(){
-           var txtStation=$("#txtStation").val();
-           var durl='__APP__/Admin/Terminal/index';
-           $.post(durl,{txtStation:txtStation});
-    })
+//    $("#stationSearch").click(function(){
+//           var txtStation=$("#txtStation").val();
+//           var durl='__APP__/Admin/Terminal/index';
+//           $.post(durl,{txtStation:txtStation},function(data){
+//        	   $("#result").html(m);
+//           });
+//    })
    
 
 

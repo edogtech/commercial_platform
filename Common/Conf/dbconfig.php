@@ -8,6 +8,7 @@ $arr1 = array(
     'DB_PWD'            => 'app',
     'DB_PORT'           => '3306',
     'DB_PREFIX'         => '',
+    
 
 );
 
