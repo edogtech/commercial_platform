@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿$(function(){
 	// 导出
     $('#export').click(function () {
@@ -21,3 +22,10 @@
 
 })
 
+=======
+$('#PageRefresh').click(function() {
+	location.reload();
+});
+
+//$(".status").load(location.href+" .status"); 
+>>>>>>> branch 'master' of https://github.com/edogtech/commercial_platform.git
