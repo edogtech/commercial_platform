@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿$(function(){
 	// 导出
     $('#export').click(function () {
@@ -9,23 +8,22 @@
     })
     
     // 终端管理-查找电站
-//    $("#stationSearch").click(function(){
-//           var txtStation=$("#txtStation").val();
-//           var durl='__APP__/Admin/Terminal/index';
-//           $.post(durl,{txtStation:txtStation},function(data){
-//        	   $("#result").html(m);
-//           });
-//    })
+    $("#stationSearch").click(function(){
+    	$("#frmStationSearch").submit();
+    });
+    
+    // 终端管理-清空搜索框
+    $("#txtStation").click(function(){
+    	$("#txtStation").val("");
+    });
    
 
 
 
 })
 
-=======
 $('#PageRefresh').click(function() {
 	location.reload();
 });
 
-//$(".status").load(location.href+" .status"); 
->>>>>>> branch 'master' of https://github.com/edogtech/commercial_platform.git
+
