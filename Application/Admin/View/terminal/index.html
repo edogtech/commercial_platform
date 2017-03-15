@@ -31,9 +31,9 @@
 		<div style="height:40px;margin-top:20px;">
 			<div style="float:left;font-size:13px;color:red;padding-top:10px;padding-left:57px;">查询：</font></div>
 			<div style="float:left;padding-top:5px;padding-left:18px">
-				<input type='text' name='txtSearch'  id="txtSearch" style=" width:220px;height:20px;" value="请输入内容"/>
+				<input type="text" name="txtStation" id="txtStation" style=" width:220px;height:20px;" value="充电站名称"/>
 			</div>
-			<div style="float:left;width:25px;height:25px;background-color:red;margin-top:5px;margin-left:20px;">
+			<div id="stationSearch" style="float:left;width:25px;height:25px;background-color:red;margin-top:5px;margin-left:20px;cursor:pointer;">
 				<img src="__PUBLIC__/pic/search.png" style="width:15px;padding-top:6px;padding-left:6px;"/>
 			</div>
 		</div>
@@ -70,8 +70,13 @@
 				</tr>
 				</volist>			
 			</table>
+			<if condition="empty($lists)">
+					<div style="text-align:center;">抱歉，暂时没有您要找的内容</div>
+			</if>
 		</div>
-		
+		<!-- 分页内容 -->
+		<div style="text-align:center;">{$show}</div>
+		 <!--  <div class="viciao">{$show}<span class="disabled"> <  Prev</span><a href="#?page=2">Next  > </a></div>-->
 	</div>
 </block>
 
