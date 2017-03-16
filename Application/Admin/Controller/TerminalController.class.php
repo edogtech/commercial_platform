@@ -92,10 +92,15 @@ class TerminalController extends Controller {
         $this->assign('curuser',$user);
         $this->assign('pilesinfo',$pile);
         
-        $stationID=I('get.id');
+
         
-//         echo 'stationid:'.$stationID;
-        
+        /*内容 电站信息*/
+        $ob=M('charge_station');
+        $where['id']=I('get.id'); // 电站ID
+        $re=$ob->where($where)->find();
+        $re['address']= mb_substr($re['address'],0,30).'*';
+
+        $this->assign('st',$re);
         $this->display();
         
     }

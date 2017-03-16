@@ -15,6 +15,6 @@ $config =array(
     'URL_CASE_INSENSITIVE' =>true, //URL忽略大小写
 );
 
-$dbConfig = include_once '/Common/Conf/dbconfig.php';//数据库配置
+$dbConfig = include_once './Common/Conf/dbconfig.php';//数据库配置
 
 return array_merge($config, $dbConfig);
