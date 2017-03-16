@@ -94,7 +94,7 @@ class TerminalController extends Controller {
         
         $stationID=I('get.id');
         
-        echo 'stationid:'.$stationID;
+//         echo 'stationid:'.$stationID;
         
         $this->display();
         
