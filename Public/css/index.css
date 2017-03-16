@@ -2,15 +2,16 @@ a{ text-decoration:none;color:black;}/*去掉超链接的下划线*/
 img{ border:none;}/*去掉图片加完链接之后自带的边框*/
 
 .header{
-	width:auto;
+	width:85%;
 	height:80px;
+	min-width:900px;
 	background:white;
 	border:none;
 	margin-left:1px;
 }
 
 .menu{
-	width:12.8%;
+	width:13%;
 	height:640px;
 	background:#333131;
 
@@ -24,7 +25,7 @@ img{ border:none;}/*去掉图片加完链接之后自带的边框*/
 .status{
 	padding: 0px;
    	margin: 0px;
-	width:1160px;
+	width:85%;
 	height:40px;
 	margin-top:1px;
 
@@ -42,7 +43,7 @@ img{ border:none;}/*去掉图片加完链接之后自带的边框*/
 }
 
 .content{
-	width:1160px;
+	width:85%;
 	height:441px;
 
 }
@@ -50,6 +51,7 @@ img{ border:none;}/*去掉图片加完链接之后自带的边框*/
 body{
 	padding: 0px;
    	margin: 0px;
+	min-width:1300px;
 	background:#F3F3F3;
 	font-family:"微软雅黑";
 }

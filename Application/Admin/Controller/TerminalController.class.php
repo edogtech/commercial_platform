@@ -11,7 +11,7 @@ class TerminalController extends Controller {
         // 在header显示系统当前登录的用户名
 		$user=mb_substr($_SESSION['admininfo']['username'],0,4).'***';
 
-/*状态栏*/		
+/*状态栏*/
         $ob=M('charge_pile');
         $field='*';
         $pile['totalQty']=$ob->field($field)->count(); // 桩总数
@@ -28,7 +28,7 @@ class TerminalController extends Controller {
         $pile['faultQty']=$ob->where("status='2'")->count(); // 故障
         
         
-/*列表分页*/
+/*列表及分页*/
         $station=I('post.txtStation','','trim');
         if(!empty($station)){
             $where['name']=array('like',"%{$station}%");
@@ -63,6 +63,41 @@ class TerminalController extends Controller {
         $this->assign('lists',$list);
         $this->assign("show",$show);
         $this->display();
+    }
+    
+    public function detail() {
+
+        /*header*/
+        $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());  // 显示系统当前时间
+        $user=mb_substr($_SESSION['admininfo']['username'],0,4).'***';  // 显示系统当前登录的用户名
+
+        /*状态栏*/
+        $ob=M('charge_pile');
+        $field='*';
+        $pile['totalQty']=$ob->field($field)->count(); // 桩总数
+        $pile['dcQty']=$ob->where('type=0')->count(); // 直流桩数量
+        $pile['acQty']=$ob->where('type=1')->count(); // 交流桩数量
+        
+        // 今日充电次数
+        $times=$ob->field('sum(times_today) as times')->find();
+        $pile['times']=$times['times'];
+        
+        // 注意status值为枚举类型
+        $pile['occupyQty']=$ob->where("status='0'")->count(); // 工作中
+        $pile['idleQty']=$ob->where("status='1'")->count(); // 空闲
+        $pile['faultQty']=$ob->where("status='2'")->count(); // 故障
+        
+        
+        $this->assign('curdate',$date);
+        $this->assign('curuser',$user);
+        $this->assign('pilesinfo',$pile);
+        
+        $stationID=I('get.id');
+        
+        echo 'stationid:'.$stationID;
+        
+        $this->display();
+        
     }
     
 }

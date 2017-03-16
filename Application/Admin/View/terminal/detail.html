@@ -1,0 +1,27 @@
+<extend name="Public/base" />
+<!-- 继承页面名称 -->
+<block name="title">终端管理</block>
+<!-- 继承系统当前时间 -->
+<block name="curdate">{$curdate}</block>
+<!-- 继承登录用户名 -->
+<block name="curuser">{$curuser}</block>
+
+<block name="main">
+<!--状态栏-->
+	<div class="status" style="float:left">
+		<div class="status-left" style="float:left" >
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:55px;">总桩数：{$pilesinfo['totalQty']}</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:65px;">直流桩：{$pilesinfo['dcQty']}</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:65px;">交流桩：{$pilesinfo['acQty']}</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:65px;">今日充电次数：{$pilesinfo['times']}</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:65px;">工作：{$pilesinfo['occupyQty']}</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:65px;">空闲：{$pilesinfo['idleQty']}</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:65px;">故障：{$pilesinfo['faultQty']}</div>
+			
+		</div>
+		<div class="status-right" style="float:right;">
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;padding-left:15px;">充电站</div>
+			<div><img src="__PUBLIC__/pic/arrow.png" style="padding-top:13px;width:20px;padding-left:9px;" /></div>
+		</div>
+	</div>
+</block>
