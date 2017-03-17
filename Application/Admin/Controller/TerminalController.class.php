@@ -98,9 +98,23 @@ class TerminalController extends Controller {
         $ob=M('charge_station');
         $where['id']=I('get.id'); // 电站ID
         $re=$ob->where($where)->find();
-        $re['address']= mb_substr($re['address'],0,30).'*';
+        $re['address']= mb_substr($re['address'],0,30).'*'; // 电站地址
+        $re['total']= $re['ac_num']+$re['dc_num']; // 电桩总数
+
+        // 该电站中桩状态
+        $ob_pile=M('charge_pile');
+        $stationID=I('get.id');
+        
+        $pileStatus['occupy']=$ob_pile->where("station_id=$stationID AND status='0'")->count();
+        $pileStatus['idle']=$ob_pile->where("station_id=$stationID AND status='1'")->count();
+        $pileStatus['fault']=$ob_pile->where("station_id=$stationID AND status='2'")->count();
+
+        // 该电站所有桩数据
+        $pileInfo=$ob_pile->where("id=$stationID")->find();
 
         $this->assign('st',$re);
+        $this->assign('pilestatus',$pileStatus);
+        $this->assign('pileinfo',$pileInfo);
         $this->display();
         
     }
