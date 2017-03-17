@@ -41,11 +41,141 @@ img{ border:none;}/*去掉图片加完链接之后自带的边框*/
 	background:#E34747;
 	
 }
+/*system management*/
+.msysnav{
+	padding: 0px;
+   	margin: 0px;
+	width:85%;
+	height:120px;
+	background:#f3f3f3;
+	
+}
+.msysnav-left{
+	width:85%;
+	height:20px;
+	
+}
+.msysnavlnav{
+	width:23%;
+	height:110px;
+	background:#ffffff;
+	float:left;
+	margin-top:20px;
+	margin-left:2%;
+	}
+.msysnavlnav dl{
+		padding-left:0;
+		text-align:center;
+	}
+.msysnavlnav dl	dt{
+		padding:6px 12px;
+		font-size: 12px;
+	}
+.msysnavlnav dl dd1{
+	font-size:16px;
+	color:red;
+	line-height:30px;
+}
+.msysnav-right{
+	width:13%;
+	height:40px;
+	background:#E34747;
+}
 
 .content{
 	width:85%;
 	height:441px;
 
+}
+/*hidden*/
+html,body {
+    margin:0;
+    height:100%;
+}
+#test {
+    width:100%;
+    height:100%;
+    background-color:#000;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:2;
+    opacity:0.3;
+    /*兼容IE8及以下版本浏览器*/
+    filter: alpha(opacity=30);
+    display:none;
+}
+
+#delbox {
+    width:450px;
+    height:200px;
+    background-color:white;    
+    margin: auto;
+    position: absolute;
+    z-index:3;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display:none;
+}
+#altbox {
+    width:350px;
+    height:300px;
+    background-color:white;    
+    margin: auto;
+    position: absolute;
+    z-index:3;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display:none;
+}
+#addbox {
+    width:350px;
+    height:300px;   
+    margin: auto;
+    position: absolute;
+    z-index:3;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display:none;
+}
+/*列表*/
+.table1{
+	width:98.5%;
+	margin-top:10px;
+}
+
+.table1,tr,td,th{
+	margin-left: 15px;
+	margin-top:5px;
+	margin-right:25px;
+	font-size:12px;
+	height:34px;
+	text-align:center;
+}
+.table1 th{
+	background:#E6E6E6;
+	font-size:12px;
+	text-align:center;
+
+}
+.table1 tr:nth-child(odd){
+	background: #FFEAEA;
+}
+.table1 tr:nth-child(even){
+	background: white;
+}
+#mtermianltbl{
+	font-size:12px;
+	width:100%;
+}
+.table1 tr td{
+	height:35px;
 }
 
 body{
@@ -84,7 +214,6 @@ table tr:nth-child(even){
 table tr td{
 	height:40px;
 }
-
 #termianltbl{
 	font-size:12px;
 	width:1182px;

@@ -16,5 +16,4 @@ $config =array(
 );
 
 $dbConfig = include_once './Common/Conf/dbconfig.php';//数据库配置
-
 return array_merge($config, $dbConfig);
