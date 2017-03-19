@@ -103,24 +103,45 @@
 		</div><!-- 站信息结束 -->
 		
 		<!-- 桩信息 -->
-		<div style="width:97%;margin-top:25px;margin-left:25px;background-color:cyan;">
-			<div style="width:250px;height:85px;float:left;background-color:white;">
+		<div style="width:97%;margin-top:28px;margin-left:25px;background-color:cyan;">
+			<div style="width:250px;height:100px;float:left;background-color:white;">
 				<!-- 左上 -->
-				<div>
+				<div style="height:60%;width:70%;float:left;background-color:pink;">
 					<!-- 图标  -->
 					<if condition="$pileinfo['type'] eq 0 ">
-						<div><img src="__PUBLIC__/pic/ac_pile_60.png" /></div>
-						<else /> <div><img src="__PUBLIC__/pic/dc_pile_60.png" /></div>
+						<div style="float:left;height:100%;width:30%;"><img src="__PUBLIC__/pic/ac_pile_60.png" width="45px"/></div>
+					<else />
+						<div style="float:left;height:100%;width:30%;"><img src="__PUBLIC__/pic/dc_pile_60.png" width="45px" /></div>
 					</if>
-					<div></div><!-- 站名  -->
-					<div></div><!-- 参数  -->
+					<div style="float:left;height:50%;width:70%;color:red;">{$pileinfo['id']}号充电桩</div><!-- 桩号  -->
+					
+					<div style="float:left;font-size:12px;text-align:cetner;height:50%;width:70%;"><!-- 参数  -->
+						<span>{$pileinfo['voltage']}V</span>
+						<span>{$pileinfo['current']}A</span>
+						<span>{$pileinfo['capacity']}kwh</span>
+					</div>
 				</div>
 				<!-- 右上 -->
-				<div></div>
+				<div style="height:60%;width:30%;float:left;background-color:cyan;">
+					<if condition="$pileinfo['status'] eq 0 ">
+						<div style="height:60%;text-align:center;"><img src="__PUBLIC__/pic/occupy_pile.png" width="25px"  /></div>
+						<div style="height:40%;font-size:12px;text-align:center;">工作</div>
+					<elseif condition="$pileinfo['status'] eq 1 "/>
+						<div style="height:60%;text-align:center;"><img src="__PUBLIC__/pic/idle_pile.png" width="22px"/></div>
+						<div style="height:40%;font-size:12px;text-align:center;">空闲</div>
+					<else />
+						<div style="height:60%;text-align:center;"><img src="__PUBLIC__/pic/free_pile.png" width="25px" /></div>
+						<div style="height:40%;font-size:12px;text-align:center;">故障</div>
+					</if>
+				</div>
 				<!-- 左下 -->
-				<div></div>
+				<div style="height:40%;width:70%;background-color:cyan;float:left;font-size:8px;text-align:center;">
+					<span><img src="__PUBLIC__/pic/examine.png" width="15px"  /></span><span>{$pileinfo['cur_duration']}min</span>
+					<span><img src="__PUBLIC__/pic/examine.png" width="15px"  /></span><span>{$pileinfo['cur_electricity']}kw/h</span>
+					<span><img src="__PUBLIC__/pic/examine.png" width="15px"  /></span><span>{$pileinfo['cur_price']}rmb</span>
+				</div>
 				<!-- 右下 -->
-				<div></div>
+				<div style="height:40%;width:30%;float:left;background-color:pink;font-size:12px;text-align:center;">启/停</div>
 			</div>
 
 			<!-- <div style="width:250px;height:85px;float:left;margin-left:10px;background-color:gray;">
