@@ -1,0 +1,121 @@
+<extend name="Public/base" />
+<!-- 继承页面名称 -->
+<block name="title">财务管理</block>
+<!-- 继承系统当前时间 -->
+<block name="curdate">{$curdate}</block>
+<!-- 继承登录用户名 -->
+<block name="curuser">{$curuser}</block>
+
+<block name="main">
+<!--账户信息-->
+    <div class="status" style="float:left;min-width:1130px;">
+        <div class="status-left" style="float:left;background-color:#F3F3F3;margin-top:20px;margin-left:2px;min-width:970px;" >
+            <div style="background-color:#ffffff;height:125px;width:550px;float:left;margin-left:20px;">
+                <div style="float:left;height:100%;width:44%;">
+                    <div style="font-size:14px;margin-top:10px;margin-left:20px;">账户余额</div>
+                    <div style="font-size:30px;margin-top:10px;color:#ff0000;text-align:center;">1231231 <span style="font-size:14px;color:#000000;;">元</span></div>
+                    <div style="font-size:14px;text-align:right;padding-right:20px;margin-top:5px;">
+                        <span>订单</span>
+                        <span>提现</span>
+                        <span>充值</span>
+                    </div>
+                </div>
+                <div style="float:left;height:70%;border-left:2px solid #ff0000;margin-top:20px;;">
+                </div>
+                <div style="float:left;width:55%;">
+                    <div style="text-align:center;margin-top:10px;font-size:20px;margin-bottom:10px;">北京电狗网络科技有限公司</div>
+                    <div style="height:22px;">
+                        <span style="margin-left:25px;margin-top:3px;height:20px;width:30px;display:inline-flex;background-image:url(__PUBLIC__/pic/icon.png);background-position:0px -15px;"></span>
+                        <span style="display:inline-flex;height:20px;vertical-align:top  ">xxxxx xxxxx xxxx xxxxx</span>
+                    </div>
+                    <div style="height:22px;">
+                        <span style="margin-left:25px;margin-top:3px;height:20px;width:30px;display:inline-flex;background-image:url(__PUBLIC__/pic/icon.png);background-position:0px -50px;"></span>
+                        <span style="display:inline-flex;height:20px;vertical-align:top  ">xxxxx xxxxx xxxx xxxxx</span>
+                    </div>
+                    <div style="height:22px;">
+                        <span style="margin-left:25px;margin-top:3px;height:20px;width:30px;display:inline-flex;background-image:url(__PUBLIC__/pic/icon.png);background-position:0px -87px;"></span>
+                        <span style="display:inline-flex;height:20px;vertical-align:top  ">xxxxx xxxxx xxxx xxxxx</span>
+                    </div>
+
+
+                </div>
+			</div>
+			<div style="background-color:#ffffff;height:125px;width:180px;float:left;margin-left:20px;">
+                <div style="margin-top:20px;margin-left:20px;text-align:center;width:70px;border-radius:4px;line-height:22px;height:24px;background-color:#ff0000;color:#ffffff;font-size:14px;">本月收入</div>
+				<div style="text-align:center;margin-top:20px;"><span style="font-size:25px;color:red;">520</span> <div style="display:inline-flex;font-size:16px;vertical-align:top;margin-top:8px;">元</div></div>
+			</div>
+			<div style="background-color:#ffffff;height:125px;width:180px;float:left;margin-left:20px;">
+				<div style="margin-top:20px;margin-left:20px;text-align:center;width:70px;border-radius:4px;line-height:22px;height:24px;background-color:#ff0000;color:#ffffff;font-size:14px;">本月订单</div>
+				<div style="text-align:center;margin-top:20px;"><span style="font-size:25px;color:red;">520</span> <div style="display:inline-flex;font-size:16px;vertical-align:top;margin-top:8px;">笔</div></div>
+			</div>
+			<div style="clear:both;"></div>
+        </div>
+        <div class="status-right" style="float:right;">
+            <div style="float:left;font-size:13px;color:white;padding-top:10px;padding-left:15px;">充电站</div>
+            <div><img src="__PUBLIC__/pic/arrow.png" style="padding-top:13px;width:20px;padding-left:9px;" /></div>
+        </div>
+		<div style="clear:both;"></div>
+    </div>
+	
+	<!--内容-->
+	<div class="content" style="float:left;">
+		<!--搜索框-->
+		<!--<form id="frmStationSearch" method="post" action="{:U('Terminal/index')}">-->
+			<!--<div style="height:40px;margin-top:20px;">-->
+				<!--<div style="float:left;font-size:13px;color:red;padding-top:10px;padding-left:57px;">查询：</div>-->
+				<!--<div style="float:left;padding-top:5px;padding-left:18px">-->
+					<!--<input type="text" name="txtStation" id="txtStation" style=" width:220px;height:20px;color:#C8C8C8;" value="充电站名称"/>-->
+				<!--</div>-->
+				<!--<div id="stationSearch" style="float:left;width:25px;height:25px;background-color:red;margin-top:5px;margin-left:20px;cursor:pointer;">-->
+					<!--<img src="__PUBLIC__/pic/search.png" style="width:15px;padding-top:6px;padding-left:6px;"/>-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</form>-->
+		<!--数据表格-->
+		<div id="termianltbl">
+			<table rules="none">
+				<tr>
+					<th>序号</th>
+					<th>订单号</th>
+					<th>充电站名称</th>
+					<th>用户电话</th>
+					<th>桩号</th>
+					<th>充电量</th>
+					<th>充电金额</th>
+					<th>支付方式</th>
+					<th>订单日期</th>
+					<th>操作</th>
+				</tr>
+				<volist name="lists" id="vo">
+				<tr>
+					<td>{$vo['id']}</td>
+					<td>{$vo['order_number']}</td>
+					<td>{$vo['order_number']}</td>
+					<td>{$vo['phone']}</td>
+					<td>{$vo['pile_num']}</td>
+					<td>{$vo['quantity']}</td>
+					<td>{$vo['charge_price']}</td>
+					<td>
+						<switch name="vo.payment_way" >
+							<case value="1">充点卡</case>
+							<case value="2">支付宝</case>
+							<case value="3">微信</case>
+                        </switch>
+					</td>
+					<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+					<td>
+                        <div style="width:90%;cursor:pointer;max-width:40px;margin:0 auto;margin-left:3px;margin-right:3px;color:#ffffff;border-radius:3px;background-color:#ff0000;">退 款</div>
+                    </td>
+				</tr>
+				</volist>			
+			</table>
+			<if condition="empty($lists)">
+					<div style="text-align:center;margin-top:50px;">抱歉，暂时没有您要找的内容</div>
+			</if>
+		</div>
+		<!-- 分页内容 -->
+		<div style="text-align:center;">{$show}</div>
+		 <!--  <div class="viciao">{$show}<span class="disabled"> <  Prev</span><a href="#?page=2">Next  > </a></div>-->
+	</div>
+</block>
+
