@@ -44,156 +44,116 @@
 	<!--内容-->
 	<div class="content" style="float:left;">
 		<!--搜索框-->
+		<form id="subsearch" method="get" action="{:U('Management/searchmana')}">
 		<div style="height:40px;margin-top:20px;">
 			<div style="float:left;font-size:13px;color:red;padding-top:14px;padding-left:40px;">查询：</font></div>
 			<div style="float:left;padding-top:10px;padding-left:20px">
-				<input type='text' name='txtSearch'  id="txtSearch" style=" width:220px;height:20px;" value="请输入内容"/>
+				<input type='text' name="msearch" style="width:220px;height:20px;" value="请输入内容"/>
 			</div>
 			<div style="float:left;width:30px;height:30px;background-color:red;margin-top:8px;margin-left:20px;">
-				<img src="__PUBLIC__/pic/search.png" style="width:15px;padding-top:8px;padding-left:8px;cursor:pointer"/>
+				<img src="__PUBLIC__/pic/search.png" style="width:15px;padding-top:8px;padding-left:8px;cursor:pointer" id="dsearch" />
 			</div>
-			<botton style="float:left;width:100px;height:30px;line-height:30px;background-color:red;margin-top:8px;margin-left:20px;text-align:center;color:white;cursor:pointer" id='addmanege'>
+			<botton style="float:left;width:100px;height:30px;line-height:30px;background-color:red;margin-top:8px;margin-left:20px;text-align:center;color:white;cursor:pointer" id='addmanage'>
 			添加管理员
 			</botton>
 		</div>
+		</form>
 		<!--数据表格-->
 		<div id="mtermianltbl">
+		<div id="bbox">
 			<table class='table1'>
 				<tr>
-					<th width="15%" style="font-size:14px">序号</th>
+					<th width="10%" style="font-size:14px">序号</th>
 					<th width="25%" style="font-size:14px">用户名</th>
-					<th width="35%" style="font-size:14px">权限范围</th>
+					<th width="40%" style="font-size:14px">权限范围</th>
 					<th width="25%" style="font-size:14px">操作</th>
 				</tr>
-                <tr>
-					<td width="15%" style="font-size:14px">1</td>
-					<td width="25%" style="font-size:14px">management</td>
-					<td width="35%" style="font-size:14px">administrtor</td>
-					<td width="25%" style="font-size:14px"><button style="background:#68aae7;width:110px;color:white">申请变更</button></td>
-				</tr>
-				<tr>
-					<td style="font-size:14px">2</td>
-					<td style="font-size:14px">lili</td>
-					<td style="font-size:14px">
-						<input type="checkbox" name="mchoice">终端管理
-						<input type="checkbox" name="mchoice">财务管理
-						<input type="checkbox" name="mchoice">经营管理
-						<input type="checkbox" name="mchoice">运维管理
-					</td>
-					<td style="font-size:14px"><button style="background:#e34748;color:white" class='del' dd='2'>删除</button> &nbsp; <button style="background:#339e4c;color:white" class="alt"  dd='2'>修改</button></td>
-				</tr>				
-				<tr>
-					<td style="font-size:14px">3</td>
-					<td style="font-size:14px">lili</td>
-					<td style="font-size:14px">
-						<input type="checkbox" name="mchoice">终端管理
-						<input type="checkbox" name="mchoice">财务管理
-						<input type="checkbox" name="mchoice">经营管理
-						<input type="checkbox" name="mchoice">运维管理
-					</td>
-					<td style="font-size:14px"><button style="background:#e34748;color:white" class='del' dd='3'>删除</button> &nbsp; <button style="background:#339e4c;color:white" class="alt"  dd='3'>修改</button></td>
-				</tr>	
-                <tr>
-					<td style="font-size:14px">4</td>
-					<td style="font-size:14px" style="font-size:14px">去问问</td>
-					<td style="font-size:14px">
-						<input type="checkbox" name="mchoice">终端管理
-						<input type="checkbox" name="mchoice">财务管理
-						<input type="checkbox" name="mchoice">经营管理
-						<input type="checkbox" name="mchoice">运维管理
-					</td>
-					<td style="font-size:14px"><button style="background:#e34748;color:white" class='del' dd='4'>删除</button> &nbsp; <button style="background:#339e4c;color:white" class="alt"  dd='4'>修改</button></td>
-				</tr>
-				<tr>
-					<td style="font-size:14px">5</td>
-					<td style="font-size:14px">为问问</td>
-					<td style="font-size:14px">
-						<input type="checkbox" name="mchoice">终端管理
-						<input type="checkbox" name="mchoice">财务管理
-						<input type="checkbox" name="mchoice">经营管理
-						<input type="checkbox" name="mchoice">运维管理
-					</td>
-					<td style="font-size:14px"><button style="background:#e34748;color:white" class='del' dd='5'>删除</button> &nbsp; <button style="background:#339e4c;color:white" class="alt"  dd='5'>修改</button></td>
-				</tr>				
-				<tr>
-					<td style="font-size:14px">6</td>
-					<td style="font-size:14px">胜多负少</td>
-					<td style="font-size:14px">
-						<input type="checkbox" name="mchoice">终端管理
-						<input type="checkbox" name="mchoice">财务管理
-						<input type="checkbox" name="mchoice">经营管理
-						<input type="checkbox" name="mchoice">运维管理
-					</td>
-					<td style="font-size:14px"><button href='javascript:shield()' style="background:#e34748;color:white" class='del' dd='6'>删除</button> &nbsp; <button style="background:#339e4c;color:white" class="alt"  dd='6'>修改</button></td>
-				</tr>	
+
+				<foreach name="arr" item="v">
+					<if condition="$v.level eq 1">
+						<tr>
+							<td width="15%" style="font-size:14px">{$v.uid}</td>
+							<td width="25%" style="font-size:14px">{$v.uname}</td>
+							<td width="35%" style="font-size:14px">
+									administrator
+							</td>
+							<td width="25%" style="font-size:14px"><button style="background:#68aae7;width:110px;color:white">申请变更</button></td>
+						</tr>
+						<else />
+						<tr>
+							<td>{$v.uid}</td>
+							<td style="font-size:14px">{$v.uname}</td>
+							<td style="font-size:14px">
+								<foreach name="v.privilegename" item="vo">
+									<!--<input type="checkbox" name="mchoice">{$vo.privilege}-->
+									<if condition="$vo.bi neq '' ">
+										<input type="checkbox" name="mchoice" checked disabled>{$vo.privilege}
+										<else/>
+										<input type="checkbox" name="mchoice" disabled>{$vo.privilege}
+									</if>
+								</foreach>
+							</td>
+							<td style="font-size:14px"><button style="background:#e34748;color:white" class='del' dd="{$v.id}" dm="{$v.uname}">删除</button> &nbsp; <button style="background:#339e4c;color:white" class="alt"  dd="{$v.id}" dm="{$v.uname}">修改</button></td>
+					</if>
+				</foreach>
 
 			</table>
+			<h2 style="margin-left:50%">{$page}</h2>
+			</div>
 		</div>
 		<div id="test" style="display:none"></div>
 		<div id="delbox" style="display:none">
 			<div style="height:250px;width:450px;text-align:center">
 				<h3 style="color:red;padding-top:15px">删除管理员</h3>
 				<p style="padding-top:20px;padding-bottom:20px">你确定要删除用户名为<span id="delshow"></span>的管理员吗？</p>
-				<p  style="font-size:18px;"><a href="javascript:void(0)" >确定</a>
+				<p  style="font-size:18px;"><a href="javascript:void(0)" ma="" id="manadel">确定</a>
 				 &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; 
 				<a href="javascript:void(0)" class='delcancel'>取消</a></p>
 			</div>
 		</div>
 		<div id="altbox" style="display:none">
-			<div style="height:350px;width:350px;text-align:center">
-				<h3 style="color:red;padding-top:15px">修 改 权 限</h3>
-				<table>
-					<tr style="background:white;line-height:30px">
-						<td  style="font-size:16px">权限分配：</td>
-						<td>
-							<input type="checkbox" name="quan"><font style="font-size:16px">终端管理</font><br/>
-							<input type="checkbox" name="quan"><font style="font-size:16px">财务管理</font><br/>
-							<input type="checkbox" name="quan"><font style="font-size:16px">经营管理</font><br/>
-							<input type="checkbox" name="quan"><font style="font-size:16px">运维管理</font><br/>
-						</td>
-					</tr>
-					<tr style="background:white;">
-						<td style="font-size:18px;padding-top:25px"><a href="javascript:void(0)">提交</a></td><td style="font-size:18px;padding-top:25px"> &nbsp;<a href="javascript:void(0)" class="altcancel">取消</a></td>
-					</tr>
-				</table>
-			</div>
+			
 		</div>
 		<div id="addbox" style="display:none">
-			<div style="width:350px;height:300px;background-color:white;text-align: center">
-				<h3 style="color:red;padding-top:15px">添加管理员</h3>
-				<table>
-					<tr style="background:white">
-						<td width="35%">用户名：</td>
-						<td><input type="text" name="uname" size="25%"></td>
-					</tr>
-					<tr>
-						<td width="35%">设置密码：</td>
-						<td><input type="password" name="upswd" size="25%"></td>
-					</tr>
-					<tr style="background:white">
-						<td width="35%">确认密码：</td>
-						<td><input type="password" name="upswd1" size="25%"></td>
-					</tr>
-					<tr>
-						<td width="35%">权限分配：</td>
-						<td size="25%">
-							<input type="checkbox" name="quan">终端管理
-							<input type="checkbox" name="quan">财务管理<br/>
-							<input type="checkbox" name="quan">经营管理
-							<input type="checkbox" name="quan">运维管理
-						</td>
-					</tr>
-					<tr style="background:white;">
-						<td style="font-size:18px;"><a href="javascript:void(0)">提交</a></td><td style="font-size:18px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="javascript:void(0)" id="addcancel">取消</a></td>
-					</tr>
-				</table>
-			</div>
+			
 		</div>
 	</div>
 	<script src="__PUBLIC__/js/jquery-1.8.3.min.js"></script>
 	<script>
+	/*搜索*/
+	$("#dsearch").click(function(){
+    	$("#subsearch").submit();
+    });
+    $("#subb").click(function(){
+    	$("#subform").submit();
+    });
+		/*添加management*/
+		/*$("#subb").click(function(){
+			var uname=$("#uname").val();
+			var upswd=$("#upswd").val();
+			var upswd1=$("#upswd1").val();
+			var chk_value =[];
+			$('input[name="ch"]:checked').each(function(){
+				chk_value.push($(this).val());
+			})
+			var addurl='__URL__/addmanage';
+			//alert(addurl)
+			$.post(addurl,{uname:uname,upswd:upswd,upswd1:upswd1,chk_value:chk_value},function(msg){
+				$("#thtml").html(msg[1]);
+				if (msg[0]==1) {
+					setTimeout(function(){
+						$("#test").css('display','none');
+						$("#addbox").css('display','none');
+					},3000);
+				}
+			},'json')
+		})*/
 	/*add management*/
-		$('#addmanege').click(function(){
+		$('#addmanage').click(function(){
+			var addurl='__URL__/addform';
+			$.post(addurl,function(m){
+				$("#addbox").html(m);
+			})
 			$("#test").css('display','block');
 			$("#addbox").css('display','block');
 		})
@@ -204,10 +164,20 @@
 		/*del*/
 		$('.del').click(function(){
 			var val=$(this).attr('dd');
-			alert(val)
-			$("#delshow").html('lili');
+			var vname=$(this).attr('dm');
+			$("#manadel").attr('ma',val);
+			$("#delshow").html(vname);
 			$("#test").css('display','block');
 			$("#delbox").css('display','block');
+			
+		})
+		/*确定删除*/
+		$("#manadel").click(function(){
+			var val=$(this).attr('ma');
+			var delurl='__URL__/manadel';
+			$.post(delurl,{vid:val},function(msg){
+				$("#bbox").html(msg)
+			})
 		})
 		$('.delcancel').click(function(){
 			$("#test").css('display','none');
@@ -216,8 +186,11 @@
 		/*alter*/
 		$('.alt').click(function(){
 			var val=$(this).attr('dd');
-			alert(val)
-			$("#altshow").html('lili');
+			var vname=$(this).attr('dm');
+			var alturl='__URL__/altmana';
+			$.post(alturl,{vid:val},function(msg){
+				$("#altbox").html(msg)
+			})
 			$("#test").css('display','block');
 			$("#altbox").css('display','block');
 		})
