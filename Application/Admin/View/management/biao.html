@@ -1,64 +1,4 @@
-<extend name="Public/base" />
-<!-- 继承页面名称 -->
-<block name="title">系统管理</block>
-<!-- 继承系统当前时间 -->
-<block name="curdate">{$curdate}</block>
-<!-- 继承登录用户名 -->
-<block name="curuser">{$curuser}</block>
-
-<block name="main">
-<!--状态栏-->
-	<div class="msysnav" style="float:left">
-		<div class="msysnav-left" >
-			<div class="msysnavlnav">
-                <dl>
-                    <dd1>终端管理</dd1>
-                    <dt>可查看充电站详情、充电桩实时状态、调整充电服务各类价格。</dt>
-                </dl>
-            </div>	
-			<div class="msysnavlnav">
-            	<dl>
-                    <dd1>财务管理</dd1>
-                    <dt>可查看订单记录并导出、申请账户体现及充值业务。</dt>
-                </dl>
-            </div>	
-			<div  class="msysnavlnav">
-            	<dl>
-                    <dd1>经营管理</dd1>
-                    <dt>可查看工单、成本、变价及发票管理内容并导出。</dt>
-                </dl>
-            </div>	
-			<div class="msysnavlnav">
-            	<dl>
-                    <dd1>运维管理</dd1>
-                    <dt>可查看实时点桩故障、待处理工单、及问题解决情况并导出。</dt>
-                </dl>
-            </div>	
-		</div>
-		<div class="msysnav-right" style="float:left;margin-left:1.8%;">
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;padding-left:15px;">充电站</div>
-			<div><img src="__PUBLIC__/pic/arrow.png" style="padding-top:13px;width:20px;padding-left:9px;" /></div>
-		</div>
-	</div>
-	
-	<!--内容-->
-	<div class="content" style="float:left;">
-		<!--搜索框-->
-		<form id="subsearch" method="get" action="{:U('Management/searchmana')}">
-		<div style="height:40px;margin-top:20px;">
-			<div style="float:left;font-size:13px;color:red;padding-top:14px;padding-left:40px;">查询：</font></div>
-			<div style="float:left;padding-top:10px;padding-left:20px">
-				<input type='text' name="msearch" style="width:220px;height:20px;" value="请输入内容"/>
-			</div>
-			<div style="float:left;width:30px;height:30px;background-color:red;margin-top:8px;margin-left:20px;">
-				<img src="__PUBLIC__/pic/search.png" style="width:15px;padding-top:8px;padding-left:8px;cursor:pointer" id="dsearch" />
-			</div>
-			<botton style="float:left;width:100px;height:30px;line-height:30px;background-color:red;margin-top:8px;margin-left:20px;text-align:center;color:white;cursor:pointer" id='addmanage'>
-			添加管理员
-			</botton>
-		</div>
-		</form>
-		<!--数据表格-->
+<!--数据表格-->
 		<div id="mtermianltbl">
 		<div id="bbox">
 			<table class='table1'>
@@ -112,7 +52,23 @@
 			</div>
 		</div>
 		<div id="altbox" style="display:none">
-			
+			<div style="height:350px;width:350px;text-align:center">
+				<h3 style="color:red;padding-top:15px">修 改 权 限</h3>
+				<table>
+					<tr style="background:white;line-height:30px">
+						<td  style="font-size:16px">权限分配：</td>
+						<td>
+							<input type="checkbox" name="quan"><font style="font-size:16px">终端管理</font><br/>
+							<input type="checkbox" name="quan"><font style="font-size:16px">财务管理</font><br/>
+							<input type="checkbox" name="quan"><font style="font-size:16px">经营管理</font><br/>
+							<input type="checkbox" name="quan"><font style="font-size:16px">运维管理</font><br/>
+						</td>
+					</tr>
+					<tr style="background:white;">
+						<td style="font-size:18px;padding-top:25px"><a href="javascript:void(0)">提交</a></td><td style="font-size:18px;padding-top:25px"> &nbsp;<a href="javascript:void(0)" class="altcancel">取消</a></td>
+					</tr>
+				</table>
+			</div>
 		</div>
 		<div id="addbox" style="display:none">
 			
@@ -123,6 +79,9 @@
 	/*搜索*/
 	$("#dsearch").click(function(){
     	$("#subsearch").submit();
+    });
+    $("#subb").click(function(){
+    	$("#subform").submit();
     });
 		/*添加management*/
 		/*$("#subb").click(function(){
@@ -158,35 +117,14 @@
 			$("#test").css('display','none');
 			$("#addbox").css('display','none');
 		})
-		/*del*/
-		$('.del').click(function(){
-			var val=$(this).attr('dd');
-			var vname=$(this).attr('dm');
-			$("#manadel").attr('ma',val);
-			$("#delshow").html(vname);
-			$("#test").css('display','block');
-			$("#delbox").css('display','block');
-			
-		})
-		/*确定删除*/
-		$("#manadel").click(function(){
-			var val=$(this).attr('ma');
-			var delurl='__URL__/manadel';
-			$.post(delurl,{vid:val},function(msg){
-				$("#bbox").html(msg)
-			})
-		})
-		$('.delcancel').click(function(){
-			$("#test").css('display','none');
-			$("#delbox").css('display','none');
-		})
+		
 		/*alter*/
 		$('.alt').click(function(){
 			var val=$(this).attr('dd');
 			var vname=$(this).attr('dm');
 			var alturl='__URL__/altmana';
 			$.post(alturl,{vid:val},function(msg){
-				$("#altbox").html(msg)
+				alert(msg)
 			})
 			$("#test").css('display','block');
 			$("#altbox").css('display','block');

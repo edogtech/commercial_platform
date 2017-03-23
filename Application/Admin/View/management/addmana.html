@@ -1,0 +1,90 @@
+<div style="width:350px;height:330px;background-color:white;text-align: center">
+<form id="subform" action="{:U('Management/addmanage')}" method="post">
+<h3 style="color:red;padding-top:15px">添加管理员</h3>
+<table id="thtml">
+	<tr style="background:white">
+		<td width="35%">用户名：</td>
+		<td><input type="text" id="uname" name="uname" size="25%"></td>
+	</tr>
+	<tr>
+		<td width="35%">设置密码：</td>
+		<td><input type="password" id="upswd" name="upswd" size="25%"></td>
+	</tr>
+	<tr style="background:white">
+		<td width="35%">确认密码：</td>
+		<td><input type="password" id="upswd1" name="upswd1" size="25%"></td>
+	</tr>
+	<tr>
+		<td width="35%">权限分配：</td>
+		<td size="25%">
+			<input type="checkbox" name="ch[]" value="1">终端管理
+			<input type="checkbox" name="ch[]" value="2">财务管理<br/>
+			<input type="checkbox" name="ch[]" value="3">经营管理
+			<input type="checkbox" name="ch[]" value="4">运维管理
+		</td>
+	</tr>
+	<tr>
+		<td style="background:white;" colspan="2"><span id="tishi" style="color:red;font-size:14px"></span></td>
+	</tr>
+	<tr style="background:white;">
+		<td style="font-size:18px;"><a href="javascript:void(0)" id="subb">提交</a></td><td style="font-size:18px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="javascript:void(0)" id="addcancel">取消</a></td>
+	</tr>
+</table>
+</form>
+</div>
+<script type="text/javascript">
+$("#subb").click(function(){
+	var uname=$("#uname").val();
+	var upswd=$("#upswd").val();
+	var upswd1=$("#upswd1").val();
+	if (uname==''||upswd==''||upswd1==''){
+		$("#tishi").html('所填不能为空！');
+		setTimeout(function(){
+			$("#tishi").html('');
+		},3000)
+	}else{
+		if(upswd!=upswd1){
+			$("#tishi").html('密码不一致！');
+			setTimeout(function(){
+			$("#tishi").html('');
+		},3000)
+		}else{
+			$("#subform").submit();
+		}
+	}
+    });
+	/*添加management*/
+		/*$("#subb").click(function(){
+			var uname=$("#uname").val();
+			var upswd=$("#upswd").val();
+			var upswd1=$("#upswd1").val();
+			var chk_value =[];
+			$('input[name="ch"]:checked').each(function(){
+				chk_value.push($(this).val());
+			})
+			var addurl='__URL__/addmanage';
+			//alert(addurl)
+			$.post(addurl,{uname:uname,upswd:upswd,upswd1:upswd1,chk_value:chk_value},function(msg){
+				$("#thtml").html(msg[1]);
+				if (msg[0]==1) {
+					setTimeout(function(){
+						$("#test").css('display','none');
+						$("#addbox").css('display','none');
+					},3000);
+				}
+			},'json')
+		})*/
+	/*add management*/
+		$('#addmanage').click(function(){
+			var addurl='__URL__/addform';
+			$.post(addurl,function(m){
+				$("#addbox").html(m);
+			})
+			$("#test").css('display','block');
+			$("#addbox").css('display','block');
+		})
+		$('#addcancel').click(function(){
+			$("#test").css('display','none');
+			$("#addbox").css('display','none');
+		})
+</script>
