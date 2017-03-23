@@ -59,20 +59,20 @@
 						<span style="display:inline-block; float:left;"><img src="__PUBLIC__/pic/charge_fee.png" style="width:15px;"/></span>
 						<span style="display:inline-block; float:left;margin-left:4px;">充电费：</span>
 						<span style="display:inline-block; float:left;margin-right:60px;"> {$st['charging_fee']}元/度</span>
-						<span style="display:inline-block;">调价</span>
+						<span id="adjustChargingFee" style="display:inline-block;"><a href="#" data-toggle="modal" data-target="#ChargingFeeModal" data-id="{$vo['id']}">调价</a></span>						
 					</div>
 
 					<div style="margin-left:30px;margin-top:5px;font-size:10px;">
 						<span style="display:inline-block; float:left;"><img src="__PUBLIC__/pic/service_fee.png" style="width:15px;"/></span>
 						<span style="display:inline-block; float:left;margin-left:4px;">服务费：</span>
-						<span style="display:inline-block; float:left;margin-right:60px;">{$st['service_fee']}元/度</span>
-						<span style="display:inline-block;">调价</span>
+						<span style="display:inline-block; float:left;margin-right:60px;">{$st['serving_fee']}元/度</span>
+						<span id="adjustServingFee" style="display:inline-block;"><a href="#" data-toggle="modal" data-target="#ServingFeeModal" data-id="{$vo['id']}">调价</a></span>						
 					</div>
 					<div style="margin-left:30px;margin-top:5px;font-size:10px;">
 						<span style="display:inline-block; float:left;"><img src="__PUBLIC__/pic/parking_fee.png" style="width:15px;"/></span>
 						<span style="display:inline-block; float:left;margin-left:4px;">停车费：</span>
 						<span style="display:inline-block; float:left;margin-right:48px;">{$st['parking_fee']}元/小时</span>
-						<span style="display:inline-block;">调价</span>
+						<span id="adjustParkingFee" style="display:inline-block;cursor:pointer;">调价</span>
 					</div>
 				</div>
 				
@@ -103,51 +103,175 @@
 		</div><!-- 站信息结束 -->
 		
 		<!-- 桩信息 -->
-		<div style="width:97%;margin-top:28px;margin-left:25px;background-color:cyan;">
-			<div style="width:250px;height:100px;float:left;background-color:white;">
-				<!-- 左上 -->
-				<div style="height:60%;width:70%;float:left;background-color:pink;">
-					<!-- 图标  -->
-					<if condition="$pileinfo['type'] eq 0 ">
-						<div style="float:left;height:100%;width:30%;"><img src="__PUBLIC__/pic/ac_pile_60.png" width="45px"/></div>
-					<else />
-						<div style="float:left;height:100%;width:30%;"><img src="__PUBLIC__/pic/dc_pile_60.png" width="45px" /></div>
-					</if>
-					<div style="float:left;height:50%;width:70%;color:red;">{$pileinfo['id']}号充电桩</div><!-- 桩号  -->
-					
-					<div style="float:left;font-size:12px;text-align:cetner;height:50%;width:70%;"><!-- 参数  -->
-						<span>{$pileinfo['voltage']}V</span>
-						<span>{$pileinfo['current']}A</span>
-						<span>{$pileinfo['capacity']}kwh</span>
+		<div style="width:97%;margin-top:28px;margin-left:25px;background-color:;float:left;">
+			<volist name="lists" id="vo">
+				<div style="width:250px;height:100px;float:left;background-color:white;margin-right:10px;margin-bottom:8px;">
+					<!-- 左上 -->
+					<div style="height:60%;width:70%;float:left;background-color:pink;">
+						<!-- 图标  -->
+						<if condition="$vo['type'] eq 0 ">
+							<div style="float:left;height:100%;width:30%;"><img src="__PUBLIC__/pic/ac_pile_60.png" width="45px"/></div>
+						<else />
+							<div style="float:left;height:100%;width:30%;"><img src="__PUBLIC__/pic/dc_pile_60.png" width="45px" /></div>
+						</if>
+						<div style="float:left;height:50%;width:70%;color:red;">{$vo['id']}号充电桩</div><!-- 桩号  -->
+						
+						<div style="float:left;font-size:12px;text-align:cetner;height:50%;width:70%;"><!-- 参数  -->
+							<span>{$vo['voltage']}V</span>
+							<span>{$vo['current']}A</span>
+							<span>{$vo['capacity']}kwh</span>
+						</div>
 					</div>
+					<!-- 右上 -->
+					<div style="height:60%;width:30%;float:left;background-color:#EEE8AA;">
+						<if condition="$vo['status'] eq 0 ">
+							<div style="height:60%;text-align:center;"><img src="__PUBLIC__/pic/occupy_pile.png" width="25px"  /></div>
+							<div style="height:40%;font-size:12px;text-align:center;">工作</div>
+						<elseif condition="$vo['status'] eq 1 "/>
+							<div style="height:60%;text-align:center;"><img src="__PUBLIC__/pic/idle_pile.png" width="22px"/></div>
+							<div style="height:40%;font-size:12px;text-align:center;">空闲</div>
+						<else />
+							<div style="height:60%;text-align:center;"><img src="__PUBLIC__/pic/fault_pile.png" width="25px" /></div>
+							<div style="height:40%;font-size:12px;text-align:center;">故障</div>
+						</if>
+					</div>
+					<!-- 左下 -->
+					<div style="height:40%;width:70%;background-color:#EEE8AA;float:left;font-size:8px;text-align:center;">
+						<span><img src="__PUBLIC__/pic/cur_duration.png" width="15px"  /></span><span>{$vo['cur_duration']}min</span>
+						<span><img src="__PUBLIC__/pic/cur_electricity.png" width="15px"  /></span><span>{$vo['cur_electricity']}kw/h</span>
+						<span><img src="__PUBLIC__/pic/cur_price.png" width="15px"  /></span><span>{$vo['cur_price']}rmb</span>
+					</div>
+					<!-- 右下 -->
+					<div style="height:40%;width:30%;float:left;background-color:pink;font-size:12px;text-align:center;">启/停</div>
 				</div>
-				<!-- 右上 -->
-				<div style="height:60%;width:30%;float:left;background-color:cyan;">
-					<if condition="$pileinfo['status'] eq 0 ">
-						<div style="height:60%;text-align:center;"><img src="__PUBLIC__/pic/occupy_pile.png" width="25px"  /></div>
-						<div style="height:40%;font-size:12px;text-align:center;">工作</div>
-					<elseif condition="$pileinfo['status'] eq 1 "/>
-						<div style="height:60%;text-align:center;"><img src="__PUBLIC__/pic/idle_pile.png" width="22px"/></div>
-						<div style="height:40%;font-size:12px;text-align:center;">空闲</div>
-					<else />
-						<div style="height:60%;text-align:center;"><img src="__PUBLIC__/pic/free_pile.png" width="25px" /></div>
-						<div style="height:40%;font-size:12px;text-align:center;">故障</div>
-					</if>
+				<!-- <if condition="$count">
+					<div style="clear:both;">
+				</if> -->
+				
+			</volist>
+			<if condition="empty($lists)">
+				<div style="text-align:center;margin-top:50px;">抱歉，暂时没有您要找的内容</div>
+			</if>
+		</div> <!-- 桩信息结束 -->
+		
+		 <!-- 分页 -->
+		<div style="text-align:center;">{$show}</div>
+		
+		<!-- 弹窗 遮罩 -->
+		<div id="test" style="display:none"></div>
+		<!-- 弹窗 调整停车费 -->
+		<div id="ParkingFee" class="AdjustFee" style="display:none;">
+			<div style="margin:10px 30px;">
+			<form id="frmParkingFee" method="post" action="{:U('Terminal/adjustFee')}">
+				<div style="color:red;font-size:22px;margin-top:20px;text-align:center;">停车费调价</div>
+				<div style="margin-top:15px;">
+					<span style="display:inline-block;margin-left: 85px">开始时间</span><span style="display:inline-block;margin-left:60px;">结束时间</span><span style="display:inline-block;margin-left:65px">停车费</span>
 				</div>
-				<!-- 左下 -->
-				<div style="height:40%;width:70%;background-color:cyan;float:left;font-size:8px;text-align:center;">
-					<span><img src="__PUBLIC__/pic/examine.png" width="15px"  /></span><span>{$pileinfo['cur_duration']}min</span>
-					<span><img src="__PUBLIC__/pic/examine.png" width="15px"  /></span><span>{$pileinfo['cur_electricity']}kw/h</span>
-					<span><img src="__PUBLIC__/pic/examine.png" width="15px"  /></span><span>{$pileinfo['cur_price']}rmb</span>
+				<div style="text-align:center;margin-top:15px;">
+					<label>时段1：</label>
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtParking11" name="txtParking11">&nbsp;—
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtParking12" name="txtParking12">
+					<input style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtParking13" name="txtParking13">&nbsp;元/小时
 				</div>
-				<!-- 右下 -->
-				<div style="height:40%;width:30%;float:left;background-color:pink;font-size:12px;text-align:center;">启/停</div>
+				<div style="text-align:center;margin-top:15px;">
+					<label>时段2：</label>
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtParking21" name="txtParking21">&nbsp;—
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtParking22" name="txtParking22">
+					<input style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtParking23" name="txtParking23">&nbsp;元/小时
+				</div>
+				<div style="text-align:center;margin-top:15px;">
+					<label>时段3：</label>
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtParking31" name="txtParking31">&nbsp;—
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtParking32" name="txtParking32">
+					<input style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtParking33" name="txtParking33">&nbsp;元/小时
+				</div>
+				<input type="hidden" name="stationID" value="{$st['id']}" />
+				<input type="hidden" name="flag" value="parking" />
+				
+				<div style=" margin-top:18px;border-top:1px solid;border-color:#C0C0C0;"></div>
+				<div style=" margin-top:5px;text-align:center;font-size:22px;">
+					<div id="dlgParkingOK" style="width:50%;float:left;cursor:pointer;border-right:1px solid;border-color:#C0C0C0;">确定</div>
+					<div name="dlgCancel" style="width:50%;float:right;cursor:pointer;">取消</div>
+				</div>
+			</form>
 			</div>
-
-			<!-- <div style="width:250px;height:85px;float:left;margin-left:10px;background-color:gray;">
-			
-			</div> -->
 		</div>
 		
+		<!-- 弹窗 调整服务费 -->
+		<div id="ServingFee" class="AdjustFee" style="display:none;">
+			<div style="margin:10px 30px;">
+			<form id="frmServingFee" method="post" action="{:U('Terminal/adjustFee')}">
+				<div style="color:red;font-size:22px;margin-top:20px;text-align:center;">服务费调价</div>
+				<div style="margin-top:15px;">
+					<span style="display:inline-block;margin-left: 85px">开始时间</span><span style="display:inline-block;margin-left:60px;">结束时间</span><span style="display:inline-block;margin-left:65px">服务费</span>
+				</div>
+				<div style="text-align:center;margin-top:15px;">
+					<label>时段1：</label>
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtServing11" name="txtServing11">&nbsp;—
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtServing12" name="txtServing12">
+					<input style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtServing13" name="txtServing13">&nbsp;元/小时
+				</div>
+				<div style="text-align:center;margin-top:15px;">
+					<label>时段2：</label>
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtServing21" name="txtServing21">&nbsp;—
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtServing22" name="txtServing22">
+					<input style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtServing23" name="txtServing23">&nbsp;元/小时
+				</div>
+				<div style="text-align:center;margin-top:15px;">
+					<label>时段3：</label>
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtServing31" name="txtServing31">&nbsp;—
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtServing32" name="txtServing32">
+					<input style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtServing33" name="txtServing33">&nbsp;元/小时
+				</div>
+				<input type="hidden" name="stationID" value="{$st['id']}" />
+				<input type="hidden" name="flag" value="serving" />
+				
+				<div style=" margin-top:18px;border-top:1px solid;border-color:#C0C0C0;"></div>
+				<div style=" margin-top:5px;text-align:center;font-size:22px;">
+					<div id="dlgServingOK" style="width:50%;float:left;cursor:pointer;border-right:1px solid;border-color:#C0C0C0;">确定</div>
+					<div name="dlgCancel" style="width:50%;float:right;cursor:pointer;">取消</div>
+				</div>
+			</form>
+			</div>
+		</div>
+		
+		<!-- 弹窗 调整充电费 -->
+		<div id="ChargingFee" class="AdjustFee" style="display:none;">
+			<div style="margin:10px 30px;">
+			<form id="frmChargingFee" method="post" action="{:U('Terminal/adjustFee')}">
+				<div style="color:red;font-size:22px;margin-top:20px;text-align:center;">充电费调价</div>
+				<div style="margin-top:15px;">
+					<span style="display:inline-block;margin-left: 85px">开始时间</span><span style="display:inline-block;margin-left:60px;">结束时间</span><span style="display:inline-block;margin-left:65px">充电费</span>
+				</div>
+				<div style="text-align:center;margin-top:15px;">
+					<label>时段1：</label>
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtCharging11" name="txtCharging11">&nbsp;—
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtCharging12" name="txtCharging12">
+					<input style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtCharging13" name="txtCharging13">&nbsp;元/小时
+				</div>
+				<div style="text-align:center;margin-top:15px;">
+					<label>时段2：</label>
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtCharging21" name="txtCharging21">&nbsp;—
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtCharging22" name="txtCharging22">
+					<input style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtCharging23" name="txtCharging23">&nbsp;元/小时
+				</div>
+				<div style="text-align:center;margin-top:15px;">
+					<label>时段3：</label>
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtCharging31" name="txtCharging31">&nbsp;—
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtCharging32" name="txtCharging32">
+					<input style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtCharging33" name="txtCharging33">&nbsp;元/小时
+				</div>
+				<input type="hidden" name="stationID" value="{$st['id']}" />
+				<input type="hidden" name="flag" value="charging" />
+				
+				<div style=" margin-top:18px;border-top:1px solid;border-color:#C0C0C0;"></div>
+				<div style=" margin-top:5px;text-align:center;font-size:22px;">
+					<div id="dlgChargingOK" style="width:50%;float:left;cursor:pointer;border-right:1px solid;border-color:#C0C0C0;">确定</div>
+					<div name="dlgCancel" style="width:50%;float:right;cursor:pointer;">取消</div>
+				</div>
+			</form>
+			</div>
+		</div>
 	</div><!-- 内容结束 -->
+	
 </block>

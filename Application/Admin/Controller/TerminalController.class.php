@@ -110,12 +110,64 @@ class TerminalController extends Controller {
         $pileStatus['fault']=$ob_pile->where("station_id=$stationID AND status='2'")->count();
 
         // 该电站所有桩数据
-        $pileInfo=$ob_pile->where("id=$stationID")->find();
+        $field='id,station_id,pile_no,type,voltage,current,capacity,cur_voltage,cur_current,cur_electricity,cur_price,cur_duration';
+        $count=$ob_pile->where("station_id=$stationID")->count();
+        $page= new \Think\Page($count,7);
+        $show= $page->show();
+        $pileInfo = $ob_pile->field($field)->where("station_id=$stationID")->limit($page->firstRow,$page->listRows)->select();
 
-        $this->assign('st',$re);
-        $this->assign('pilestatus',$pileStatus);
-        $this->assign('pileinfo',$pileInfo);
+        $this->assign('st',$re); // 站信息
+        $this->assign('pilestatus',$pileStatus); // 桩状态
+        $this->assign('lists',$pileInfo); // 桩信息
+        $this->assign("show",$show);
         $this->display();
+        
+    }
+    
+    /*
+     * 调整充电/服务/停车费
+     */
+    public function adjustFee(){
+        
+        // 初始化循环变量
+        $i=0;
+        
+        // $_POST包含三个时段与价格，最后两个元素分别是电桩ID和调价种类
+        foreach ($_POST as $key=>$val) {
+            if(!empty($val)){
+                $arrayDuration[$i]=$val;
+                $i++;
+            }
+        }
+
+        $category=array_pop($arrayDuration); // 弹出调整费用类型
+        $stationID=array_pop($arrayDuration); // 弹出站ID
+        $strDuration=(implode(',',$arrayDuration)); // 生成以逗号分隔的时段与价格字符串
+        
+        $ob=M('charge_station');
+        $where['id']=$stationID;
+        
+        switch ($category) {
+            case 'parking':
+                $data['parking_fee']=$strDuration;
+                break;
+            case 'serving':
+                $data['serving_fee']=$strDuration;
+                break;
+            case 'charging':
+                $data['charging_fee']=$strDuration;
+                break;         
+        }
+        $re=$ob->where($where)->data($data)->save();
+        
+        if($re){
+            //$this->success('修改成功！','index');
+            //$this->redirect("Terminal/detail");
+            $this->success('修改成功！');
+        }else{
+            $this->error("修改失败");
+        }
+        
         
     }
     
