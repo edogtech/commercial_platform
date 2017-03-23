@@ -1,0 +1,126 @@
+/*---------------------------页头样式开始-------------------------*/
+.web_head{
+    background-color:#FB393B;
+    color:#ffffff;
+    text-align:center;
+}
+
+/*---------------------------页头样式结束-------------------------*/
+
+/*---------------------------中间样式开始-------------------------*/
+.web_body{
+    background-color:#E8E7E4;
+    text-align:center;
+    min-height:303px;
+}
+
+/*---------------------------中间样式结束-------------------------*/
+
+
+/*---------------------------页脚样式开始-------------------------*/
+.web_foot,.web_foot>div{
+    background-color:#353334;
+    color:#E8E7E4;
+    text-align:center;
+    word-break:keep-all;           /* 不换行 */
+    white-space:nowrap;          /* 不换行 */
+    overflow:hidden;               /* 内容超出宽度时隐藏超出部分的内容 */
+    text-overflow:ellipsis;         /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+}
+/*---------------------------页脚样式结束-------------------------*/
+
+
+/*---------------------------适配样式开始-------------------------*/
+/*在小于768像素的屏幕里,这里的样式才生效*/
+@media (max-width: 767px) {
+    #index_head{
+        margin:50px 0px;
+        font-size:18px;
+        padding:0px 0px;
+    }
+
+    .web_foot>div:nth-child(1){
+        margin-top:15px;
+    }
+    .web_foot>div:nth-child(2){
+        margin:5px 0px;
+    }
+    .web_foot>div:nth-child(3){
+        margin-bottom:10px;
+    }
+}
+
+/*在768和991像素之间的屏幕里,这里的样式才生效*/
+@media (min-width: 768px) and (max-width: 991px) {
+    #index_head{
+        margin:50px 0px;
+        font-size:18px;
+        padding:0px 0px;
+    }
+
+    .web_foot>div:nth-child(1){
+        margin-top:15px;
+    }
+    .web_foot>div:nth-child(2){
+        margin:5px 0px;
+    }
+    .web_foot>div:nth-child(3){
+        margin-bottom:10px;
+    }
+}
+
+/*在992和1199像素之间的屏幕里,这里的样式才生效*/
+@media (min-width: 992px) and (max-width: 1199px) {
+    #index_head{
+        margin:80px 0px;
+        font-size:18px;
+        padding:0px 0px;
+    }
+
+    .web_foot>div:nth-child(1){
+        margin-top:15px;
+    }
+    .web_foot>div:nth-child(2){
+        margin:5px 0px;
+    }
+    .web_foot>div:nth-child(3){
+        margin-bottom:10px;
+    }
+
+    #login_box{
+        top:-50px;
+    }
+}
+
+/*在大于1200像素的屏幕里,这里的样式才生效*/
+@media (min-width: 1200px) {
+    #index_head{
+        margin:100px 0px;
+        padding:0px 0px;
+        font-size:18px;
+    }
+    .web_foot>div:nth-child(1){
+        margin-top:20px;
+    }
+    .web_foot>div:nth-child(2){
+        margin:10px 0px;
+    }
+    .web_foot>div:nth-child(3){
+        margin-bottom:30px;
+    }
+    #login_box{
+        top:-80px;
+    }
+}
+/*---------------------------适配样式结束-------------------------*/
+
+/*登录框样式*/
+#login_box{
+    min-height:350px;
+    background-color:#ffffff;
+    position:relative;
+    z-index:100;
+    box-shadow:0 0 10px #666666;
+    -webkit-box-shadow:0 0 10px #666666;
+    -moz-box-shadow:0 0 10px #666666;
+}
