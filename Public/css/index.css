@@ -85,15 +85,15 @@ img{ border:none;}/*去掉图片加完链接之后自带的边框*/
 .content{
 	width:85%;
 	height:441px;
+
 }
 /*hidden*/
 html,body {
-    margin:auto auto;
-	min-width:1280px;
-    min-height:100%;
+    margin:0;
+    height:100%;
 }
 #test {
-    width:100%;
+    min-width:100%;
     min-height:640px;
     background-color:#000;
     position:absolute;
@@ -121,7 +121,7 @@ html,body {
 }
 #altbox {
     width:350px;
-    height:330px;
+    height:280px;
     background-color:white;    
     margin: auto;
     position: absolute;
