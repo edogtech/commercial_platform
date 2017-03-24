@@ -108,7 +108,7 @@ html,body {
 
 #delbox {
     width:450px;
-    height:200px;
+    height:220px;
     background-color:white;    
     margin: auto;
     position: absolute;
@@ -133,8 +133,8 @@ html,body {
     display:none;
 }
 #addbox {
-    width:350px;
-    height:350px;   
+    width:360px;
+    height:300px;
     margin: auto;
     position: absolute;
     z-index:3;
