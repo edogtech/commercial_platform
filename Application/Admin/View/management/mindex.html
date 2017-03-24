@@ -173,6 +173,8 @@
 			var val=$(this).attr('ma');
 			var delurl='__URL__/manadel';
 			$.post(delurl,{vid:val},function(msg){
+				$("#test").css('display','none');
+				$("#delbox").css('display','none');
 				$("#bbox").html(msg)
 			})
 		})

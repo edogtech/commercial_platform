@@ -201,13 +201,13 @@ param：、、、、
             $ww=array('id'=>$id);
             $b=$mo->where($ww)->delete();
             if ($b) {
-                echo "<script>location.href='mindex';</script>";exit;
+                echo "<script>location.href='searchmana';</script>";exit;
 
             }else{
-                echo "<script>location.href='mindex';alert('删除权限失败！')</script>";exit;
+                echo "<script>location.href='searchmana';alert('删除权限失败！')</script>";exit;
             }
         }else{
-            echo "<script>location.href='mindex';alert('删除失败！')</script>";exit;
+            echo "<script>location.href='searchmana';alert('删除失败！')</script>";exit;
             //exit('删除失败！');
             //$this->redirect('Management/gongbiao');
         }
