@@ -220,7 +220,7 @@ table tr td{
 	
 }
 
-/* 停车费弹窗 */
+/* 费用调整弹窗 */
 .AdjustFee {
     width:520px;
     height:280px;
@@ -233,4 +233,16 @@ table tr td{
     left: 0;
     right: 0;
     display:none;
+}
+
+.wrapper{
+	display:table;
+	margin:0 auto;
+}
+.row{
+	display:table-row;
+}
+.cell{
+	display:table-cell;
+	vertical-align:middle;
 }

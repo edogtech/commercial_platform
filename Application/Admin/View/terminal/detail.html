@@ -107,42 +107,52 @@
 			<volist name="lists" id="vo">
 				<div style="width:250px;height:100px;float:left;background-color:white;margin-right:10px;margin-bottom:8px;">
 					<!-- 左上 -->
-					<div style="height:60%;width:70%;float:left;background-color:pink;">
+					<div style="height:60%;width:70%;float:left;border-right:1px solid;border-bottom:1px solid;border-color:pink;">
 						<!-- 图标  -->
 						<if condition="$vo['type'] eq 0 ">
-							<div style="float:left;height:100%;width:30%;"><img src="__PUBLIC__/pic/ac_pile_60.png" width="45px"/></div>
+							<div style="float:left;height:100%;width:30%;padding:8px 3px;"><img src="__PUBLIC__/pic/ac_pile_60.png" width="45px"/></div>
 						<else />
-							<div style="float:left;height:100%;width:30%;"><img src="__PUBLIC__/pic/dc_pile_60.png" width="45px" /></div>
+							<div style="float:left;height:100%;width:30%;padding:8px 3px;"><img src="__PUBLIC__/pic/dc_pile_60.png" width="45px" /></div>
 						</if>
-						<div style="float:left;height:50%;width:70%;color:red;">{$vo['id']}号充电桩</div><!-- 桩号  -->
 						
-						<div style="float:left;font-size:12px;text-align:cetner;height:50%;width:70%;"><!-- 参数  -->
-							<span>{$vo['voltage']}V</span>
-							<span>{$vo['current']}A</span>
-							<span>{$vo['capacity']}kwh</span>
+						 <!-- 桩号  -->
+						 <div style="float:left;height:100%;width:70%;">
+							<div style="font-size:13px;">
+								<div style="color:red;text-align:left;padding-top:10px;">{$vo['id']}号充电桩</div>
+								<div style="padding-top:10px;">
+									<span>{:floor($vo['voltage'])}V</span>
+									<span>{:floor($vo['current'])}A</span>
+									<span>{:floor($vo['capacity'])}kwh</span>
+								</div>
+							</div>
 						</div>
 					</div>
 					<!-- 右上 -->
-					<div style="height:60%;width:30%;float:left;background-color:#EEE8AA;">
+					<div class="wrapper" style="height:60%;width:30%;float:left;">
 						<if condition="$vo['status'] eq 0 ">
-							<div style="height:60%;text-align:center;"><img src="__PUBLIC__/pic/occupy_pile.png" width="25px"  /></div>
-							<div style="height:40%;font-size:12px;text-align:center;">工作</div>
+							<div class="cell" style="height:60%;text-align:center;"><img src="__PUBLIC__/pic/occupy_pile.png" width="25px"  /></div>
+							<div class="row"></div>
+							<div class="cell" style="height:40%;font-size:12px;text-align:center;">工作</div>
 						<elseif condition="$vo['status'] eq 1 "/>
-							<div style="height:60%;text-align:center;"><img src="__PUBLIC__/pic/idle_pile.png" width="22px"/></div>
-							<div style="height:40%;font-size:12px;text-align:center;">空闲</div>
+							<div class="cell" style="height:60%;text-align:center;"><img src="__PUBLIC__/pic/idle_pile.png" width="22px"/></div>
+							<div class="row"></div>
+							<div class="cell" style="height:40%;font-size:12px;text-align:center;">空闲</div>
 						<else />
-							<div style="height:60%;text-align:center;"><img src="__PUBLIC__/pic/fault_pile.png" width="25px" /></div>
-							<div style="height:40%;font-size:12px;text-align:center;">故障</div>
+							<div class="cell" style="height:60%;text-align:center;"><img src="__PUBLIC__/pic/fault_pile.png" width="25px" /></div>
+							<div class="row"></div>
+							<div class="cell" style="height:40%;font-size:12px;text-align:center;">故障</div>
 						</if>
 					</div>
 					<!-- 左下 -->
-					<div style="height:40%;width:70%;background-color:#EEE8AA;float:left;font-size:8px;text-align:center;">
-						<span><img src="__PUBLIC__/pic/cur_duration.png" width="15px"  /></span><span>{$vo['cur_duration']}min</span>
-						<span><img src="__PUBLIC__/pic/cur_electricity.png" width="15px"  /></span><span>{$vo['cur_electricity']}kw/h</span>
-						<span><img src="__PUBLIC__/pic/cur_price.png" width="15px"  /></span><span>{$vo['cur_price']}rmb</span>
+					<div class="wrapper" style="height:40%;width:70%;float:left;font-size:8px;text-align:center;">
+						<div class="cell"><img src="__PUBLIC__/pic/cur_duration.png" width="15px"  />{:floor($vo['cur_duration'])}min</div>
+						<div class="cell"><img src="__PUBLIC__/pic/cur_electricity.png" width="15px"  />{:floor($vo['cur_electricity'])}kw/h</div>
+						<div class="cell"><img src="__PUBLIC__/pic/cur_price.png" width="15px"  />{:floor($vo['cur_price'])}rmb</div>
 					</div>
 					<!-- 右下 -->
-					<div style="height:40%;width:30%;float:left;background-color:pink;font-size:12px;text-align:center;">启/停</div>
+					<div class="wrapper" style="height:40%;width:30%;float:left;font-size:12px;text-align:center;border-left:1px solid;border-top:1px solid;border-color:pink;">
+						<div class="cell">启/停</div>
+					</div>
 				</div>
 				<!-- <if condition="$count">
 					<div style="clear:both;">

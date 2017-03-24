@@ -110,7 +110,7 @@ class TerminalController extends Controller {
         $pileStatus['fault']=$ob_pile->where("station_id=$stationID AND status='2'")->count();
 
         // 该电站所有桩数据
-        $field='id,station_id,pile_no,type,voltage,current,capacity,cur_voltage,cur_current,cur_electricity,cur_price,cur_duration';
+        $field='id,station_id,pile_no,type,voltage,current,capacity,status,cur_voltage,cur_current,cur_electricity,cur_price,cur_duration';
         $count=$ob_pile->where("station_id=$stationID")->count();
         $page= new \Think\Page($count,7);
         $show= $page->show();
