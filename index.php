@@ -29,7 +29,7 @@ define('COMMON_PATH','./Common/');
 // define('BIND_MODULE','index');
 
 //绑定默认分组
-define('BIND_MODULE', 'Admin');
+// define('BIND_MODULE', 'Admin');
 
 
 

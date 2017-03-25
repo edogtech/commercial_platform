@@ -59,7 +59,7 @@ param：、、、、
        //print_r($arr);die;
         $this->assign('arr',$arr);
         $this->assign('page',$show);
-        $this->display('management/mindex');
+        $this->display('Management/mindex');
     }
     //搜索
     public function searchmana(){
@@ -126,7 +126,7 @@ param：、、、、
         $this->assign('arr',$arr);
         $this->assign('page',$show);
         $this->assign('zsearch',$searchval);
-        $this->display('management/msearch');
+        $this->display('Management/msearch');
     }
    //添加管理员
     public function addmanage(){
@@ -138,7 +138,7 @@ param：、、、、
             /*$ti1[]=1;
             $ti1[]='所填项不能为空！';
             echo json_encode($ti1,JSON_UNESCAPED_UNICODE);*/
-            //$this->redirect('management/mindex','','所填项不能为空！');
+            //$this->redirect('Management/mindex','','所填项不能为空！');
             echo "<script>location.href='mindex';alert('所填项不能为空！')</script>";die();
             //$this->error('');
         }
@@ -262,7 +262,7 @@ param：、、、、
        //print_r($arr);die;
         $this->assign('arr',$arr);
         $this->assign('page',$show);
-        $this->display('management/biao');
+        $this->display('Management/biao');
     }
     //修改用户权限
     public function altmana(){
