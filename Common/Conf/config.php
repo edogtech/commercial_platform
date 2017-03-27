@@ -2,7 +2,7 @@
 $config =array(
 	//'配置项'=>'配置值'
     'DEFAULT_MODULE'     => 'Admin', //默认模块
-    'DEFAULT_CONTROLLER' => 'Login', // 默认控制器
+    'DEFAULT_CONTROLLER' => 'Index', // 默认控制器
     'DEFAULT_ACTION'     => 'index', // 默认操作
     
     /*
