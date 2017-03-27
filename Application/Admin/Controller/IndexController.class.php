@@ -6,4 +6,9 @@ class IndexController extends Controller {
 
        $this->display();
     }
+
+    public function find_password1(){
+       $this->display();
+    }
+
 }

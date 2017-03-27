@@ -12,7 +12,7 @@ class LoginController extends Controller {
     public function code(){
 		ob_clean();
     	$Verify = new \Think\Verify();
-    	$Verify->fontSize = 24;
+    	$Verify->fontSize = 26;
     	$Verify->length   = 4;
     	$Verify->useImgBg = true; 
     	$Verify->codeSet = '0123456789'; 
