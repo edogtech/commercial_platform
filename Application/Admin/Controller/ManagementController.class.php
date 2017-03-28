@@ -10,6 +10,12 @@ createtime：17-03-20
 param：、、、、
 */
     public function mindex(){
+        /*header*/
+        // 在header显示系统当前时间
+        $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
+
+        // 在header显示系统当前登录的用户名
+        $user=mb_substr($_SESSION['admininfo']['username'],0,4).'**';
         $h=$_GET['p']?$_GET['p']:1;
         $mo=D('UserPrivilege');
         $arrr=$mo->table('user_privilege')
@@ -58,10 +64,18 @@ param：、、、、
        //print_r($arr);die;
         $this->assign('arr',$arr);
         $this->assign('page',$show);
+        $this->assign('curdate',$date);
+        $this->assign('curuser',$user);
         $this->display('Management/mindex');
     }
     //搜索
     public function searchmana(){
+        /*header*/
+        // 在header显示系统当前时间
+        $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
+
+        // 在header显示系统当前登录的用户名
+        $user=mb_substr($_SESSION['admininfo']['username'],0,4).'**';
         $searchval=I('get.msearch');
         //echo $searchval;die;
         if($searchval=='请输入内容'){
@@ -123,6 +137,8 @@ param：、、、、
         $this->assign('arr',$arr);
         $this->assign('page',$show);
         $this->assign('zsearch',$searchval);
+        $this->assign('curdate',$date);
+        $this->assign('curuser',$user);
         $this->display('Management/msearch');
     }
    //添加管理员
