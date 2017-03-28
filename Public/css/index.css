@@ -52,7 +52,7 @@ img{ border:none;}/*去掉图片加完链接之后自带的边框*/
 }
 .msysnav-left{
 	width:85%;
-	height:20px;
+	height:10px;
 	
 }
 .msysnavlnav{
@@ -60,7 +60,7 @@ img{ border:none;}/*去掉图片加完链接之后自带的边框*/
 	height:110px;
 	background:#ffffff;
 	float:left;
-	margin-top:20px;
+	margin-top:10px;
 	margin-left:2%;
 	}
 .msysnavlnav dl{
@@ -93,7 +93,7 @@ html,body {
     height:100%;
 }
 #test {
-    min-width:100%;
+    min-width:105%;
     min-height:640px;
     background-color:#000;
     position:absolute;
@@ -181,12 +181,12 @@ html,body {
 body{
 	padding: 0px;
    	margin: 0px;
-	min-width:1300px;
-	background:#F3F3F3;
+	min-width:1180px;
+	background:#f3f3f3;
 	font-family:"微软雅黑";
 }
 table{
-	width:95%;
+	width:98.5%;
 }
 
 table,tr,td,th{
@@ -216,7 +216,7 @@ table tr td{
 }
 #termianltbl{
 	font-size:12px;
-	width:1182px;
+	width:1100px;
 	
 }
 
