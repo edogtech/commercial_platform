@@ -11,4 +11,17 @@ class IndexController extends Controller {
        $this->display();
     }
 
+    public function find_password2(){
+        $this->display();
+    }
+
+    public function find_password3(){
+        $this->display();
+    }
+
+    public function register1(){
+        $this->display();
+    }
+
+
 }
