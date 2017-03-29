@@ -93,8 +93,9 @@ html,body {
     height:100%;
 }
 #test {
-    min-width:105%;
-    min-height:640px;
+    min-width:115%;
+    min-height:120%;
+    over-flow:hidden;
     background-color:#000;
     position:absolute;
     top:0;
@@ -216,7 +217,7 @@ table tr td{
 }
 #termianltbl{
 	font-size:12px;
-	width:1100px;
+	width:100%;
 	
 }
 

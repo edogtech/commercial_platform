@@ -17,21 +17,21 @@ param：、、、、
         // 在header显示系统当前登录的用户名
         $user=mb_substr($_SESSION['admininfo']['username'],0,4).'**';
         $h=$_GET['p']?$_GET['p']:1;
-        $mo=D('UserPrivilege');
-        $arrr=$mo->table('user_privilege')
-            ->field('user_privilege.id,buser.uid,buser.level,buser.uname,user_privilege.privilegeid,user_privilege.mo')
-            ->join('buser on buser.uid=user_privilege.uid')
+        $mo=D('PrivRelation');
+        $arrr=$mo->table('priv_relation')
+            ->field('priv_relation.id,user_info.uid,user_info.level,user_info.uname,priv_relation.privilegeid,priv_relation.mo')
+            ->join('user_info on user_info.uid=priv_relation.uid')
             ->page($h.',6')
             ->select();
-        $count=$mo->table('user_privilege')
-            ->field('user_privilege.id,buser.uname,user_privilege.privilegeid')
-            ->join('buser on buser.uid=user_privilege.uid')
+        $count=$mo->table('priv_relation')
+            ->field('priv_relation.id,user_info.uname,priv_relation.privilegeid')
+            ->join('user_info on user_info.uid=priv_relation.uid')
             ->count();
         $arr=array();
         $arr=$arrr;
         foreach($arr as $k => $v){
             $map['pid']=array('in',$v['mo']);
-            $quan=D('Bprivilege')->field('pid,privilege')->where($map)->select();
+            $quan=D('PrivInfo')->field('pid,privilege')->where($map)->select();
             static $fe1=array();
             static $fe2='';
             foreach ($quan as $k1 =>$v1) {
@@ -86,21 +86,21 @@ param：、、、、
         }
         
 
-        $mo=D('UserPrivilege');
+        $mo=D('PrivRelation');
 
         $i=$_GET['p']?$_GET['p']:1;
-        $arrr =$mo->table('user_privilege')
-        ->field('user_privilege.id,buser.uid,buser.level,buser.uname,user_privilege.privilegeid,user_privilege.mo')
-        ->join("buser on buser.uid=user_privilege.uid")
+        $arrr =$mo->table('priv_relation')
+        ->field('priv_relation.id,user_info.uid,user_info.level,user_info.uname,priv_relation.privilegeid,priv_relation.mo')
+        ->join("user_info on user_info.uid=priv_relation.uid")
         ->page($i.',6')
         ->where($where)
-        //->order('buser.addtime desc')
+        //->order('user_info.addtime desc')
         ->select();
         
         // 赋值数据集
-        $count      =$mo->table('user_privilege')
-        ->field('user_privilege.id,buser.uid,buser.level,buser.uname,user_privilege.privilegeid,user_privilege.mo')
-        ->join("buser on buser.uid=user_privilege.uid")
+        $count      =$mo->table('priv_relation')
+        ->field('priv_relation.id,user_info.uid,user_info.level,user_info.uname,priv_relation.privilegeid,priv_relation.mo')
+        ->join("user_info on user_info.uid=priv_relation.uid")
         ->where($where)
         ->count();// 查询满足要求的总记录数
         $Page       = new \Think\Page($count,6);// 实例化分页类 传入总记录数和每页显示的记录数
@@ -109,7 +109,7 @@ param：、、、、
         $arr=$arrr;
         foreach($arr as $k => $v){
             $map['pid']=array('in',$v['mo']);
-            $quan=D('Bprivilege')->field('pid,privilege')->where($map)->select();
+            $quan=D('PrivInfo')->field('pid,privilege')->where($map)->select();
             static $fe1=array();
             static $fe2='';
             foreach ($quan as $k1 =>$v1) {
@@ -161,7 +161,7 @@ param：、、、、
             echo json_encode($ti2,JSON_UNESCAPED_UNICODE);*/
             echo "<script>location.href='mindex';alert('密码不一致！')</script>";exit();
         }
-        $mou=D('Buser');
+        $mou=D('UserInfo');
         $mou1=$mou->where(array('uname'=>$uname))->find();
         if($mou1){
             /*$ti3[]=1;
@@ -172,14 +172,14 @@ param：、、、、
         $data['uname']=$uname;
         $data['upswd']=md5($upswd);
         $data['addtime']=time();
-        $mou2=$mou->table('buser')->data($data)->add();
-        $userid=$mou->table('buser')->getlastInsID();
+        $mou2=$mou->table('user_info')->data($data)->add();
+        $userid=$mou->table('user_info')->getlastInsID();
         /*echo $userid;die;*/
         if($mou2){
             $da['uid']=$userid;
             $da['privilegeid']=$checkid;
             $da['mo']='1,2,3,4';
-            $isins=D('UserPrivilege')->data($da)->add();
+            $isins=D('PrivRelation')->data($da)->add();
             if($isins){
                 /*$ti4[]=1;
             $ti4[]='添加成功！';
@@ -203,13 +203,13 @@ param：、、、、
     //删除用户
     public function manadel(){
         $id=I('post.vid');
-        $mo=D('UserPrivilege');
+        $mo=D('PrivRelation');
         $urr=$mo->field('uid')->where(array('id'=>$id))->find();
         $uid=$urr['uid'];
         if (!empty($uid)) {
             $map=array('uid'=>$uid);
         }
-        $a=D('Buser')->where($map)->delete();
+        $a=D('UserInfo')->where($map)->delete();
         if ($a) {
             $ww=array('id'=>$id);
             $b=$mo->where($ww)->delete();
@@ -227,21 +227,21 @@ param：、、、、
     }
     public function gongbiao(){
         $h=$_GET['p']?$_GET['p']:1;
-        $mo=D('UserPrivilege');
-        $arrr=$mo->table('user_privilege')
-            ->field('user_privilege.id,buser.uid,buser.level,buser.uname,user_privilege.privilegeid,user_privilege.mo')
-            ->join('buser on buser.uid=user_privilege.uid')
+        $mo=D('PrivRelation');
+        $arrr=$mo->table('priv_relation')
+            ->field('priv_relation.id,user_info.uid,user_info.level,user_info.uname,priv_relation.privilegeid,priv_relation.mo')
+            ->join('user_info on user_info.uid=priv_relation.uid')
             ->page($h.',6')
             ->select();
-        $count=$mo->table('user_privilege')
-            ->field('user_privilege.id,buser.uname,user_privilege.privilegeid')
-            ->join('buser on buser.uid=user_privilege.uid')
+        $count=$mo->table('priv_relation')
+            ->field('priv_relation.id,user_info.uname,priv_relation.privilegeid')
+            ->join('user_info on user_info.uid=priv_relation.uid')
             ->count();
         $arr=array();
         $arr=$arrr;
         foreach($arr as $k => $v){
             $map['pid']=array('in',$v['mo']);
-            $quan=D('Bprivilege')->field('pid,privilege')->where($map)->select();
+            $quan=D('PrivInfo')->field('pid,privilege')->where($map)->select();
             static $fe1=array();
             static $fe2='';
             foreach ($quan as $k1 =>$v1) {
@@ -280,12 +280,12 @@ param：、、、、
     //修改用户权限
     public function altmana(){
         $id=I('post.vid');
-        $mo=D('UserPrivilege');
+        $mo=D('PrivRelation');
         $urr=$mo->field('uid,privilegeid,mo')->where(array('id'=>$id))->find();
             //分割为数组
         //echo $urr['mo'];die;
             $map['pid']=array('in',$urr['mo']);
-            $quan=D('Bprivilege')->field('pid,privilege')->where($map)->select();
+            $quan=D('PrivInfo')->field('pid,privilege')->where($map)->select();
             //print_r($quan);die;
             foreach ($quan as $ke => $v) {
                 $fe1[$ke]['pid']=$v['pid'];
@@ -318,7 +318,7 @@ param：、、、、
         }
 
         $data['privilegeid']=$privilegeid;
-        $a=D('UserPrivilege')->where($da)->setField($data);
+        $a=D('PrivRelation')->where($da)->setField($data);
         if ($a) {
             $this->redirect('Management/mindex');
         }else{
