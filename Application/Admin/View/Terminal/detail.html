@@ -10,13 +10,13 @@
 	<!--状态栏-->
 	<div class="status" style="float:left">
 		<div class="status-left" style="float:left" >
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:55px;">总桩数：{$pilesinfo['totalQty']}</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:65px;">直流桩：{$pilesinfo['dcQty']}</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:65px;">交流桩：{$pilesinfo['acQty']}</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:65px;">今日充电次数：{$pilesinfo['times']}</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:65px;">工作：{$pilesinfo['occupyQty']}</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:65px;">空闲：{$pilesinfo['idleQty']}</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:65px;">故障：{$pilesinfo['faultQty']}</div>
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">总桩数：{$pilesinfo['totalQty']}</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">直流桩：{$pilesinfo['dcQty']}</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">交流桩：{$pilesinfo['acQty']}</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">今日充电次数：{$pilesinfo['times']}</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">工作：{$pilesinfo['occupyQty']}</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">空闲：{$pilesinfo['idleQty']}</div>	
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">故障：{$pilesinfo['faultQty']}</div>
 			
 		</div>
 		<div class="status-right" style="float:right;">
@@ -29,7 +29,7 @@
 	<div class="content" style="float:left;">
 		<!-- 站信息 -->
 		<div style="width:97%;margin-top:25px;margin-left:25px;">
-				<div style="float:left;width:510px;height:115px;background-color:white;">
+				<div style="float:left;width:37%;height:115px;background-color:white;">
 					<!-- 图片 -->
 					<div style="float:left;margin:10px 10px;width:150px;height:90px;">
 						<img src="__ROOT__{$st['photo']}" style="width:150px;height:90px;"/>
@@ -49,7 +49,7 @@
 					</div>
 				</div>
 				
-				<div style="float:left;width:250px;height:115px;margin-left:10px;background-color:white;">
+				<div style="float:left;width:20%;height:115px;margin-left:10px;background-color:white;">
 					<div style="margin:5px 5px 5px 30px;">
 						<span style="display:inline-block;">今日充电次数：</span>
 						<span style="display:inline-block;margin-right:20px;margin-left:5px;color:red;font-size:25px;">{$st['times_today']}</span>
@@ -76,7 +76,7 @@
 					</div>
 				</div>
 				
-				<div style="float:left;width:250px;height:115px;margin-left:10px;background-color:white;">
+				<div style="float:left;width:20%;height:115px;margin-left:10px;background-color:white;">
 					<div style="margin:5px 5px 5px 30px;">
 							<span style="display:inline-block;">充电桩总数：</span>
 							<span style="display:inline-block;margin-right:33px;margin-left:10px;color:red;font-size:25px;">{$st['total']}</span>
@@ -103,11 +103,11 @@
 		</div><!-- 站信息结束 -->
 		
 		<!-- 桩信息 -->
-		<div style="width:97%;margin-top:28px;margin-left:25px;background-color:;float:left;">
+		<div style="width:100%;margin-top:28px;margin-left:25px;background-color:;float:left;">
 			<volist name="lists" id="vo">
-				<div style="width:250px;height:100px;float:left;background-color:white;margin-right:10px;margin-bottom:8px;">
+				<div style="width:21%;height:100px;float:left;background-color:white;margin-right:10px;margin-bottom:8px;">
 					<!-- 左上 -->
-					<div style="height:60%;width:70%;float:left;border-right:1px solid;border-bottom:1px solid;border-color:pink;">
+					<div style="height:60%;width:70%;float:left;border-right:1px solid;border-bottom:1px solid;border-color:#e8e8e8;">
 						<!-- 图标  -->
 						<if condition="$vo['type'] eq 0 ">
 							<div style="float:left;height:100%;width:30%;padding:8px 3px;"><img src="__PUBLIC__/pic/ac_pile_60.png" width="45px"/></div>
@@ -117,7 +117,7 @@
 						
 						 <!-- 桩号  -->
 						 <div style="float:left;height:100%;width:70%;">
-							<div style="font-size:13px;">
+							<div style="font-size:12px;">
 								<div style="color:red;text-align:left;padding-top:10px;">{$vo['id']}号充电桩</div>
 								<div style="padding-top:10px;">
 									<span>{:floor($vo['voltage'])}V</span>
@@ -128,7 +128,7 @@
 						</div>
 					</div>
 					<!-- 右上 -->
-					<div class="wrapper" style="height:60%;width:30%;float:left;">
+					<div class="wrapper" style="height:60%;width:30%;float:left;float:left;border-left:1px solid;border-bottom:1px solid;border-color:#e8e8e8;">
 						<if condition="$vo['status'] eq 0 ">
 							<div class="cell" style="height:60%;text-align:center;"><img src="__PUBLIC__/pic/occupy_pile.png" width="25px"  /></div>
 							<div class="row"></div>
@@ -144,13 +144,13 @@
 						</if>
 					</div>
 					<!-- 左下 -->
-					<div class="wrapper" style="height:40%;width:70%;float:left;font-size:8px;text-align:center;">
+					<div class="wrapper" style="height:40%;width:70%;float:left;font-size:8px;text-align:center;border-right:1px solid;border-top:1px solid;border-color:#e8e8e8;">
 						<div class="cell"><img src="__PUBLIC__/pic/cur_duration.png" width="15px"  />{:floor($vo['cur_duration'])}min</div>
 						<div class="cell"><img src="__PUBLIC__/pic/cur_electricity.png" width="15px"  />{:floor($vo['cur_electricity'])}kw/h</div>
 						<div class="cell"><img src="__PUBLIC__/pic/cur_price.png" width="15px"  />{:floor($vo['cur_price'])}rmb</div>
 					</div>
 					<!-- 右下 -->
-					<div class="wrapper" style="height:40%;width:30%;float:left;font-size:12px;text-align:center;border-left:1px solid;border-top:1px solid;border-color:pink;">
+					<div class="wrapper" style="height:40%;width:30%;float:left;font-size:12px;text-align:center;border-left:1px solid;border-top:1px solid;border-color:#e8e8e8;">
 						<div class="cell">启/停</div>
 					</div>
 				</div>
