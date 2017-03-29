@@ -23,5 +23,18 @@ class IndexController extends Controller {
         $this->display();
     }
 
+    public function register2(){
+        $this->display();
+    }
+
+    public function register3(){
+        $this->display();
+    }
+
+    public function register4(){
+        $this->display();
+    }
+
+
 
 }
