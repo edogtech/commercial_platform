@@ -141,7 +141,7 @@ param：、、、、
         $this->assign('curuser',$user);
         $this->display('Management/msearch');
     }
-   //添加管理员
+   //添加管理员qqq
     public function addmanage(){
        $uname=I('post.uname');
         $upswd=I('post.upswd');
