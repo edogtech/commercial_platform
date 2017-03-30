@@ -74,7 +74,7 @@ img{ border:none;}/*去掉图片加完链接之后自带的边框*/
 .msysnavlnav dl dd1{
 	font-size:16px;
 	color:red;
-	line-height:30px;
+	line-height:40px;
 }
 .msysnav-right{
 	width:13%;
@@ -84,7 +84,7 @@ img{ border:none;}/*去掉图片加完链接之后自带的边框*/
 
 .content{
 	width:85%;
-	height:441px;
+	height:80%;
 
 }
 /*hidden*/
