@@ -22,10 +22,10 @@ class IndexController extends Controller {
         $verify = new \Think\Verify();
         $verity_check=$verify->check($code);
         if(!$verity_check){
-            $this->redirect('Index/find_password1', array('error' => 1));
+            echo"<script>history.go(-1);</script>";
         }
 
-        $userinfo=M("user_info")->where("uphone={$phone} and level=1")->find();
+        $userinfo=M("user_merchant")->where("uphone={$phone}")->find();
 
         if(!$userinfo){
             $this->redirect('Index/find_password1', array('error' => 2));
@@ -40,7 +40,14 @@ class IndexController extends Controller {
             $this->redirect('Index/find_password1');
         }
 
-
+        $code=trim($_POST['code']);
+        $limit_time=time() - $_SESSION['phone_code']['time'];
+        if($limit_time>180){
+            $this->redirect('Index/find_password1', array('error' => 4));
+        }
+        if($_SESSION['phone_code']['code']!=$code){
+            $this->redirect('Index/find_password1', array('error' => 3));
+        }
 
         $id=$_POST['id'];
         $this->assign('id',$id);
@@ -79,7 +86,7 @@ class IndexController extends Controller {
             $this->redirect('Index/index', array('error' => 1));
         }
 
-        $userinfo=M("user_info")->where("uname='{$username}' and level=1")->find();
+        $userinfo=M("user_merchant")->where("uname='{$username}'")->find();
         if(!$userinfo){
             $this->redirect('Index/index', array('error' => 2));
         }
@@ -96,7 +103,8 @@ class IndexController extends Controller {
                 unset ($_SESSION['userinfo']['upswd']);
             }
 
-            dump($_SESSION);
+            //$this->redirect('Index/index');
+            echo '登陆成功';
 
         }else{
             $this->redirect('Index/index', array('error' => 3));
@@ -110,7 +118,16 @@ class IndexController extends Controller {
 
         $appKey = '459d9bee0bac542534a6fd57';
         $masterSecret = '35e380846e272cfe8ca678ee';
-        $phone = '15836117462';
+        $phone = trim($_POST['send_phone']);
+
+        //防止在控制台连续调用短时间内多次发送
+        if(isset($_SESSION['phone_code'])){
+            $limit_time=time() - $_SESSION['phone_code']['time'];
+            if($limit_time<50){
+                echo '不能短时间内多次发送';
+                exit;
+            }
+        }
 
 
         $code=mt_rand(111111,999999);
