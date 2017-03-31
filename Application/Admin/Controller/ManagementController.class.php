@@ -17,15 +17,20 @@ param：、、、、
         // 在header显示系统当前登录的用户名
         $user=mb_substr($_SESSION['admininfo']['username'],0,4).'**';
         $h=$_GET['p']?$_GET['p']:1;
+        $msg=session('userinfo');
+        $uname=$msg['uname'];
+        //$D('UserMerchant')->field('uname')->find();
         $mo=D('PrivRelation');
         $arrr=$mo->table('priv_relation')
             ->field('priv_relation.id,user_info.uid,user_info.level,user_info.uname,priv_relation.privilegeid,priv_relation.mo')
             ->join('user_info on user_info.uid=priv_relation.uid')
             ->page($h.',6')
+            ->where(array('user_info.identity'=>$uname))
             ->select();
         $count=$mo->table('priv_relation')
             ->field('priv_relation.id,user_info.uname,priv_relation.privilegeid')
             ->join('user_info on user_info.uid=priv_relation.uid')
+            ->where(array('user_info.identity'=>$uname))
             ->count();
         $arr=array();
         $arr=$arrr;
@@ -62,6 +67,7 @@ param：、、、、
         
         $show       = $Page->show();// 分页显示输出
        //print_r($arr);die;
+        $this->assign('umsg',$msg);
         $this->assign('arr',$arr);
         $this->assign('page',$show);
         $this->assign('curdate',$date);
