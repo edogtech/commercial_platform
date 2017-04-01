@@ -9,6 +9,15 @@ createtime：17-03-20
 @
 param：、、、、
 */
+    public function __construct(){
+        parent::__construct();
+        $msg=session('userinfo');
+        $uname=$msg['uname'];
+        $issole=D('UserMerchant')->where(array('uname'=>$uname))->find();
+        if (empty($issole)) {
+            $this->error('您无此权限！');
+        }
+    }
     public function mindex(){
         /*header*/
         // 在header显示系统当前时间
@@ -18,19 +27,19 @@ param：、、、、
         $user=mb_substr($_SESSION['admininfo']['username'],0,4).'**';
         $h=$_GET['p']?$_GET['p']:1;
         $msg=session('userinfo');
-        $uname=$msg['uname'];
+        $uid=$msg['uid'];
         //$D('UserMerchant')->field('uname')->find();
         $mo=D('PrivRelation');
         $arrr=$mo->table('priv_relation')
             ->field('priv_relation.id,user_info.uid,user_info.level,user_info.uname,priv_relation.privilegeid,priv_relation.mo')
             ->join('user_info on user_info.uid=priv_relation.uid')
-            ->page($h.',6')
-            ->where(array('user_info.identity'=>$uname))
+            ->page($h.',5')
+            ->where(array('user_info.identity'=>$uid))
             ->select();
         $count=$mo->table('priv_relation')
             ->field('priv_relation.id,user_info.uname,priv_relation.privilegeid')
             ->join('user_info on user_info.uid=priv_relation.uid')
-            ->where(array('user_info.identity'=>$uname))
+            ->where(array('user_info.identity'=>$uid))
             ->count();
         $arr=array();
         $arr=$arrr;
@@ -63,7 +72,7 @@ param：、、、、
         }
 
         //print_r($arr);die;
-        $Page = new \Think\Page($count,6);// 实例化分页类 传入总记录数和每页显示的记
+        $Page = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记
         
         $show       = $Page->show();// 分页显示输出
        //print_r($arr);die;
@@ -84,13 +93,20 @@ param：、、、、
         $user=mb_substr($_SESSION['admininfo']['username'],0,4).'**';
         $searchval=I('get.msearch');
         //echo $searchval;die;
+        $msg=session('userinfo');
+        $uid=$msg['uid'];
         if($searchval=='请输入内容'){
             $searchval='';
         }
         if (!empty($searchval)) {
             $where['uname']=array('like',"%$searchval%");
         }
-        
+        //company identity
+        if(empty($uid)){
+            $where['identity']=array('eq','');
+        }else{
+            $where['identity']=array('eq',$uid);
+        }
 
         $mo=D('PrivRelation');
 
@@ -98,7 +114,7 @@ param：、、、、
         $arrr =$mo->table('priv_relation')
         ->field('priv_relation.id,user_info.uid,user_info.level,user_info.uname,priv_relation.privilegeid,priv_relation.mo')
         ->join("user_info on user_info.uid=priv_relation.uid")
-        ->page($i.',6')
+        ->page($i.',5')
         ->where($where)
         //->order('user_info.addtime desc')
         ->select();
@@ -109,7 +125,7 @@ param：、、、、
         ->join("user_info on user_info.uid=priv_relation.uid")
         ->where($where)
         ->count();// 查询满足要求的总记录数
-        $Page       = new \Think\Page($count,6);// 实例化分页类 传入总记录数和每页显示的记录数
+        $Page       = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记录数
         $show       = $Page->show();// 分页
         $arr=array();
         $arr=$arrr;
@@ -140,6 +156,7 @@ param：、、、、
             }
            $arr[$k]['privilegename']=$fe1;
         }
+        $this->assign('umsg',$msg);
         $this->assign('arr',$arr);
         $this->assign('page',$show);
         $this->assign('zsearch',$searchval);
@@ -149,23 +166,23 @@ param：、、、、
     }
    //添加管理员qqq
     public function addmanage(){
-       $uname=I('post.uname');
+        $msg=session('userinfo');
+        $uname=$msg['uname'];
+        $identity=$msg['uid'];
+        $jname=I('post.uname');
+        $uname=$jname.'@'.$uname;
         $upswd=I('post.upswd');
         $upswd1=I('post.upswd1');
         $checkid=implode(',',I('post.ch'));
         if (empty($uname)||empty($upswd)||empty($upswd1)) {
-            /*$ti1[]=1;
-            $ti1[]='所填项不能为空！';
-            echo json_encode($ti1,JSON_UNESCAPED_UNICODE);*/
-            //$this->redirect('Management/mindex','','所填项不能为空！');
-            echo "<script>location.href='mindex';alert('所填项不能为空！')</script>";die();
-            //$this->error('');
+            $this->error('所填项不能为空！');
         }
         if($upswd!=$upswd1){
             /*$ti2[]=1;
             $ti2[]='密码不一致！';
             echo json_encode($ti2,JSON_UNESCAPED_UNICODE);*/
-            echo "<script>location.href='mindex';alert('密码不一致！')</script>";exit();
+            //echo "<script>location.href='mindex';alert('密码不一致！')</script>";exit();
+            $this->error('密码不一致！');
         }
         $mou=D('UserInfo');
         $mou1=$mou->where(array('uname'=>$uname))->find();
@@ -173,11 +190,13 @@ param：、、、、
             /*$ti3[]=1;
             $ti3[]='用户名已存在！';
             echo json_encode($ti3,JSON_UNESCAPED_UNICODE);*/
-            echo "<script>location.href='mindex';alert('用户名已存在！')</script>";exit();
+            //echo "<script>location.href='mindex';alert('用户名已存在！')</script>";exit();
+            $this->error('用户名已存在！');
         }
         $data['uname']=$uname;
         $data['upswd']=md5($upswd);
         $data['addtime']=time();
+        $data['identity']=$identity;
         $mou2=$mou->table('user_info')->data($data)->add();
         $userid=$mou->table('user_info')->getlastInsID();
         /*echo $userid;die;*/
@@ -196,14 +215,16 @@ param：、、、、
                 /*$ti5[]=1;
             $ti5[]='添加权限失败！';
             echo json_encode($ti5,JSON_UNESCAPED_UNICODE);exit;*/
-            echo "<script>location.href='mindex';alert('添加权限失败！')</script>";exit;
+            //echo "<script>location.href='mindex';alert('添加权限失败！')</script>";exit;
+            $this->error('添加权限失败！');
             }
 
         }else{
             /*$ti6[]=1;
             $ti6[]='添加用户失败！';
             echo json_encode($ti6,JSON_UNESCAPED_UNICODE);exit;*/
-            echo "<script>location.href='mindex';alert('添加用户失败！')</script>";exit;
+            //echo "<script>location.href='mindex';alert('添加用户失败！')</script>";exit;
+            $this->error('添加用户失败！');
         }
     }
     //删除用户
@@ -214,21 +235,25 @@ param：、、、、
         $uid=$urr['uid'];
         if (!empty($uid)) {
             $map=array('uid'=>$uid);
+        }else{
+            $map=array('uid'=>'$uid');
         }
-        $a=D('UserInfo')->where($map)->delete();
+        $ww=array('id'=>$id);
+        $a=$mo->where($ww)->delete();
         if ($a) {
-            $ww=array('id'=>$id);
-            $b=$mo->where($ww)->delete();
+            $b=D('UserInfo')->where($map)->delete();
             if ($b) {
                 echo "<script>location.href='searchmana';</script>";exit;
 
             }else{
-                echo "<script>location.href='searchmana';alert('删除权限失败！')</script>";exit;
+                echo "<script>location.href='searchmana';alert('删除管理员失败！')</script>";exit;
+                //$this->error('删除管理员失败!');
             }
         }else{
             echo "<script>location.href='searchmana';alert('删除失败！')</script>";exit;
             //exit('删除失败！');
             //$this->redirect('Management/gongbiao');
+            //$this->error('删除失败!');
         }
     }
     public function gongbiao(){
@@ -237,7 +262,7 @@ param：、、、、
         $arrr=$mo->table('priv_relation')
             ->field('priv_relation.id,user_info.uid,user_info.level,user_info.uname,priv_relation.privilegeid,priv_relation.mo')
             ->join('user_info on user_info.uid=priv_relation.uid')
-            ->page($h.',6')
+            ->page($h.',5')
             ->select();
         $count=$mo->table('priv_relation')
             ->field('priv_relation.id,user_info.uname,priv_relation.privilegeid')
@@ -274,7 +299,7 @@ param：、、、、
         }
 
         //print_r($arr);die;
-        $Page = new \Think\Page($count,6);// 实例化分页类 传入总记录数和每页显示的记
+        $Page = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记
         //$Page->setConfig('prev','上一页');
         //$Page->setConfig('next','下一页');
         $show       = $Page->show();// 分页显示输出
