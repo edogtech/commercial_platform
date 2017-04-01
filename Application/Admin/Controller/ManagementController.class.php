@@ -7,13 +7,14 @@ author：zwm
 createtime：17-03-20
 @权限管理
 @
-param：、、、、
+param：、、、、111
 */
     public function __construct(){
         parent::__construct();
         $msg=session('userinfo');
         $uname=$msg['uname'];
-        $issole=D('UserMerchant')->where(array('uname'=>$uname))->find();
+        $uid=$msg['uid'];
+        $issole=D('UserMerchant')->where(array('uname'=>$uname,'uid'=>$uid))->find();
         if (empty($issole)) {
             $this->error('您无此权限！');
         }
