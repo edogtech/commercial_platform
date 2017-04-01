@@ -22,7 +22,7 @@ class IndexController extends Controller {
         $verify = new \Think\Verify();
         $verity_check=$verify->check($code);
         if(!$verity_check){
-            echo"<script>history.go(-1);</script>";
+            $this->redirect('Index/find_password1', array('error' => 1));
         }
 
         $userinfo=M("user_merchant")->where("uphone={$phone}")->find();
@@ -55,6 +55,21 @@ class IndexController extends Controller {
     }
 
     public function modify_password(){
+        $id=intval($_POST['id']);
+        $password=trim($_POST['password']);
+        $repassword=trim($_POST['repassword']);
+
+        if($password != $repassword){
+            $this->error('两次密码不一致');
+        }
+        $data['upswd']=md5($password);
+        $res=M('user_merchant')->where("uid={$id}")->save($data);
+        if($res){
+            $this->redirect('Index/index', array('error' => 3),3, "密码修改成功，三秒后跳往登录页面，如没有自动跳转请<a href=index>点击这里</a>");
+        }else{
+            $this->error('修改失败');
+        }
+
 
     }
 
@@ -63,7 +78,37 @@ class IndexController extends Controller {
     }
 
     public function register2(){
-        $this->display();
+        if(!isset($_POST['phone']) || !isset($_POST['code'])  || !isset($_POST['phone_code'])){
+            $this->redirect('Index/register1');
+        }
+
+        $phone=trim($_POST['phone']);
+        $code=intval($_POST['code']);
+        $phone_code=intval($_POST['phone_code']);
+
+        $verify = new \Think\Verify();
+        $verity_check=$verify->check($code);
+        if(!$verity_check){
+            $this->redirect('Index/register1', array('error' => 1));
+        }
+
+
+        $limit_time=time() - $_SESSION['phone_code']['time'];
+        if($limit_time>180){
+            $this->redirect('Index/register1', array('error' => 4));
+        }
+        if($_SESSION['phone_code']['code']!=$phone_code){
+            $this->redirect('Index/register1', array('error' => 3));
+        }
+
+        $res=M('user_merchant')->where("uphone={$phone}")->find();
+        if($res){
+            $this->redirect('Index/register1', array('error' => 2));
+        }else{
+            $_SESSION['register_info']['phone']=$phone;
+            $this->display();
+        }
+
     }
 
     public function register3(){
