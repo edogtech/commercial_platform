@@ -156,7 +156,19 @@ class TerminalController extends Controller {
                 break;
             case 'charging':
                 $data['charging_fee']=$strDuration;
-                break;         
+                
+                //取每个时间段的开始时间
+                $strArray=explode(',',$strDuration);
+                $j=0;
+                for($i=0;$i<count($strArray);$i=$i+3){
+                    if(!empty($strArray[$i])){
+                        $val[$j]=$strArray[$i];
+                        $j++;
+                    }
+                }
+                
+                execShell($val[0],$val[1],$val[2]); // 自定义函数，执行shell填充crontab
+                break;
         }
         $re=$ob->where($where)->data($data)->save();
         
