@@ -166,7 +166,8 @@ class TerminalController extends Controller {
                         $j++;
                     }
                 }
-                execShell($timeVal[0],$timeVal[1],$timeVal[2]); // 自定义函数，执行shell填充crontab
+                $output=execShell($timeVal[0],$timeVal[1],$timeVal[2]); // 自定义函数，执行shell填充crontab
+                echo 'shell返回：'.$output;
                 break;
         }
         $re=$ob->where($where)->data($data)->save();
