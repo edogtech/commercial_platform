@@ -173,7 +173,7 @@ param：、、、、
         $jname=trim(I('post.uname')==''?'':I('post.uname','','strip_tags'));
         $uname=$jname.'@'.$uname;
         $upswd=trim(I('post.upswd')==''?'':I('post.upswd','','strip_tags'));
-        $upswd1=trim(I('post.upswd1')==''?'':I('post.upswd1','','strip_tags');
+        $upswd1=trim(I('post.upswd1')==''?'':I('post.upswd1','','strip_tags'));
         $checkid=implode(',',I('post.ch'));
         if (empty($uname)||empty($upswd)||empty($upswd1)) {
             $this->error('所填项不能为空！');
