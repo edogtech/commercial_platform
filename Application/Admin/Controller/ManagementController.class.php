@@ -7,7 +7,7 @@ author：zwm
 createtime：17-03-20
 @权限管理
 @
-param：、、、、111
+param：、、、、
 */
     public function __construct(){
         parent::__construct();
