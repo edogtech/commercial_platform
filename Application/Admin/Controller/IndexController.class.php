@@ -94,9 +94,9 @@ class IndexController extends Controller {
 
 
         $limit_time=time() - $_SESSION['phone_code']['time'];
-        if($limit_time>180){
-            $this->redirect('Index/register1', array('error' => 4));
-        }
+//        if($limit_time>180){
+//            $this->redirect('Index/register1', array('error' => 4));
+//        }
         if($_SESSION['phone_code']['code']!=$phone_code){
             $this->redirect('Index/register1', array('error' => 3));
         }
@@ -111,11 +111,82 @@ class IndexController extends Controller {
 
     }
 
+    //ajax验证账号是否被占用
+    public function check_username_unique(){
+        $username=trim($_POST['username']);
+        $res=M("user_merchant")->where("uname='{$username}'")->find();
+        if(empty($res)){
+            echo 'yes';
+        }else{
+            echo 'no';
+        }
+
+
+    }
+
     public function register3(){
+        if(!isset($_POST['username']) || !isset($_POST['password'])  || !isset($_POST['repassword'])){
+            $this->redirect('Index/register1');
+        }
+
+        $username=trim($_POST['username']);
+        $password=trim($_POST['password']);
+        $repassword=trim($_POST['repassword']);
+
+        if($password!=$repassword){
+            $this->error('两次密码不一致');
+        }
+
+
+        $res=M("user_merchant")->where("uname='{$username}'")->find();
+        if(!empty($res)){
+            $this->error('用户名已被占用');
+        }
+
+        $_SESSION['register_info']['username']=$username;
+        $_SESSION['register_info']['password']=md5($password);
         $this->display();
     }
 
     public function register4(){
+        if(!isset($_POST['company']) || !isset($_POST['email'])  || !isset($_POST['licence'])){
+            $this->redirect('Index/register1');
+        }
+        if(!isset($_SESSION['register_info']['password']) || !isset($_SESSION['register_info']['phone'])  || !isset($_SESSION['register_info']['username'])){
+            $this->redirect('Index/register1');
+        }
+        //先验证邮箱唯一
+        $email=trim($_POST['email']);
+        $email_res=M('user_merchant')->where("email='{$email}'")->find();
+        if($email_res){
+            $this->error('邮箱已经被占用');
+        }
+
+        //处理照片上传
+        $upload = new \Think\Upload();// 实例化上传类
+        $upload->maxSize   =     5242880 ;// 设置附件上传大小 5m
+        $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg','bmp');// 设置附件上传类型
+        $upload->rootPath  =      './Public/'; // 设置附件上传根目录
+        $upload->savePath  =      'Uploads/'; // 设置附件上传目录
+        // 上传文件
+        $info   =   $upload->upload();
+        if(!$info) {
+            // 上传错误提示错误信息
+            $this->error($upload->getError());
+        }else{
+            $data['licence_pic']='./Public/'.$info['pic']['savepath'].$info['pic']['savename'];
+        }
+
+        //加入其它信息
+        $data['email']=$email;
+        $data['company']=trim($_POST['company']);
+        $data['b_licence']=trim($_POST['licence']);
+        $data['uname']=$_SESSION['register_info']['username'];
+        $data['upswd']=$_SESSION['register_info']['password'];
+        $data['uphone']=$_SESSION['register_info']['phone'];
+
+
+
         $this->display();
     }
 
