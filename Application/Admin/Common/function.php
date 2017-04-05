@@ -21,7 +21,7 @@ function getWeek($date)
  * @author ZXD
  */
 function execShell($val1,$val2,$val3){
-    $output=shell_exec("/www/shell/cron.sh  $val1 $val2 $val3"); // 把三个起始时间送给crontab定时调用改价命令
+    $output=shell_exec("/www/shell/cron.sh $val1 $val2 $val3"); // 把三个起始时间送给crontab定时调用改价命令
     return $output;
 }
 
