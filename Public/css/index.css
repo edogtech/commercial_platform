@@ -70,6 +70,7 @@ img{ border:none;}/*去掉图片加完链接之后自带的边框*/
 .msysnavlnav dl	dt{
 		padding:6px 12px;
 		font-size: 12px;
+		line-height:20px;
 	}
 .msysnavlnav dl dd1{
 	font-size:16px;
