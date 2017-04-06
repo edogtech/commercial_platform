@@ -202,34 +202,63 @@ class IndexController extends Controller {
 
         $verify = new \Think\Verify();
         $verity_check=$verify->check($code);
-        if(!$verity_check){
+        /*if(!$verity_check){
             $this->redirect('Index/index', array('error' => 1));
-        }
+        }*/
+        if (stristr($username,'@')) {
+            $userinfo=D('UserInfo')->where(array('uname'=>$username))->find();
+            if(!$userinfo){
+                $this->redirect('Index/index', array('error' => 2));
+            }
+            if(md5($password)==$userinfo['upswd']){
 
-        $userinfo=M("user_merchant")->where("uname='{$username}'")->find();
-        if(!$userinfo){
-            $this->redirect('Index/index', array('error' => 2));
-        }
+                if($auto_login==1){
+                    $_SESSION['admininfo']=$userinfo;
+                    $_SESSION['admininfo']['endtime']=time()+86400;
+                    unset ($_SESSION['admininfo']['upswd']);
+                }else{
+                    $_SESSION['admininfo']=$userinfo;
+                    $_SESSION['admininfo']['endtime']=time()+86400;
+                    unset ($_SESSION['admininfo']['upswd']);
+                }
+                $muid=$userinfo['uid'];
+                $pridlist=D('PrivRelation')->field('privilegeid')->where(array('uid'=>$muid))->find();
+                $prid=explode(',',$pridlist['privilegeid']);
+                //print_r($prid);die;
+                $this->assign('prid',$prid);
+                $this->display('Terminal/index');
 
-        if(md5($password)==$userinfo['upswd']){
-
-            if($auto_login==1){
-                $_SESSION['admininfo']=$userinfo;
-                $_SESSION['admininfo']['endtime']=time()+86400;
-                unset ($_SESSION['admininfo']['upswd']);
             }else{
-                $_SESSION['admininfo']=$userinfo;
-                $_SESSION['admininfo']['endtime']=time()+86400;
-                unset ($_SESSION['admininfo']['upswd']);
+                $this->redirect('Index/index', array('error' => 3));
+            }
+        }else{
+            $userinfo=M("user_merchant")->where("uname='{$username}'")->find();
+            if(!$userinfo){
+                $this->redirect('Index/index', array('error' => 2));
             }
 
-            $this->redirect('Terminal/index');
+            if(md5($password)==$userinfo['upswd']){
 
-        }else{
-            $this->redirect('Index/index', array('error' => 3));
+                if($auto_login==1){
+                    $_SESSION['admininfo']=$userinfo;
+                    $_SESSION['admininfo']['endtime']=time()+86400;
+                    unset ($_SESSION['admininfo']['upswd']);
+                }else{
+                    $_SESSION['admininfo']=$userinfo;
+                    $_SESSION['admininfo']['endtime']=time()+86400;
+                    unset ($_SESSION['admininfo']['upswd']);
+                }
+                $prid1=$userinfo['privilegeid'];
+                $prid=explode(',',$prid1);
+                //print_r($prid);die;
+                $this->assign('prid',$prid);
+                $this->display('Terminal/index');
+
+            }else{
+                $this->redirect('Index/index', array('error' => 3));
+            }
         }
-
-
+        
     }
 
     public function  send_text(){
