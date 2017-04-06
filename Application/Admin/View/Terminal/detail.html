@@ -50,26 +50,26 @@
 				<div style="float:left;width:25%;min-height:150px;margin-left:10px;background-color:white;">
 					<div style="margin:5px 5px 5px 30px;">
 						<span style="display:inline-block;">今日充电次数：</span>
-						<span style="display:inline-block;margin-right:20px;margin-left:5px;color:red;font-size:25px;">{$st['times_today']}</span>
+						<span style="display:inline-block;margin-right:20px;margin-left:5px;color:red;font-size:25px;width:30px">{$st['times_today']}</span>
 						<span style="display:inline-block;font-size:10px;">（次）</span>
 					</div>
 					<div style="margin-left:30px;margin-top:5px;font-size:10px;">
 						<span style="display:inline-block; float:left;"><img src="__PUBLIC__/pic/charge_fee.png" style="width:15px;"/></span>
 						<span style="display:inline-block; float:left;margin-left:4px;">充电费：</span>
-						<span style="display:inline-block; float:left;margin-right:60px;"> {$st['charging_fee']}元/度</span>
+						<span style="display:inline-block; float:left;margin-right:10%;width:45%"> {$st['charging_fee']}元/度</span>
 						<span id="adjustChargingFee" style="display:inline-block;"><a href="#" data-toggle="modal" data-target="#ChargingFeeModal" data-id="{$vo['id']}">调价</a></span>						
 					</div>
 
 					<div style="margin-left:30px;margin-top:5px;font-size:10px;">
 						<span style="display:inline-block; float:left;"><img src="__PUBLIC__/pic/service_fee.png" style="width:15px;"/></span>
 						<span style="display:inline-block; float:left;margin-left:4px;">服务费：</span>
-						<span style="display:inline-block; float:left;margin-right:60px;">{$st['serving_fee']}元/度</span>
+						<span style="display:inline-block; float:left;margin-right:10%;width:45%">{$st['serving_fee']}元/度</span>
 						<span id="adjustServingFee" style="display:inline-block;"><a href="#" data-toggle="modal" data-target="#ServingFeeModal" data-id="{$vo['id']}">调价</a></span>						
 					</div>
 					<div style="margin-left:30px;margin-top:5px;font-size:10px;">
 						<span style="display:inline-block; float:left;"><img src="__PUBLIC__/pic/parking_fee.png" style="width:15px;"/></span>
 						<span style="display:inline-block; float:left;margin-left:4px;">停车费：</span>
-						<span style="display:inline-block; float:left;margin-right:48px;">{$st['parking_fee']}元/小时</span>
+						<span style="display:inline-block; float:left;margin-right:7.5%;width:45%">{$st['parking_fee']}元/小时</span>
 						<span id="adjustParkingFee" style="display:inline-block;cursor:pointer;">&nbsp;&nbsp;调价</span>
 					</div>
 				</div>
@@ -77,26 +77,26 @@
 				<div style="float:left;width:23%;height:150px;margin-left:10px;background-color:white;">
 					<div style="margin:5px 5px 5px 30px;">
 							<span style="display:inline-block;">充电桩总数：</span>
-							<span style="display:inline-block;margin-right:33px;margin-left:10px;color:red;font-size:25px;">{$st['total']}</span>
+							<span style="display:inline-block;margin-right:15px;margin-left:10px;color:red;font-size:25px;width:30px">{$st['total']}</span>
 							<span style="display:inline-block;font-size:10px;">（个）</span>
 					</div>
 					<div style="margin-left:30px;margin-top:5px;font-size:10px;">
 						<span style="display:inline-block; float:left;margin-right:4px;"><img src="__PUBLIC__/pic/dc_pile.png" style="width:15px;"/></span>
-						<span style="display:inline-block; float:left;margin-right:37px;">直流桩：{$st['ac_num']}</span>
+						<span style="display:inline-block; float:left;margin-right:37px;width:50px">直流桩：{$st['ac_num']}</span>
 						<span style="display:inline-block; float:left;margin-right:4px;"><img src="__PUBLIC__/pic/idle_pile.png" style="width:15px;"/></span>
-						<span>空闲桩：{$pilestatus['idle']}</span>
+						<span style="width:50px">空闲桩：{$pilestatus['idle']}</span>
 					</div>
 					<div style="margin-left:30px;margin-top:5px;font-size:10px;">
 						<span style="display:inline-block; float:left;margin-right:4px;"><img src="__PUBLIC__/pic/ac_pile.png" style="width:15px;"/></span>
-						<span style="display:inline-block; float:left;margin-right:37px;">交流桩：{$st['dc_num']}</span>
+						<span style="display:inline-block; float:left;margin-right:37px;width:50px">交流桩：{$st['dc_num']}</span>
 						<span style="display:inline-block; float:left;margin-right:4px;"><img src="__PUBLIC__/pic/occupy_pile.png" style="width:15px;"/></span>
-						<span>工作桩：{$pilestatus['occupy']}</span>						
+						<span style="width:50px">工作桩：{$pilestatus['occupy']}</span>						
 					</div>
 					<div style="margin-left:30px;margin-top:5px;font-size:10px;">
 						<span style="display:inline-block; float:left;margin-right:4px;width:20px;"></span>
 						<span style="display:inline-block; float:left;margin-right:37px;"><p style='width:66px'></p></span>
-						<span style="display:inline-block; float:left;margin-right:4px;"><img src="__PUBLIC__/pic/fault_pile.png" style="width:15px;"/></span>
-						<span>故障桩：{$pilestatus['fault']}</span>					
+						<span style="display:inline-block; float:left;margin-right:4px;">&nbsp;<img src="__PUBLIC__/pic/fault_pile.png" style="width:15px;"/></span>
+						<span style="width:52px">故障桩：{$pilestatus['fault']}</span>					
 					</div>
 				</div>
 				<div style="clear:both"></div>

@@ -94,7 +94,7 @@ html,body {
 }
 #test {
     min-width:115%;
-    min-height:120%;
+    min-height:640px;
     over-flow:hidden;
     background-color:#000;
     position:absolute;
