@@ -11,7 +11,7 @@ param：、、、、
 */
     public function __construct(){
         parent::__construct();
-        $msg=session('userinfo');
+        $msg=session('admininfo');
         $uname=$msg['uname'];
         $uid=$msg['uid'];
         $issole=D('UserMerchant')->where(array('uname'=>$uname,'uid'=>$uid))->find();
@@ -27,7 +27,7 @@ param：、、、、
         // 在header显示系统当前登录的用户名
         $user=mb_substr($_SESSION['admininfo']['username'],0,4).'**';
         $h=$_GET['p']?$_GET['p']:1;
-        $msg=session('userinfo');
+        $msg=session('admininfo');
         $uid=$msg['uid'];
         //$D('UserMerchant')->field('uname')->find();
         $mo=D('PrivRelation');
@@ -94,7 +94,7 @@ param：、、、、
         $user=mb_substr($_SESSION['admininfo']['username'],0,4).'**';
         $searchval=I('get.msearch');
         //echo $searchval;die;
-        $msg=session('userinfo');
+        $msg=session('admininfo');
         $uid=$msg['uid'];
         if($searchval=='请输入内容'){
             $searchval='';
@@ -167,7 +167,7 @@ param：、、、、
     }
    //添加管理员qqq
     public function addmanage(){
-        $msg=session('userinfo');
+        $msg=session('admininfo');
         $uname=$msg['uname'];
         $identity=$msg['uid'];
         $jname=trim(I('post.uname')==''?'':I('post.uname','','strip_tags'));
