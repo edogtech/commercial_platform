@@ -216,7 +216,7 @@ class IndexController extends Controller {
             if($auto_login==1){
                 $_SESSION['admininfo']=$userinfo;
                 $_SESSION['admininfo']['endtime']=time()+86400;
-                unset ($_SESSION['userinfo']['upswd']);
+                unset ($_SESSION['admininfo']['upswd']);
             }else{
                 $_SESSION['admininfo']=$userinfo;
                 $_SESSION['admininfo']['endtime']=time()+86400;
@@ -224,7 +224,7 @@ class IndexController extends Controller {
             }
 
             $this->redirect('Terminal/index');
-            
+
         }else{
             $this->redirect('Index/index', array('error' => 3));
         }
