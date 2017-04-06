@@ -214,18 +214,17 @@ class IndexController extends Controller {
         if(md5($password)==$userinfo['upswd']){
 
             if($auto_login==1){
-                $_SESSION['userinfo']=$userinfo;
-                $_SESSION['userinfo']['endtime']=time()+86400;
+                $_SESSION['admininfo']=$userinfo;
+                $_SESSION['admininfo']['endtime']=time()+86400;
                 unset ($_SESSION['userinfo']['upswd']);
             }else{
-                $_SESSION['userinfo']=$userinfo;
-                $_SESSION['userinfo']['endtime']=time()+86400;
-                unset ($_SESSION['userinfo']['upswd']);
+                $_SESSION['admininfo']=$userinfo;
+                $_SESSION['admininfo']['endtime']=time()+86400;
+                unset ($_SESSION['admininfo']['upswd']);
             }
 
-            //$this->redirect('Index/index');
-            echo '登陆成功';
-
+            $this->redirect('Terminal/index');
+            
         }else{
             $this->redirect('Index/index', array('error' => 3));
         }
