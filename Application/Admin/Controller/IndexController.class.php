@@ -94,9 +94,9 @@ class IndexController extends Controller {
 
 
         $limit_time=time() - $_SESSION['phone_code']['time'];
-//        if($limit_time>180){
-//            $this->redirect('Index/register1', array('error' => 4));
-//        }
+        if($limit_time>180){
+            $this->redirect('Index/register1', array('error' => 4));
+        }
         if($_SESSION['phone_code']['code']!=$phone_code){
             $this->redirect('Index/register1', array('error' => 3));
         }
@@ -174,7 +174,7 @@ class IndexController extends Controller {
             // 上传错误提示错误信息
             $this->error($upload->getError());
         }else{
-            $data['licence_pic']='./Public/'.$info['pic']['savepath'].$info['pic']['savename'];
+            $data['licence_pic']='/Public/'.$info['pic']['savepath'].$info['pic']['savename'];
         }
 
         //加入其它信息
@@ -184,10 +184,14 @@ class IndexController extends Controller {
         $data['uname']=$_SESSION['register_info']['username'];
         $data['upswd']=$_SESSION['register_info']['password'];
         $data['uphone']=$_SESSION['register_info']['phone'];
+        $data['addtime']=time();
 
-
-
-        $this->display();
+        $res=M('user_merchant')->add($data);
+        if($res){
+            $this->display();
+        }else{
+            $this->error('注册失败，请稍后再试');
+        }
     }
 
     public function login(){
