@@ -234,7 +234,7 @@ class IndexController extends Controller {
     }
 
     public function  send_text(){
-        require_once  '/PUBLIC/jsms-api-php-client-master/src/JSMS.php';
+        require_once  './Public/jsms-api-php-client-master/src/JSMS.php';
 
         $appKey = '459d9bee0bac542534a6fd57';
         $masterSecret = '35e380846e272cfe8ca678ee';
