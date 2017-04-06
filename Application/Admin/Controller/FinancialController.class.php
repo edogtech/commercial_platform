@@ -8,8 +8,6 @@ class FinancialController extends Controller {
         // 在header显示系统当前时间
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
 
-        // 在header显示系统当前登录的用户名
-        $user=mb_substr($_SESSION['admininfo']['username'],0,4).'**';
 
         //订单数据
         $count=M('charge_order')->where()->count();
@@ -19,13 +17,13 @@ class FinancialController extends Controller {
 
         $month_now=date('Ym',time());
         //统计数据
-        $month_order=M()->query("select count(*) as count from charge_order where FROM_UNIXTIME(addtime,'%Y%m')=".$month_now);
-        $month_sum=M()->query("select SUM(charge_price) as sum from charge_order where FROM_UNIXTIME(addtime,'%Y%m')=".$month_now);
+        $month_order=M()->query("select count(*) as count from charge_order where FROM_UNIXTIME(addtime,'%Y%m')=".$month_now." and user_id=".$_SESSION['admininfo']['uid']);
+        $month_sum=M()->query("select SUM(charge_price) as sum from charge_order where FROM_UNIXTIME(addtime,'%Y%m')=".$month_now." and user_id=".$_SESSION['admininfo']['uid']);
+
         $totle['order']=$month_order[0]['count'];
         $totle['sum']=$month_sum[0]['sum'];
 
         $this->assign('curdate',$date);
-        $this->assign('curuser',$user);
         $this->assign('show',$show);
         $this->assign('lists',$order);
         $this->assign('totle',$totle);

@@ -4,7 +4,7 @@
 <!-- 继承系统当前时间 -->
 <block name="curdate">{$curdate}</block>
 <!-- 继承登录用户名 -->
-<block name="curuser">{$curuser}</block>
+<block name="curuser">{$_SESSION['admininfo']['uname']}</block>
 
 <block name="main">
 <!--账户信息-->
@@ -23,7 +23,7 @@
                 <div style="float:left;height:70%;border-left:2px solid #ff0000;margin-top:20px;;">
                 </div>
                 <div style="float:left;width:55%;">
-                    <div style="text-align:center;margin-top:10px;font-size:20px;margin-bottom:10px;">北京电狗网络科技有限公司</div>
+                    <div style="text-align:center;margin-top:10px;font-size:20px;margin-bottom:10px;">{$_SESSION['admininfo']['uname']}</div>
                     <div style="height:22px;">
                         <span style="margin-left:25px;margin-top:3px;height:20px;width:30px;display:inline-flex;background-image:url(__PUBLIC__/pic/icon.png);background-position:0px -15px;"></span>
                         <span style="display:inline-flex;height:20px;vertical-align:top  ">xxxxx xxxxx xxxx xxxxx</span>
