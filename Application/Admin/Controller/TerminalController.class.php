@@ -1,6 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
+
 class TerminalController extends Controller {
     //关于我们页面的展示
     public function index(){
@@ -156,18 +157,6 @@ class TerminalController extends Controller {
                 break;
             case 'charging':
                 $data['charging_fee']=$strDuration;
-                
-                //取每个时间段的开始时间
-                $strArray=explode(',',$strDuration);
-                $j=0;
-                for($i=0;$i<count($strArray);$i=$i+3){
-                    if(!empty($strArray[$i])){
-                        $timeVal[$j]=$strArray[$i];
-                        $j++;
-                    }
-                }
-                $output=execShell($timeVal[0],$timeVal[1],$timeVal[2]); // 自定义函数，执行shell填充crontab
-                echo 'shell返回：'.$output;
                 break;
         }
         $re=$ob->where($where)->data($data)->save();
@@ -180,7 +169,69 @@ class TerminalController extends Controller {
             $this->error("修改失败");
         }
         
+    }
+    
+    
+    /*
+     * crontab安时发送调整充电费命令
+     */
+    public function adjustChargingFeeCommand(){
+
+        // 筛选出更改过电价的电站ID以及调整电价的时间和费用
+        $obStation=M('charge_station');
+        $field='id,number,charging_fee,charging_fee_flag';
+        $where['charging_fee_flag']='1';
+        $reStation=$obStation->field($field)->where($where)->select(); 
+        
+        if(empty($reStation)){
+            exit(0);
+        }else {
+            $obPile=M('charge_pile');
+            
+            foreach ($reStation as $k=>$v) {
+                $stationID=$reStation[$k]['id']; // 电站ID
+            
+                // 筛选该电站下所有桩
+                $field='pile_no';
+                $condition['station_id']=$stationID;
+                $rePile=$obPile->field($field)->where($condition)->select();
+         
+                // 取出电站调价起始时间及价格
+                $strArray=explode(',',$reStation[$k]['charging_fee']);
+                $j=0;
+                for($i=0;$i<count($strArray);$i=$i+3){
+                    if(!empty($strArray[$i])){
+                        $timeVal[$j]=$strArray[$i]; // 电价起始时间
+                        $priceVal[$j]=$strArray[$i+2]; // 电价
+                        $j++;
+                    }
+                }
+            
+                for($k=0;$k<=count($timeVal);$k++){
+                    if ($timeVal[$k]==date('H',time())) {
+                        
+                        // 调价标志位清0
+                        $data['charging_fee_flag']='0';
+                        $obStation->where("id=$stationID")->save($data);
+
+                        // 发送调价命令
+                        foreach ($rePile as $key=>$value){
+                            $pileNo=$rePile[$key]['pile_no'];
+                            $answer = modify_pile_price($pileNo,$priceVal[$k]);
+                            //print_r($answer);
+                            //sleep(30); // 间隔30s
+                        }
+                    }
+            
+                }
+            
+                // 清空数组元素
+                unset($timeVal,$priceVal);
+            }
+        }
         
     }
+    
+  
     
 }
