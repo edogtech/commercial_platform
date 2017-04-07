@@ -55,20 +55,89 @@
 		var time31=$("#txtCharging31").val();
 		var time32=$("#txtCharging32").val();
 		var price3=$("#txtCharging33").val();
-		
-		if(price1.length!=0){
-			if(time11.length!=0 && time12.length==0){
-				$("#txtCharging12").css('border-color','pink');
+	
+		// 验证价格与时段必填
+		if($.trim(price1).length!=0){
+			if($.trim(time11).length==0 && $.trim(time12).length!=0){
+				$("#txtCharging11").css('border-color','pink');
 				return;
 			}
-			if(time11.length==0 && time12.length!=0){
-				$("#txtCharging11").css('border-color','pink');
+			if($.trim(time11).length!=0 && $.trim(time12).length==0){
+				$("#txtCharging12").css('border-color','pink');
 				return;
 			}
 		}else{
 			$("#txtCharging13").css('border-color','pink');
 			return;
 		}
+		
+		if($.trim(price2).length!=0){
+			if($.trim(time21).length==0 && $.trim(time22).length!=0){
+				$("#txtCharging21").css('border-color','pink');
+				return;
+			}
+			if($.trim(time21).length!=0 && $.trim(time22).length==0){
+				$("#txtCharging22").css('border-color','pink');
+				return;
+			}
+			if($.trim(time21).length==0 || $.trim(time22).length==0){
+				$("#txtCharging21,#txtCharging22").css('border-color','pink');
+				return;
+			}
+		}else{
+			if($.trim(time21).length!=0 || $.trim(time22).length!=0){
+				$("#txtCharging21,#txtCharging22").css('border-color','pink');
+				return;
+			}
+		}
+		
+		if($.trim(price3).length!=0){
+			if($.trim(time31).length==0 && $.trim(time32).length!=0){
+				$("#txtCharging31").css('border-color','pink');
+				return;
+			}
+			if($.trim(time31).length!=0 && $.trim(time32).length==0){
+				$("#txtCharging32").css('border-color','pink');
+				return;
+			}
+			if($.trim(time31).length==0 || $.trim(time32).length==0){
+				$("#txtCharging31,#txtCharging32").css('border-color','pink');
+				return;
+			}
+		}else{
+			if($.trim(time31).length!=0 || $.trim(time32).length!=0){
+				$("#txtCharging31,#txtCharging32").css('border-color','pink');
+				return;
+			}
+		}
+		
+		// 验证正整数
+		var exitFlag=false;
+		var myRegExp = /^[0-9]*[1-9][0-9]*$/ 
+		
+		$(".chkReg").each(function(i, field){
+			var chkval=field.value;
+			if(chkval.length!=0){
+				if(!myRegExp.test(chkval)){
+					$(this).css('border-color','red');
+					exitFlag=true;
+					//return; // 此处只能跳出each函数
+				}
+			}
+		})
+		if(exitFlag){return;}
+		
+		// 验证数字
+		$(".chkNaN").each(function(index, element){
+			var chkNaN=element.value; //$.trim(element.value)
+			if(chkNaN.length!=0){
+				if(isNaN(chkNaN)){
+					$(this).css('border-color','red');
+					exitFlag=true;
+				}
+			}
+		})
+		if(exitFlag){return;}
 		
 		$("#frmChargingFee").submit();
 		
