@@ -60,17 +60,31 @@
 	<!--内容-->
 	<div class="content" style="float:left;">
 		<!--搜索框-->
-		<!--<form id="frmStationSearch" method="post" action="{:U('Terminal/index')}">-->
-			<!--<div style="height:40px;margin-top:20px;">-->
-				<!--<div style="float:left;font-size:13px;color:red;padding-top:10px;padding-left:57px;">查询：</div>-->
-				<!--<div style="float:left;padding-top:5px;padding-left:18px">-->
-					<!--<input type="text" name="txtStation" id="txtStation" style=" width:220px;height:20px;color:#C8C8C8;" value="充电站名称"/>-->
-				<!--</div>-->
-				<!--<div id="stationSearch" style="float:left;width:25px;height:25px;background-color:red;margin-top:5px;margin-left:20px;cursor:pointer;">-->
-					<!--<img src="__PUBLIC__/pic/search.png" style="width:15px;padding-top:6px;padding-left:6px;"/>-->
-				<!--</div>-->
-			<!--</div>-->
-		<!--</form>-->
+		<form id="subsearch" method="get" action="{:U('Management/searchmana')}">
+			<div style="height:40px;margin-top:10px;">
+				<div style="float:left;font-size:13px;color:red;padding-top:14px;padding-left:40px;">查询：</font></div>
+				<div style="float:left;padding-top:10px;padding-left:20px">
+					<input type='text' name="msearch" style="width:150px;height:100%;" value="" placeholder="请输入要查询的充电站" />
+				</div>
+				<div style="float:left;font-size:13px;color:red;padding-top:14px;padding-left:20px;">开始日期：</font></div>
+				<div style="float:left;padding-top:10px;padding-left:20px">
+					<input type='text' name="time_start" style="width:150px;height:100%;" value="" placeholder="请输入开始日期" />
+				</div>
+				<div style="float:left;font-size:13px;color:red;padding-top:14px;padding-left:20px;">结束日期：</font></div>
+				<div style="float:left;padding-top:10px;padding-left:20px">
+					<input type='text' name="time_end" style="width:150px;height:100%;" value="" placeholder="请输入结束日期" />
+				</div>
+				<div style="float:left;width:30px;height:30px;background-color:red;margin-top:8px;margin-left:20px;">
+					<img src="__PUBLIC__/pic/search.png" style="width:25px;padding-top:8px;padding-left:8px;cursor:pointer" id="dsearch" />
+				</div>
+				<botton style="float:left;width:100px;height:30px;line-height:30px;background-color:red;margin-top:8px;margin-left:20px;text-align:center;color:white;cursor:pointer" id='addmanage'>
+					查询
+				</botton>
+				<botton style="float:left;width:100px;height:30px;line-height:30px;background-color:red;margin-top:8px;margin-left:20px;text-align:center;color:white;cursor:pointer" id='addmanage'>
+					导出表格
+				</botton>
+			</div>
+		</form>
 		<!--数据表格-->
 		<div id="termianltbl" style="margin-top:15px">
 			<table rules="none">

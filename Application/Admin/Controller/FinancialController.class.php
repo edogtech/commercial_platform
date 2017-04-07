@@ -29,5 +29,9 @@ class FinancialController extends Controller {
         $this->assign('totle',$totle);
         $this->display();
     }
+
+    public function excel(){
+
+    }
     
 }
