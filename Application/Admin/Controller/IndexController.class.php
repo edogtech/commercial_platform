@@ -224,6 +224,7 @@ class IndexController extends Controller {
                 $muid=$userinfo['uid'];
                 $pridlist=D('PrivRelation')->field('privilegeid')->where(array('uid'=>$muid))->find();
                 $prid=explode(',',$pridlist['privilegeid']);
+                $_SESSION['admininfo']['pridlist']=$prid;
                 //print_r($prid);die;
                 $this->assign('prid',$prid);
                 $this->display('Terminal/index');
@@ -250,6 +251,7 @@ class IndexController extends Controller {
                 }
                 $prid1=$userinfo['privilegeid'];
                 $prid=explode(',',$prid1);
+                $_SESSION['admininfo']['pridlist']=$prid;
                 //print_r($prid);die;
                 $this->assign('prid',$prid);
                 $this->display('Terminal/index');

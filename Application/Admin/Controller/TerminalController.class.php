@@ -11,7 +11,7 @@ class TerminalController extends Controller {
         
         // 在header显示系统当前登录的用户名
 		$user=mb_substr($_SESSION['admininfo']['username'],0,4).'***';
-
+        $msg=session('admininfo');
 /*状态栏*/
         $ob=M('charge_pile');
         $field='*';
@@ -56,7 +56,7 @@ class TerminalController extends Controller {
             $list[$k]['pile_fault']=$ob_pile->where("station_id=$stationID AND status='2'")->count();
             // $pile_status[$k]=$ob_pile->where($where)->field("count(status) as num")->group("status")->select();
         }
-        
+        $this->assign('prid',$msg['pridlist']);
         $this->assign('curdate',$date);
         $this->assign('curuser',$user);
         $this->assign('pilesinfo',$pile);
@@ -71,7 +71,7 @@ class TerminalController extends Controller {
         /*header*/
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());  // 显示系统当前时间
         $user=mb_substr($_SESSION['admininfo']['username'],0,4).'***';  // 显示系统当前登录的用户名
-
+        $msg=session('admininfo');
         /*状态栏*/
         $ob=M('charge_pile');
         $field='*';
@@ -88,7 +88,7 @@ class TerminalController extends Controller {
         $pile['idleQty']=$ob->where("status='1'")->count(); // 空闲
         $pile['faultQty']=$ob->where("status='2'")->count(); // 故障
         
-        
+        $this->assign('prid',$msg['pridlist']);
         $this->assign('curdate',$date);
         $this->assign('curuser',$user);
         $this->assign('pilesinfo',$pile);

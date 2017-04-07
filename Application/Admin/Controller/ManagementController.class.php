@@ -29,6 +29,7 @@ param：、、、、
         $h=$_GET['p']?$_GET['p']:1;
         $msg=session('admininfo');
         $uid=$msg['uid'];
+        //print_r($msg['pridlist']);die;
         //$D('UserMerchant')->field('uname')->find();
         $mo=D('PrivRelation');
         $arrr=$mo->table('priv_relation')
@@ -77,6 +78,7 @@ param：、、、、
         
         $show       = $Page->show();// 分页显示输出
        //print_r($arr);die;
+        $this->assign('prid',$msg['pridlist']);
         $this->assign('umsg',$msg);
         $this->assign('arr',$arr);
         $this->assign('page',$show);

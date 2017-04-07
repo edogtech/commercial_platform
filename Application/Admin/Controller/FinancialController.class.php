@@ -7,7 +7,7 @@ class FinancialController extends Controller {
         /*header*/
         // 在header显示系统当前时间
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
-
+        $msg=session('admininfo');
 
         //订单数据
         $count=M('charge_order')->where()->count();
@@ -22,7 +22,7 @@ class FinancialController extends Controller {
 
         $totle['order']=$month_order[0]['count'];
         $totle['sum']=$month_sum[0]['sum'];
-
+        $this->assign('prid',$msg['pridlist']);
         $this->assign('curdate',$date);
         $this->assign('show',$show);
         $this->assign('lists',$order);
