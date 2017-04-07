@@ -26,7 +26,7 @@
 			<img src="__PUBLIC__/pic/logo.png" style="float:left;margin-left:10%;margin-top:8%;height:48px;width:80%;"/>
 		</div>
 		<if condition="in_array(1,$prid)">
-			<div class="menu-item" style="float:left;background:#1C1A1A;">
+			<div class="menu-item" style="float:left;">
 				<img src="__PUBLIC__/pic/terminal_gray.png" style="float:left; margin-left:19%;margin-top:18px;width:15px;"/>
 				<a href="{:U('Terminal/index')}"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:18px;">终端管理</h5></a>
 			</div>
@@ -54,7 +54,7 @@
 		<else/>
 		</if>
 		<if condition="in_array(5,$prid)">
-		<div class="menu-item" style="float:left;">
+		<div class="menu-item" style="float:left;background:#1C1A1A;">
 			<img src="__PUBLIC__/pic/system_red.png" style="float:left; margin-left:19%;margin-top:18px;width:15px;"/>
 			<a href="{:U('Management/mindex')}"><h5 style="color:#E34648;float:left;margin-left:10px;margin-top:18px;">系统管理</h5></a>
 		</div>
