@@ -2,11 +2,21 @@
 namespace Admin\Controller;
 use Think\Controller;
 class FinancialController extends Controller {
+    public function __construct(){
+        parent::__construct();
+        $msg=session('admininfo');
+        $prid=$msg['pridlist'];
+        if (!in_array(2,$prid)){
+            $this->error('您无此权限！');
+        }
+    }
     //关于我们页面的展示
     public function index(){
         /*header*/
         // 在header显示系统当前时间
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
+        // 在header显示系统当前登录的用户名
+        $user=mb_substr($_SESSION['admininfo']['uname'],0,4).'***';
         $msg=session('admininfo');
 
         //订单数据
@@ -22,6 +32,7 @@ class FinancialController extends Controller {
 
         $totle['order']=$month_order[0]['count'];
         $totle['sum']=$month_sum[0]['sum'];
+        $this->assign('curuser',$user);
         $this->assign('prid',$msg['pridlist']);
         $this->assign('curdate',$date);
         $this->assign('show',$show);

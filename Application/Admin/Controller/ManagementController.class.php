@@ -25,7 +25,7 @@ param：、、、、
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
 
         // 在header显示系统当前登录的用户名
-        $user=mb_substr($_SESSION['admininfo']['username'],0,4).'**';
+        $user=mb_substr($_SESSION['admininfo']['uname'],0,4).'***';
         $h=$_GET['p']?$_GET['p']:1;
         $msg=session('admininfo');
         $uid=$msg['uid'];
@@ -93,7 +93,7 @@ param：、、、、
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
 
         // 在header显示系统当前登录的用户名
-        $user=mb_substr($_SESSION['admininfo']['username'],0,4).'**';
+        $user=mb_substr($_SESSION['admininfo']['uname'],0,4).'***';
         $searchval=I('get.msearch');
         //echo $searchval;die;
         $msg=session('admininfo');
@@ -159,6 +159,7 @@ param：、、、、
             }
            $arr[$k]['privilegename']=$fe1;
         }
+        $this->assign('prid',$msg['pridlist']);
         $this->assign('umsg',$msg);
         $this->assign('arr',$arr);
         $this->assign('page',$show);

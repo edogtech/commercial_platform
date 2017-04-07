@@ -205,6 +205,7 @@ class IndexController extends Controller {
         /*if(!$verity_check){
             $this->redirect('Index/index', array('error' => 1));
         }*/
+        //登录管理2017-04-07
         if (stristr($username,'@')) {
             $userinfo=D('UserInfo')->where(array('uname'=>$username))->find();
             if(!$userinfo){
@@ -223,11 +224,15 @@ class IndexController extends Controller {
                 }
                 $muid=$userinfo['uid'];
                 $pridlist=D('PrivRelation')->field('privilegeid')->where(array('uid'=>$muid))->find();
+                $substrpid=substr($pridlist['privilegeid'],0,1);
                 $prid=explode(',',$pridlist['privilegeid']);
                 $_SESSION['admininfo']['pridlist']=$prid;
                 //print_r($prid);die;
                 $this->assign('prid',$prid);
-                $this->display('Terminal/index');
+                $shows=D('PrivInfo')->field('paction')->where(array('pid'=>$substrpid))->find();
+                $this->assign('prid',$prid);
+                $showdisp=$shows['paction'];
+                $this->redirect("$showdisp");
 
             }else{
                 $this->redirect('Index/index', array('error' => 3));
@@ -253,8 +258,12 @@ class IndexController extends Controller {
                 $prid=explode(',',$prid1);
                 $_SESSION['admininfo']['pridlist']=$prid;
                 //print_r($prid);die;
+                //展示页
+                $strpid=substr($prid1,0,1);
+                $show=D('PrivInfo')->field('paction')->where(array('pid'=>$strpid))->find();
                 $this->assign('prid',$prid);
-                $this->display('Terminal/index');
+                $showdis=$show['paction'];
+                $this->redirect("$showdis");
 
             }else{
                 $this->redirect('Index/index', array('error' => 3));

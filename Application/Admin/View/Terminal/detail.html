@@ -1,11 +1,74 @@
-<extend name="Public/base" /> 
-<!-- 继承页面名称-->
-<block name="title">终端管理</block>
-<!-- 继承系统当前时间 -->
-<block name="curdate">{$curdate}</block>
-<!-- 继承登录用户名 -->
-<!-- <block name="curuser">{$curuser}</block> -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>终端管理</title>
+	
+	<!-- Bootstrap CSS -->
+	<link href="__PUBLIC__/css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- 自定义CSS -->
+	<link href="__PUBLIC__/css/index.css" rel="stylesheet">
+	
+</head>
 
+<body style="min-width:1300px;margin-left:auto;margin-right:auto;min-height:350px;">
+	<!--登录判断-->
+	<if condition="!isset($_SESSION['admininfo'])">
+		<script>
+			window.location.href="{:U('Login/index')}";
+		</script>
+	</if>
+	
+	<!--菜单栏-->
+	<div class="menu" style="float:left;min-height:116%;overflow:hidden">
+		<div class="menu-item" style="height:80px;float:left;background:#E34747;border-right-color:red;border-top-color:red;width:100%">
+			<img src="__PUBLIC__/pic/logo.png" style="float:left;margin-left:10%;margin-top:8%;height:48px;width:80%;"/>
+		</div>
+		<if condition="in_array(1,$prid)">
+			<div class="menu-item" style="float:left;background:#1C1A1A;">
+				<img src="__PUBLIC__/pic/terminal_red.png" style="float:left; margin-left:19%;margin-top:18px;width:15px;"/>
+				<a href="{:U('Terminal/index')}"><h5 style="color:#E34648;float:left;margin-left:10px;margin-top:18px;">终端管理</h5></a>
+			</div>
+		<else/>
+		</if>
+		<if condition="in_array(2,$prid)">
+		<div class="menu-item" style="float:left;">
+			<img src="__PUBLIC__/pic/finance_gray.png" style="float:left; margin-left:19%;margin-top:18px;width:15px;"/>
+			<a href="{:U('Financial/index')}"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:18px;">财务管理</h5></a>
+		</div>
+		<else/>
+		</if>
+		<if condition="in_array(3,$prid)">
+		<div class="menu-item" style="float:left;">
+			<img src="__PUBLIC__/pic/market_gray.png" style="float:left; margin-left:19%;margin-top:18px;width:15px;"/>
+			<h5 style="color:#959595;float:left;margin-left:10px;margin-top:18px;">经营管理</h5>
+		</div>
+		<else/>
+		</if>
+		<if condition="in_array(4,$prid)">
+		<div class="menu-item" style="float:left;">
+			<img src="__PUBLIC__/pic/operation_gray.png" style="float:left; margin-left:19%;margin-top:18px;width:15px;"/>
+			<h5 style="color:#959595;float:left;margin-left:10px;margin-top:18px;">运维管理</h5>
+		</div>
+		<else/>
+		</if>
+		<if condition="in_array(5,$prid)">
+		<div class="menu-item" style="float:left;">
+			<img src="__PUBLIC__/pic/system_gray.png" style="float:left; margin-left:19%;margin-top:18px;width:15px;"/>
+			<a href="{:U('Management/mindex')}"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:18px;">系统管理</h5></a>
+		</div>
+		<else/>
+		</if>
+	</div>
+	<!-- 标题栏 -->
+	<include file="Public/header" />
+	
+ 	<!-- jQuery -->
+    <script src="__PUBLIC__/js/jquery-1.8.3.min.js"></script>
+     
+    <!-- 自定义JS -->
+    <script src="__PUBLIC__/js/my.js"></script>
 <block name="main">
 	<!--状态栏-->
 	<div class="status" style="float:left">
@@ -47,26 +110,26 @@
 					</div>
 				</div>
 				
-				<div style="float:left;width:25%;min-height:150px;margin-left:10px;background-color:white;">
+				<div style="float:left;width:30%;min-height:150px;margin-left:10px;background-color:white;">
 					<div style="margin:5px 5px 5px 30px;">
 						<span style="display:inline-block;">今日充电次数：</span>
 						<span style="display:inline-block;margin-right:20px;margin-left:5px;color:red;font-size:25px;width:30px">{$st['times_today']}</span>
-						<span style="display:inline-block;font-size:10px;">（次）</span>
+						<span style="display:inline-block;font-size:12px;">（次）</span>
 					</div>
-					<div style="margin-left:30px;margin-top:5px;font-size:10px;">
+					<div style="margin-left:30px;margin-top:5px;font-size:12px;">
 						<span style="display:inline-block; float:left;"><img src="__PUBLIC__/pic/charge_fee.png" style="width:15px;"/></span>
 						<span style="display:inline-block; float:left;margin-left:4px;">充电费：</span>
 						<span style="display:inline-block; float:left;margin-right:10%;width:45%"> {$st['charging_fee']}元/度</span>
 						<span id="adjustChargingFee" style="display:inline-block;"><a href="#" data-toggle="modal" data-target="#ChargingFeeModal" data-id="{$vo['id']}">调价</a></span>						
 					</div>
 
-					<div style="margin-left:30px;margin-top:5px;font-size:10px;">
+					<div style="margin-left:30px;margin-top:5px;font-size:12px;">
 						<span style="display:inline-block; float:left;"><img src="__PUBLIC__/pic/service_fee.png" style="width:15px;"/></span>
 						<span style="display:inline-block; float:left;margin-left:4px;">服务费：</span>
 						<span style="display:inline-block; float:left;margin-right:10%;width:45%">{$st['serving_fee']}元/度</span>
 						<span id="adjustServingFee" style="display:inline-block;"><a href="#" data-toggle="modal" data-target="#ServingFeeModal" data-id="{$vo['id']}">调价</a></span>						
 					</div>
-					<div style="margin-left:30px;margin-top:5px;font-size:10px;">
+					<div style="margin-left:30px;margin-top:5px;font-size:12px;">
 						<span style="display:inline-block; float:left;"><img src="__PUBLIC__/pic/parking_fee.png" style="width:15px;"/></span>
 						<span style="display:inline-block; float:left;margin-left:4px;">停车费：</span>
 						<span style="display:inline-block; float:left;margin-right:7.5%;width:45%">{$st['parking_fee']}元/小时</span>
@@ -74,29 +137,29 @@
 					</div>
 				</div>
 				
-				<div style="float:left;width:23%;height:150px;margin-left:10px;background-color:white;">
+				<div style="float:left;width:26%;height:150px;margin-left:10px;background-color:white;">
 					<div style="margin:5px 5px 5px 30px;">
 							<span style="display:inline-block;">充电桩总数：</span>
 							<span style="display:inline-block;margin-right:15px;margin-left:10px;color:red;font-size:25px;width:30px">{$st['total']}</span>
-							<span style="display:inline-block;font-size:10px;">（个）</span>
+							<span style="display:inline-block;font-size:12px;">（个）</span>
 					</div>
-					<div style="margin-left:30px;margin-top:5px;font-size:10px;">
+					<div style="margin-left:30px;margin-top:5px;font-size:12px;">
 						<span style="display:inline-block; float:left;margin-right:4px;"><img src="__PUBLIC__/pic/dc_pile.png" style="width:15px;"/></span>
-						<span style="display:inline-block; float:left;margin-right:37px;width:50px">直流桩：{$st['ac_num']}</span>
+						<span style="display:inline-block; float:left;margin-right:37px;width:60px">直流桩：{$st['ac_num']}</span>
 						<span style="display:inline-block; float:left;margin-right:4px;"><img src="__PUBLIC__/pic/idle_pile.png" style="width:15px;"/></span>
-						<span style="width:50px">空闲桩：{$pilestatus['idle']}</span>
+						<span style="width:60px">空闲桩：{$pilestatus['idle']}</span>
 					</div>
-					<div style="margin-left:30px;margin-top:5px;font-size:10px;">
+					<div style="margin-left:30px;margin-top:5px;font-size:12px;">
 						<span style="display:inline-block; float:left;margin-right:4px;"><img src="__PUBLIC__/pic/ac_pile.png" style="width:15px;"/></span>
-						<span style="display:inline-block; float:left;margin-right:37px;width:50px">交流桩：{$st['dc_num']}</span>
+						<span style="display:inline-block; float:left;margin-right:37px;width:60px">交流桩：{$st['dc_num']}</span>
 						<span style="display:inline-block; float:left;margin-right:4px;"><img src="__PUBLIC__/pic/occupy_pile.png" style="width:15px;"/></span>
-						<span style="width:50px">工作桩：{$pilestatus['occupy']}</span>						
+						<span style="width:60px">工作桩：{$pilestatus['occupy']}</span>						
 					</div>
-					<div style="margin-left:30px;margin-top:5px;font-size:10px;">
+					<div style="margin-left:30px;margin-top:5px;font-size:12px;">
 						<span style="display:inline-block; float:left;margin-right:4px;width:20px;"></span>
-						<span style="display:inline-block; float:left;margin-right:37px;"><p style='width:66px'></p></span>
+						<span style="display:inline-block; float:left;margin-right:37px;"><p style='width:76px'></p></span>
 						<span style="display:inline-block; float:left;margin-right:4px;">&nbsp;<img src="__PUBLIC__/pic/fault_pile.png" style="width:15px;"/></span>
-						<span style="width:52px">故障桩：{$pilestatus['fault']}</span>					
+						<span style="width:62px">故障桩：{$pilestatus['fault']}</span>					
 					</div>
 				</div>
 				<div style="clear:both"></div>
@@ -105,7 +168,7 @@
 		<!-- 桩信息 -->
 		<div style="width:100%;margin-top:1%;margin-left:25px;background-color:;float:left;">
 			<volist name="lists" id="vo">
-				<div style="width:21%;height:135px;float:left;background-color:white;margin-right:10px;margin-bottom:8px;">
+				<div style="width:23%;height:140px;float:left;background-color:white;margin-right:10px;margin-bottom:8px;">
 					<!-- 左上 -->
 					<div style="height:60%;width:70%;float:left;border-right:1px solid;border-bottom:1px solid;border-color:#e8e8e8;">
 						<!-- 图标  -->
@@ -144,7 +207,7 @@
 						</if>
 					</div>
 					<!-- 左下 -->
-					<div class="wrapper" style="height:40%;width:70%;float:left;font-size:8px;text-align:center;border-right:1px solid;border-top:1px solid;border-color:#e8e8e8;">
+					<div class="wrapper" style="height:40%;width:70%;float:left;font-size:11px;text-align:center;border-right:1px solid;border-top:1px solid;border-color:#e8e8e8;">
 						<div class="cell"><img src="__PUBLIC__/pic/cur_duration.png" width="15px"  />{:floor($vo['cur_duration'])}min</div>
 						<div class="cell"><img src="__PUBLIC__/pic/cur_electricity.png" width="15px"  />{:floor($vo['cur_electricity'])}kw/h</div>
 						<div class="cell"><img src="__PUBLIC__/pic/cur_price.png" width="15px"  />{:floor($vo['cur_price'])}rmb</div>
@@ -285,3 +348,5 @@
 	</div><!-- 内容结束 -->
 	
 </block>
+</body>
+</html>
