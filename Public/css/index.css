@@ -52,7 +52,7 @@ img{ border:none;}/*去掉图片加完链接之后自带的边框*/
 }
 .msysnav-left{
 	width:85%;
-	height:10px;
+	height:0%;
 	
 }
 .msysnavlnav{
@@ -74,11 +74,11 @@ img{ border:none;}/*去掉图片加完链接之后自带的边框*/
 	}
 .msysnavlnav dl dd1{
 	font-size:16px;
-	color:red;
+	color:#E34747;
 	line-height:40px;
 }
 .msysnav-right{
-	width:13%;
+	width:13.2%;
 	height:40px;
 	background:#E34747;
 }
