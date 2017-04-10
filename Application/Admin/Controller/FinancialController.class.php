@@ -132,7 +132,7 @@ class FinancialController extends Controller {
             mkdir("./Public/saveExcel");
         }
         $path="./Public/saveExcel/{$today}/{$_SESSION['admininfo']['uname']}".time().".xlsx";
-        
+
         $resaa=$objWriter->save($path);
 
 
