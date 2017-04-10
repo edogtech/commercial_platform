@@ -1,82 +1,85 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>终端管理</title>
-	
-	<!-- Bootstrap CSS -->
-	<link href="__PUBLIC__/css/bootstrap.min.css" rel="stylesheet">
-	
-	<!-- 自定义CSS -->
-	<link href="__PUBLIC__/css/index.css" rel="stylesheet">
-	
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>终端管理</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="__PUBLIC__/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 自定义CSS -->
+    <link href="__PUBLIC__/css/index.css" rel="stylesheet">
+
 </head>
 
 <body style="min-width:1300px;margin-left:auto;margin-right:auto;min-height:350px;">
-	<!--登录判断-->
-	<if condition="!isset($_SESSION['admininfo'])">
-		<script>
-			window.location.href="{:U('Login/index')}";
-		</script>
-	</if>
-	
-	<!--菜单栏-->
-	<div class="menu" style="float:left;min-height:116%;overflow:hidden">
-		<div class="menu-item" style="height:80px;float:left;background:#E34747;border-right-color:red;border-top-color:red;width:100%">
-			<img src="__PUBLIC__/pic/logo.png" style="float:left;margin-left:10%;margin-top:8%;height:48px;width:80%;"/>
-		</div>
-		<if condition="in_array(1,$prid)">
-			<div class="menu-item" style="float:left;">
-				<img src="__PUBLIC__/pic/terminal_gray.png" style="float:left; margin-left:19%;margin-top:18px;width:15px;"/>
-				<a href="{:U('Terminal/index')}"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:18px;">终端管理</h5></a>
-			</div>
-		<else/>
-		</if>
-		<if condition="in_array(2,$prid)">
-		<div class="menu-item" style="float:left;background:#1C1A1A;">
-			<img src="__PUBLIC__/pic/finance_red.png" style="float:left; margin-left:19%;margin-top:18px;width:15px;"/>
-			<a href="{:U('Financial/index')}"><h5 style="color:#E34648;float:left;margin-left:10px;margin-top:18px;">财务管理</h5></a>
-		</div>
-		<else/>
-		</if>
-		<if condition="in_array(3,$prid)">
-		<div class="menu-item" style="float:left;">
-			<img src="__PUBLIC__/pic/market_gray.png" style="float:left; margin-left:19%;margin-top:18px;width:15px;"/>
-			<a href="#"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:18px;">经营管理</h5></a>
-		</div>
-		<else/>
-		</if>
-		<if condition="in_array(4,$prid)">
-		<div class="menu-item" style="float:left;">
-			<img src="__PUBLIC__/pic/operation_gray.png" style="float:left; margin-left:19%;margin-top:18px;width:15px;"/>
-			<a href="#"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:18px;">运维管理</h5></a>
-		</div>
-		<else/>
-		</if>
-		<if condition="in_array(5,$prid)">
-		<div class="menu-item" style="float:left;">
-			<img src="__PUBLIC__/pic/system_gray.png" style="float:left; margin-left:19%;margin-top:18px;width:15px;"/>
-			<a href="{:U('Management/mindex')}"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:18px;">系统管理</h5></a>
-		</div>
-		<else/>
-		</if>
-	</div>
-	<!-- 标题栏 -->
-	<include file="Public/header" />
-	
- 	<!-- jQuery -->
-    <script src="__PUBLIC__/js/jquery-1.8.3.min.js"></script>
-     
-    <!-- 自定义JS -->
-    <script src="__PUBLIC__/js/my.js"></script>
+<!--登录判断-->
+<if condition="!isset($_SESSION['admininfo'])">
+    <script>
+        window.location.href="{:U('Login/index')}";
+    </script>
+</if>
+
+<!--菜单栏-->
+<div class="menu" style="float:left;min-height:116%;overflow:hidden">
+    <div class="menu-item" style="height:80px;float:left;background:#E34747;border-right-color:red;border-top-color:red;width:100%">
+        <img src="__PUBLIC__/pic/logo.png" style="float:left;margin-left:10%;margin-top:8%;height:48px;width:80%;"/>
+    </div>
+    <if condition="in_array(1,$prid)">
+        <div class="menu-item" style="float:left;">
+            <img src="__PUBLIC__/pic/terminal_gray.png" style="float:left; margin-left:19%;margin-top:18px;width:15px;"/>
+            <a href="{:U('Terminal/index')}"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:18px;">终端管理</h5></a>
+        </div>
+        <else/>
+    </if>
+    <if condition="in_array(2,$prid)">
+        <div class="menu-item" style="float:left;background:#1C1A1A;">
+            <img src="__PUBLIC__/pic/finance_red.png" style="float:left; margin-left:19%;margin-top:18px;width:15px;"/>
+            <a href="{:U('Financial/index')}"><h5 style="color:#E34648;float:left;margin-left:10px;margin-top:18px;">财务管理</h5></a>
+        </div>
+        <else/>
+    </if>
+    <if condition="in_array(3,$prid)">
+        <div class="menu-item" style="float:left;">
+            <img src="__PUBLIC__/pic/market_gray.png" style="float:left; margin-left:19%;margin-top:18px;width:15px;"/>
+            <h5 style="color:#959595;float:left;margin-left:10px;margin-top:18px;">经营管理</h5>
+        </div>
+        <else/>
+    </if>
+    <if condition="in_array(4,$prid)">
+        <div class="menu-item" style="float:left;">
+            <img src="__PUBLIC__/pic/operation_gray.png" style="float:left; margin-left:19%;margin-top:18px;width:15px;"/>
+            <h5 style="color:#959595;float:left;margin-left:10px;margin-top:18px;">运维管理</h5>
+        </div>
+        <else/>
+    </if>
+    <if condition="in_array(5,$prid)">
+        <div class="menu-item" style="float:left;">
+            <img src="__PUBLIC__/pic/system_gray.png" style="float:left; margin-left:19%;margin-top:18px;width:15px;"/>
+            <a href="{:U('Management/mindex')}"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:18px;">系统管理</h5></a>
+        </div>
+        <else/>
+    </if>
+</div>
+<!-- 标题栏 -->
+<include file="Public/header" />
+
+<!-- jQuery -->
+<script src="__PUBLIC__/js/jquery-1.8.3.min.js"></script>
+
+<!-- 自定义JS -->
+<script src="__PUBLIC__/js/my.js"></script>
+
+<!-- 日期插件 -->
+<script src="__PUBLIC__/laydate/laydate.js"></script>
 <block name="main">
-<!--账户信息-->
+    <!--账户信息-->
     <div class="status" style="float:left;min-width:1108px;">
         <div class="status-left" style="float:left;background-color:#F3F3F3;margin-top:20px;width:85%;" >
-            <div style="background-color:#ffffff;height:125px;width:50%;float:left;margin-left:20px;">
+            <div style="background-color:#fff;height:125px;width:50%;float:left;margin-left:20px;">
                 <div style="float:left;height:100%;width:44%;">
                     <div style="font-size:14px;margin-top:10px;margin-left:20px;">账户余额</div>
-                    <div style="font-size:30px;margin-top:10px;color:#e34748;text-align:center;">1231231 <span style="font-size:14px;color:#000000;;">元</span></div>
+                    <div style="font-size:30px;margin-top:10px;color:#E34747;text-align:center;">1231231 <span style="font-size:14px;color:#000000;;">元</span></div>
                     <div style="font-size:14px;text-align:right;padding-right:20px;margin-top:5px;">
                         <span>订单</span>
                         <span>提现</span>
@@ -102,99 +105,107 @@
 
 
                 </div>
-			</div>
-			<div style="background-color:#ffffff;height:125px;width:18%;float:left;margin-left:20px;">
-                <div style="margin-top:20px;margin-left:5%;text-align:center;width:70px;border-radius:4px;line-height:22px;height:24px;background-color:#e34748;color:#ffffff;font-size:14px;">本月收入</div>
-				<div style="text-align:center;margin-top:20px;"><span style="font-size:25px;color:red;">{$totle['sum']}</span> <div style="display:inline-flex;font-size:16px;vertical-align:top;margin-top:8px;">元</div></div>
-			</div>
-			<div style="background-color:#ffffff;height:125px;width:18%;float:left;margin-left:5%">
-				<div style="margin-top:20px;margin-left:20px;text-align:center;width:70px;border-radius:4px;line-height:22px;height:24px;background-color:#e34748;color:#ffffff;font-size:14px;">本月订单</div>
-				<div style="text-align:center;margin-top:20px;"><span style="font-size:25px;color:red;">{$totle['order']}</span> <div style="display:inline-flex;font-size:16px;vertical-align:top;margin-top:8px;">笔</div></div>
-			</div>
-			<div style="clear:both;"></div>
+            </div>
+            <div style="background-color:#ffffff;height:125px;width:18%;float:left;margin-left:20px;">
+                <div style="margin-top:20px;margin-left:5%;text-align:center;width:70px;border-radius:4px;line-height:22px;height:24px;background-color:#E34747;color:#ffffff;font-size:14px;">本月收入</div>
+                <div style="text-align:center;margin-top:20px;"><span style="font-size:25px;color:#E34747;">{$totle['sum']}</span> <div style="display:inline-flex;font-size:16px;vertical-align:top;margin-top:8px;">元</div></div>
+            </div>
+            <div style="background-color:#ffffff;height:125px;width:18%;float:left;margin-left:5%">
+                <div style="margin-top:20px;margin-left:20px;text-align:center;width:70px;border-radius:4px;line-height:22px;height:24px;background-color:#E34747;color:#ffffff;font-size:14px;">本月订单</div>
+                <div style="text-align:center;margin-top:20px;"><span style="font-size:25px;color:#E34747;">{$totle['order']}</span> <div style="display:inline-flex;font-size:16px;vertical-align:top;margin-top:8px;">笔</div></div>
+            </div>
+            <div style="clear:both;"></div>
         </div>
         <div class="status-right" style="float:right;">
             <div style="float:left;font-size:13px;color:white;padding-top:10px;padding-left:15px;">充电站</div>
             <div><img src="__PUBLIC__/pic/arrow.png" style="padding-top:13px;width:20px;padding-left:9px;" /></div>
         </div>
-		<div style="clear:both;"></div>
+        <div style="clear:both;"></div>
     </div>
-	
-	<!--内容-->
-	<div class="content" style="float:left;">
-		<!--搜索框-->
-		<form id="subsearch" method="get" action="{:U('Management/searchmana')}">
-			<div style="height:40px;margin-top:10px;">
-				<div style="float:left;font-size:13px;color:#e34748;padding-top:14px;padding-left:40px;">查询：</font></div>
-				<div style="float:left;padding-top:10px;padding-left:20px">
-					<input type='text' name="msearch" style="width:150px;height:100%;" value="" placeholder="请输入要查询的充电站" />
-				</div>
-				<div style="float:left;font-size:13px;color:red;padding-top:14px;padding-left:20px;">开始日期：</font></div>
-				<div style="float:left;padding-top:10px;padding-left:20px">
-					<input type='text' name="time_start" style="width:150px;height:100%;" value="" placeholder="请输入开始日期" />
-				</div>
-				<div style="float:left;font-size:13px;color:red;padding-top:14px;padding-left:20px;">结束日期：</font></div>
-				<div style="float:left;padding-top:10px;padding-left:20px">
-					<input type='text' name="time_end" style="width:150px;height:100%;" value="" placeholder="请输入结束日期" />
-				</div>
-				<div style="float:left;width:30px;height:30px;background-color:#e34748;margin-top:8px;margin-left:20px;">
-					<img src="__PUBLIC__/pic/search.png" style="width:25px;padding-top:8px;padding-left:8px;cursor:pointer" id="dsearch" />
-				</div>
-				<botton style="float:left;width:100px;height:30px;line-height:30px;background-color:#e34748;margin-top:8px;margin-left:20px;text-align:center;color:white;cursor:pointer" id='addmanage'>
-					查询
-				</botton>
-				<botton style="float:left;width:100px;height:30px;line-height:30px;background-color:#e34748;margin-top:8px;margin-left:20px;text-align:center;color:white;cursor:pointer" id='addmanage'>
-					导出表格
-				</botton>
-			</div>
-		</form>
-		<!--数据表格-->
-		<div id="termianltbl" style="margin-top:15px">
-			<table rules="none">
-				<tr style="line-height:42px">
-					<th>序号</th>
-					<th>订单号</th>
-					<th>充电站名称</th>
-					<th>用户电话</th>
-					<th>桩号</th>
-					<th>充电量</th>
-					<th>充电金额</th>
-					<th>支付方式</th>
-					<th>订单日期</th>
-					<th>操作</th>
-				</tr>
-				<volist name="lists" id="vo">
-				<tr style="height:50px">
-					<td>{$vo['id']}</td>
-					<td>{$vo['order_number']}</td>
-					<td>{$vo['order_number']}</td>
-					<td>{$vo['phone']}</td>
-					<td>{$vo['pile_num']}</td>
-					<td>{$vo['quantity']}</td>
-					<td>{$vo['charge_price']}</td>
-					<td>
-						<switch name="vo.payment_way" >
-							<case value="1">充点卡</case>
-							<case value="2">支付宝</case>
-							<case value="3">微信</case>
-                        </switch>
-					</td>
-					<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
-					<td>
-                        <div style="width:90%;cursor:pointer;min-width:40px;margin:0 auto;margin-left:3px;margin-right:3px;color:#ffffff;border-radius:3px;background-color:#e34748;">退 款</div>
-                    </td>
-				</tr>
-				</volist>			
-			</table>
-			<if condition="empty($lists)">
-					<div style="text-align:center;margin-top:50px;">抱歉，暂时没有您要找的内容</div>
-			</if>
-		</div>
-		<!-- 分页内容 -->
-		<div style="text-align:center;"><h4>{$show}</h4></div>
-		 <!--  <div class="viciao">{$show}<span class="disabled"> <  Prev</span><a href="#?page=2">Next  > </a></div>-->
-	</div>
+
+    <!--内容-->
+    <div class="content" style="float:left;">
+        <!--搜索框-->
+        <form id="subsearch" method="get" action="{:U('Financial/index')}">
+            <div style="height:40px;margin-top:10px;">
+                <div style="float:left;font-size:13px;color:red;padding-top:14px;padding-left:40px;">查询：</font></div>
+                <div style="float:left;padding-top:10px;padding-left:20px">
+                    <input type='text' name="search" style="width:150px;height:100%;" value="{:empty($_GET['search'])?'':$_GET['search'];}" placeholder="请输入要查询的充电站" />
+                </div>
+                <div style="float:left;font-size:13px;color:red;padding-top:14px;padding-left:20px;">开始日期：</font></div>
+                <div style="float:left;padding-top:10px;padding-left:20px">
+                    <input type='text' id="time_start" name="time_start" style="width:150px;height:100%;" value="{:empty($_GET['time_start'])?'':$_GET['time_start'];}" placeholder="请输入开始日期" />
+                </div>
+                <div style="float:left;font-size:13px;color:red;padding-top:14px;padding-left:20px;">结束日期：</font></div>
+                <div style="float:left;padding-top:10px;padding-left:20px">
+                    <input type='text' id="time_end" name="time_end" style="width:150px;height:100%;" value="{:empty($_GET['time_end'])?'':$_GET['time_end'];}" placeholder="请输入结束日期" />
+                </div>
+
+                <button type="submit" style="float:left;width:100px;height:30px;background-color:#E34747;margin-top:8px;margin-left:20px;text-align:center;color:white;border:none;" >
+                    查询
+                </button>
+                <button style="float:left;width:100px;height:30px;background-color:#E34747;margin-top:8px;margin-left:20px;text-align:center;color:white;border:none;" >
+                    导出表格
+                </button>
+            </div>
+        </form>
+        <!--数据表格-->
+        <div id="termianltbl" style="margin-top:15px">
+            <table rules="none">
+                <tr style="line-height:42px">
+                    <th>序号</th>
+                    <th>订单号</th>
+                    <th>充电站名称</th>
+                    <th>用户电话</th>
+                    <th>桩号</th>
+                    <th>充电量</th>
+                    <th>充电金额</th>
+                    <th>支付方式</th>
+                    <th>订单日期</th>
+                    <th>操作</th>
+                </tr>
+                <volist name="lists" id="vo">
+                    <tr style="height:50px">
+                        <td>{$vo['id']}</td>
+                        <td>{$vo['order_number']}</td>
+                        <td>{$vo['station_name']}</td>
+                        <td>{$vo['phone']}</td>
+                        <td>{$vo['pile_num']}</td>
+                        <td>{$vo['quantity']}</td>
+                        <td>{$vo['charge_price']}</td>
+                        <td>
+                            <switch name="vo.payment_way" >
+                                <case value="1">充点卡</case>
+                                <case value="2">支付宝</case>
+                                <case value="3">微信</case>
+                            </switch>
+                        </td>
+                        <td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+                        <td>
+                            <div style="width:90%;cursor:pointer;min-width:40px;margin:0 auto;margin-left:3px;margin-right:3px;color:#ffffff;border-radius:3px;background-color:#E34747;">退 款</div>
+                        </td>
+                    </tr>
+                </volist>
+            </table>
+            <if condition="empty($lists)">
+                <div style="text-align:center;margin-top:50px;">抱歉，暂时没有您要找的内容</div>
+            </if>
+        </div>
+        <!-- 分页内容 -->
+        <div style="text-align:center;"><h4>{$show}</h4></div>
+        <!--  <div class="viciao">{$show}<span class="disabled"> <  Prev</span><a href="#?page=2">Next  > </a></div>-->
+    </div>
 </block>
 </body>
+<script>
+    laydate({
+        elem: '#time_start', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
+        event: 'focus' //响应事件。如果没有传入event，则按照默认的click
+    });
+    laydate({
+        elem: '#time_end', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
+        event: 'focus' //响应事件。如果没有传入event，则按照默认的click
+    });
+</script>
 </html>
 
