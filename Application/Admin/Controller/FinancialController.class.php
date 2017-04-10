@@ -128,9 +128,13 @@ class FinancialController extends Controller {
         if(!file_exists("./Public/saveExcel/{$today}")){
             mkdir("./Public/saveExcel/{$today}");
         }
-        $path="/pingtai/Public/saveExcel/{$today}/{$_SESSION['admininfo']['uname']}_".time().'.xlsx';
-        echo $path;
-        $objWriter->save("./Public/saveExcel/{$today}/{$_SESSION['admininfo']['uname']}".time().".xlsx");
+        if(!file_exists("./Public/saveExcel")){
+            mkdir("./Public/saveExcel");
+        }
+        $path="./Public/saveExcel/{$today}/{$_SESSION['admininfo']['uname']}".time().".xlsx";
+        
+        $resaa=$objWriter->save($path);
+
 
     }
     
