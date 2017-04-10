@@ -12,8 +12,9 @@ $config =array(
      * 3:兼容模式(普通模式和PATHINFO模式, 可以支持任何的运行环境, 如果你的环境不支持PATHINFO 请设置为3)
      */
     'URL_MODEL'         => 2,
-    
-    'URL_CASE_INSENSITIVE' =>true, //URL忽略大小写
+    //伪静态设置
+    'URL_HTML_SUFFIX' =>'.html',
+    //'URL_CASE_INSENSITIVE' =>true, //URL忽略大小写
 );
 
 $dbConfig = include_once './Common/Conf/dbconfig.php';//数据库配置

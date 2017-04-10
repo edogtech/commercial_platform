@@ -19,11 +19,32 @@ class FinancialController extends Controller {
         $user=mb_substr($_SESSION['admininfo']['uname'],0,4).'***';
         $msg=session('admininfo');
 
+        //添加检索条件
+        if(!empty(trim($_GET['search']))){
+            $map['station_name']=array('like','%'.$_GET['search'].'%');
+        }
+
+        if(!empty(trim($_GET['time_start'])) && empty(trim($_GET['time_end']))){
+            $map['addtime']=array('gt',strtotime($_GET['time_start']));
+        }
+
+        if(empty(trim($_GET['time_start'])) && !empty(trim($_GET['time_end']))){
+            $map['addtime']=array('lt',strtotime($_GET['time_start']));
+        }
+
+        if(!empty(trim($_GET['time_start'])) && !empty(trim($_GET['time_end']))){
+            $starttime=strtotime($_GET['time_start']);
+            $endtime=strtotime($_GET['time_end']);
+            $map['addtime']=array('exp',"between $starttime and $endtime");
+        }
+
+
         //订单数据
-        $count=M('charge_order')->where()->count();
+        $count=M('charge_order')->where($map)->count();
+
         $page= new \Think\Page($count,5);
         $show=$page->show();
-        $order=M('charge_order')->order('id desc')->where()->limit($page->firstRow,$page->listRows)->select();
+        $order=M('charge_order')->order('id desc')->where($map)->limit($page->firstRow,$page->listRows)->select();
 
         $month_now=date('Ym',time());
         //统计数据
