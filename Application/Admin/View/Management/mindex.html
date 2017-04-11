@@ -138,7 +138,7 @@
 						<td width="35%" style="font-size:14px">
 								administrator
 						</td>
-						<td width="25%" style="font-size:14px"><button style="background:#68aae7;width:110px;color:white">申请变更</button></td>
+						<td width="25%" style="font-size:14px"><button style="background:#68aae7;width:110px;color:white;border-color:#68aae7">申请变更</button></td>
 					</tr>
 				</if>
 				
@@ -167,7 +167,7 @@
 									</if>
 								</foreach>
 							</td>
-							<td style="font-size:14px"><button style="background:#e34748;color:white" class='del' dd="{$v.id}" dm="{$v.uname}">删除</button> &nbsp; <button style="background:#339e4c;color:white" class="alt"  dd="{$v.id}" dm="{$v.uname}">修改</button></td>
+							<td style="font-size:14px"><span style="background:#e34748;color:white;cursor:pointer;" class='del' dd="{$v.id}" dm="{$v.uname}">&nbsp; 删 除 &nbsp;</span> &nbsp; <span style="background:#339e4c;color:white;cursor:pointer;" class="alt"  dd="{$v.id}" dm="{$v.uname}">&nbsp; 修 改 &nbsp;</span></td>
 					</if>
 				</foreach>
 

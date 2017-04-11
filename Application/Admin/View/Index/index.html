@@ -16,7 +16,7 @@
                 <div class="col-lg-2 col-lg-offset-2 col-md-2 col-md-offset-2">
                     <img src="__PUBLIC__/pic/logo_index.png" class="img-responsive" alt="Responsive image" style="margin:0 auto">
                 </div>
-                <div class="col-lg-2 col-md-3" id="huanying">欢迎登陆商户管理平台</div>
+                <div class="col-lg-2 col-md-3" id="huanying">欢迎登录商户管理平台</div>
             </div>
         </div>
 
@@ -34,31 +34,31 @@
                     <img src="__PUBLIC__/pic/sidai.png" id="sidai">
                     <form class="form-horizontal" action="{:U('Index/login')}" method="post" >
                         <div class="form-group" style="margin-top:20px;">
-                            <label for="input1" class="col-xs-2 control-label">用户名</label>
-                            <div class="col-xs-9">
+                            <label for="input1" class="col-xs-3 control-label">用户名</label>
+                            <div class="col-xs-8">
                                 <input type="text" name="username" class="form-control" id="input1" placeholder="请输入用户名">
                             </div>
                             <div class="col-xs-1"></div>
                         </div>
 
                         <div class="form-group" style="">
-                            <label for="input2" class="col-xs-2 control-label">密&nbsp;&nbsp;&nbsp;码</label>
-                            <div class="col-xs-9">
+                            <label for="input2" class="col-xs-3 control-label">密&nbsp;&nbsp;&nbsp;码</label>
+                            <div class="col-xs-8">
                                 <input type="password" name="password" class="form-control" id="input2" placeholder="请输入密码">
                             </div>
                             <div class="col-xs-1"></div>
                         </div>
 
                         <div class="form-group" style="">
-                            <label for="input3" class="col-xs-2 control-label">图形码</label>
-                            <div class="col-sm-5 col-xs-9">
+                            <label for="input3" class="col-xs-3 control-label">图形码</label>
+                            <div class="col-sm-5 col-xs-8">
                                 <input type="text" name="code" class="form-control" id="input3" placeholder="请输入图形码">
                             </div>
                             <div class="col-sm-4 col-xs-12" id="code_">
                                 <img src="{:U('Login/code')}" class="img-responsive" alt="验证码" style="height:34px;margin:0 auto" onclick="this.src='{:U('Login/code')}?='+Math.random();">
                             </div>
 
-                            <div class="col-xs-9 col-xs-offset-2 text-left">
+                            <div class="col-xs-9 col-xs-offset-3 text-left">
                                 <label style="font-weight:normal;">
                                     <input type="checkbox" value="1" name="auto_login">
                                     下次自动登录
