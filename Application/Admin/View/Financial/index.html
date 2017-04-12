@@ -130,7 +130,7 @@
             <div style="height:40px;margin-top:10px;">
                 <div style="float:left;font-size:13px;color:#e34747;padding-top:14px;padding-left:40px;">查询：</font></div>
                 <div style="float:left;padding-top:10px;padding-left:20px">
-                    <input type='text' name="search" style="width:150px;height:100%;" value="{:empty($_GET['search'])?'':$_GET['search'];}" placeholder="请输入要查询的充电站" />
+                    <input type='text' id="search" name="search" style="width:150px;height:100%;" value="{:empty($_GET['search'])?'':$_GET['search'];}" placeholder="请输入要查询的充电站" />
                 </div>
                 <div style="float:left;font-size:13px;color:#e34747;padding-top:14px;padding-left:20px;">开始日期：</font></div>
                 <div style="float:left;padding-top:10px;padding-left:20px">
@@ -144,7 +144,7 @@
                 <button type="submit" style="float:left;width:100px;height:30px;background-color:#E34747;margin-top:8px;margin-left:20px;text-align:center;color:white;border:none;" >
                     查询
                 </button>
-                <button style="float:left;width:100px;height:30px;background-color:#E34747;margin-top:8px;margin-left:20px;text-align:center;color:white;border:none;" >
+                <button id="excel" style="float:left;width:100px;height:30px;background-color:#E34747;margin-top:8px;margin-left:20px;text-align:center;color:white;border:none;" >
                     导出表格
                 </button>
             </div>
@@ -206,6 +206,18 @@
         elem: '#time_end', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
         event: 'focus' //响应事件。如果没有传入event，则按照默认的click
     });
+
+    $(function(){
+        $('#excel').click(function(){
+            var search_=$('#search').val();
+            var start_=$('#time_start').val();
+            var end_=$('#time_end').val();
+            window.open("{:U('Financial/excel')}?search="+search_+"&start="+start_+"&end="+end_);
+
+        })
+
+    })
+
 </script>
 </html>
 
