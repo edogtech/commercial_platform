@@ -242,7 +242,7 @@ class IndexController extends Controller {
             if(!$userinfo){
                 $this->redirect('Index/index', array('error' => 2));
             }else{
-                $userinfo['identify']=$userinfo['uid'];
+                $userinfo['identity']=$userinfo['uid'];
             }
 
             if(md5($password)==$userinfo['upswd']){
