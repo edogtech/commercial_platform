@@ -163,6 +163,27 @@ class TerminalController extends Controller {
         $re=$this->ob_station->where($where)->find();
         $re['address']= mb_substr($re['address'],0,30).'*'; // 电站地址
         $re['total']= $re['ac_num']+$re['dc_num']; // 电桩总数
+        
+        // 当前时段充电费、服务费、停车费
+        $clock=date('H',time());
+        $arrayChg=explode(',', $re['charging_fee']);
+        for($i=0;$i<sizeof($arrayChg);$i=$i+3){
+            if($clock>=$arrayChg[$i] && $clock<=$arrayChg[$i+1]){
+                $re['charging_fee']=$arrayChg[$i+2];
+            }
+        }
+        $arrayPark=explode(',', $re['parking_fee']);
+        for($i=0;$i<sizeof($arrayPark);$i=$i+3){
+            if($clock>=$arrayPark[$i] && $clock<=$arrayPark[$i+1]){
+                $re['parking_fee']=$arrayPark[$i+2];
+            }
+        }
+        $arrayServe=explode(',', $re['serving_fee']);
+        for($i=0;$i<sizeof($arrayServe);$i=$i+3){
+            if($clock>=$arrayServe[$i] && $clock<=$arrayServe[$i+1]){
+                $re['serving_fee']=$arrayServe[$i+2];
+            }
+        }
 
         // 该电站中桩状态
 //         $ob_pile=M('charge_pile');
