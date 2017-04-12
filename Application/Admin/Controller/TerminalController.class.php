@@ -164,7 +164,7 @@ class TerminalController extends Controller {
         $re['address']= mb_substr($re['address'],0,30).'*'; // 电站地址
         $re['total']= $re['ac_num']+$re['dc_num']; // 电桩总数
         
-        // 当前时段充电费、服务费、停车费
+        // 当前时段充电费、服务费、停车费用
         $clock=date('H',time());
         $arrayChg=explode(',', $re['charging_fee']);
         for($i=0;$i<sizeof($arrayChg);$i=$i+3){
