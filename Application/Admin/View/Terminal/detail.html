@@ -180,8 +180,13 @@
 						
 						 <!-- 桩号  -->
 						 <div style="float:left;height:100%;width:70%;">
+<<<<<<< HEAD
 							<div style="font-size:13px;">
 								<div style="color:red;text-align:left;padding-top:10px;font-size:14px">{$vo['id']}号充电桩</div>
+=======
+							<div style="font-size:12px;">
+								<div style="color:red;text-align:left;padding-top:10px;">{:substr($vo['pile_no'],-1,1)}号充电桩</div>
+>>>>>>> stash
 								<div style="padding-top:10px;">
 									<span>{:floor($vo['voltage'])}V</span>
 									<span>{:floor($vo['current'])}A</span>
@@ -213,8 +218,13 @@
 						<div class="cell"><img src="__PUBLIC__/pic/cur_price.png" width="15px"  />{:floor($vo['cur_price'])}rmb</div>
 					</div>
 					<!-- 右下 -->
+<<<<<<< HEAD
 					<div class="wrapper" style="height:40%;width:30%;float:left;font-size:13px;text-align:center;border-left:1px solid;border-top:1px solid;border-color:#e8e8e8;">
 						<div class="cell">启/停</div>
+=======
+					<div class="wrapper" style="height:40%;width:30%;float:left;font-size:12px;text-align:center;border-left:1px solid;border-top:1px solid;border-color:#e8e8e8;">
+						<div class="DivControlPile" value={$vo['pile_no']} style="display:table-cell;vertical-align:middle;cursor:pointer;">启/停</div>
+>>>>>>> stash
 					</div>
 				</div>
 				<!-- <if condition="$count">
@@ -345,6 +355,38 @@
 			</form>
 			</div>
 		</div>
+		
+		<!-- 弹窗 电桩控制 -->
+		<div id="PopControlPile" class="ControlPile" style="display:none;">
+			<div style="margin:10px 30px;">
+			<form id="frmPileControl" method="get" action="{:U('Terminal/controlAction')}">
+				<div style="color:#e34747;font-size:22px;margin-top:20px;text-align:center;">电桩操作</div>
+				<div style="margin-top:40px;">
+					<div style="text-align:center;margin-top:5%;">
+						<span id="sp1" class="spanPileCtlSel" action="open">开启充电</span>
+						<span style="display:inline-block;width:5%;"></span>
+						<span id="sp2" class="spanPileCtl" action="close">结束充电</span>
+					</div>
+					<div style="text-align:center;margin-top:5%;">
+						<span id="sp3" class="spanPileCtl" action="reset">重启电桩</span>
+						<span style="display:inline-block;width:5%;"></span>
+						<span id="sp4" class="spanPileCtl" action="lock">暂停服务</span>
+					</div>
+				</div>
+				<!-- 进度消息栏 -->
+				<!-- <div id="divProgress" style="text-align:center;margin-top:19px;color:#37a9ea;"><span class="dotting"></span></div> -->
+				<div id="divProgress" style="text-align:center;margin-top:19px;color:#37a9ea;"></div>
+				
+				<!-- 分隔条 -->
+				<div style=" margin-top:12px;border-top:2px solid;border-color:#e6e6e6;"></div>
+				<div name="dlgCancel" style=" position:absolute;left:235px;width:50px;margin-top:5px;text-align:center;font-size:20px;cursor:pointer;">关闭</div>
+				
+				<input type="hidden" id="userID" name="userID" value="{$st['user_id']}" />
+				<input type="hidden" id="pileID" name="pileID" value="" />
+			</form>
+			</div>
+		</div>		
+		
 	</div><!-- 内容结束 -->
 </block>
 <div style="height:35px;width:35px;background:red;position:fixed;z-index:2;bottom:20px;right:10px"><a href="javascript:history.back(-1)"><img src="__PUBLIC__/pic/houtui.png" style="height:35px;width:35px"></a></div>

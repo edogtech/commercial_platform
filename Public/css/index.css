@@ -238,6 +238,21 @@ table tr td{
     display:none;
 }
 
+/* 电桩控制弹窗 */
+.ControlPile {
+    width:520px;
+    height:280px;
+    background-color:white;    
+    margin: auto;
+    position: absolute;
+    z-index:3;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display:none;
+}
+
 .wrapper{
 	display:table;
 	margin:0 auto;
@@ -248,4 +263,44 @@ table tr td{
 .cell{
 	display:table-cell;
 	vertical-align:middle;
+}
+
+.spanPileCtlSel{
+	display:inline-block;
+	width:35%;
+	height:30px;
+	color:#e34747;
+	border:solid 1px #e34747;
+	font-size:16px;
+	border-radius:5px;
+	padding-top:3px;
+	cursor:pointer;
+}
+.spanPileCtl{
+	display:inline-block;
+	width:35%;
+	height:30px;
+	color:#646464;
+	border:solid 1px #646464;
+	font-size:16px;
+	border-radius:5px;
+	padding-top:3px;
+	cursor:pointer;
+}
+
+/*CSS3 加载中-逗点*/
+.dotting {
+    display: inline-block; min-width: 2px; min-height: 2px;
+    box-shadow: 2px 0 currentColor, 6px 0 currentColor, 10px 0 currentColor; /* for IE9+, ..., 3个点 */
+    animation: dot 2s infinite step-start both; /* for IE10+, ... */
+    *zoom: expression(this.innerHTML = '...'); /*  for IE7. 若无需兼容IE7, 此行删除 */
+}
+.dotting:before { content: '...'; } /* for IE8. 若无需兼容IE8, 此行以及下一行删除*/
+.dotting::before { content: ''; } /* for IE9+ 覆盖 IE8 */
+:root .dotting { margin-right: 8px; } /* for IE9+,FF,CH,OP,SF 占据空间*/
+
+@keyframes dot {
+    25% { box-shadow: none; }                                  /* 0个点 */
+    50% { box-shadow: 2px 0 currentColor; }                    /* 1个点 */
+    75% { box-shadow: 2px 0 currentColor, 6px 0 currentColor;  /* 2个点 */ }
 }

@@ -171,7 +171,7 @@ function send_frame($commandArray){
  * @access public
  * @param string $QRcode 二维码
  * @param string $gun 枪号
- * @param string $type 开启/关闭
+ * @param string $type 0开启/1关闭
  * @param string $userID 用户ID
  * @return array 控制结果
  * @author ZXD
@@ -469,12 +469,16 @@ function lock_pile($QRcode, $gun, $type) {
     return $return;
 
 }
+
 // for debug
+
+// echo 'called success';
 // $cmdRTNArray=lock_pile('000860011001014001001','1','0');
 //$cmdRTNArray=reset_pile('000860011001014001001');
-// $cmdRTNArray=switch_pile('000860011001014001010','1','1','101');
+// $cmdRTNArray=switch_pile('000860011001014001002','1','1','101');
 // $cmdRTNArray=modify_pile_price('000860011001014001003','2.2');
 // print_r($cmdRTNArray);
+
 
 
 //图片url路径 变成 数据库路径

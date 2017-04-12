@@ -3,6 +3,11 @@ namespace Admin\Controller;
 use Think\Controller;
 
 class TerminalController extends Controller {
+    
+    private $term; // 条件 商户ID
+    private $ob_pile; // 桩表
+    private $ob_station; // 站表
+    
     public function __construct(){
         parent::__construct();
         $msg=session('admininfo');
@@ -10,60 +15,87 @@ class TerminalController extends Controller {
         if (!in_array(1,$prid)){
             $this->error('您无此权限！');
         }
+        
+        $this->term[user_id]=$msg['uid'];
+        $this->ob_pile=M('charge_pile');
+        $this->ob_station=M('charge_station');
     }
     //关于我们页面的展示
     public function index(){
+        
 /*header*/        
-        // 在header显示系统当前时间
-        $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
+        $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time()); // 显示系统当前时间
         
-        // 在header显示系统当前登录的用户名
-		$user=mb_substr($_SESSION['admininfo']['uname'],0,4).'***';
+		$user=mb_substr($_SESSION['admininfo']['uname'],0,4).'***'; // 显示系统当前登录的用户名
         $msg=session('admininfo');
-/*状态栏*/
-        $ob=M('charge_pile');
-        $field='*';
-        $pile['totalQty']=$ob->field($field)->count(); // 桩总数
-        $pile['dcQty']=$ob->where('type=0')->count(); // 直流桩数量
-        $pile['acQty']=$ob->where('type=1')->count(); // 交流桩数量
-      
-        // 今日充电次数
-        $times=$ob->field('sum(times_today) as times')->find(); 
-        $pile['times']=$times['times']; 
         
-        // 注意status值为枚举类型
-        $pile['occupyQty']=$ob->where("status='0'")->count(); // 工作中    
-        $pile['idleQty']=$ob->where("status='1'")->count(); // 空闲
-        $pile['faultQty']=$ob->where("status='2'")->count(); // 故障
+/*状态栏*/
+//         $ob=M('charge_pile');
+        $queryString=$this->ob_pile->join('as p left join charge_station as s on p.station_id=s.id')
+                  ->field("count(type) as num,type,sum(s.times_today) as times")
+                  ->where($this->term)
+                  ->group(type)
+                  ->select();
+
+        foreach ($queryString as $k=>$v){
+            $pile['totalQty']+=$v['num']; // 桩总数
+            $v['type']=='0'?$pile['acQty']=$v['num']:$pile['dcQty']=$v['num']; // 直流交流桩数量
+        } 
+        
+        // 今日充电次数
+//         $ob_station=M('charge_station');
+        $times=$this->ob_station->field('sum(times_today) as times')->where($this->term)->find();
+        $pile['times']=$times['times'];
+       
+        // 电桩状态
+        $queryString=$this->ob_pile->join('as p left join charge_station as s on p.station_id=s.id')
+        ->field("count(status) as num,status")
+        ->where($this->term)
+        ->group(status)
+        ->select();
+
+        foreach ($queryString as $k=>$v){
+            switch ($v['status']) {
+                case '0':
+                    $pile['occupyQty']=$v['num']; // 工作中
+                    break;
+                case '1':
+                    $pile['idleQty']=$v['num']; // 空闲
+                    break;
+                case '2':
+                    $pile['faultQty']=$v['num']; // 故障
+                    break;                        
+            }
+        }
         
         
 /*列表及分页*/
         $station=I('post.txtStation','','trim');
+        $where=array();
+        
         if(!empty($station)){
             $where['name']=array('like',"%{$station}%");
         }
         
-        $ob_station=M('charge_station');
+//         $ob_station=M('charge_station');
         $field='id,name,ac_num+dc_num as pile_total,electricity_history,times_today';
-          
-        //取得总条数
-        $count=$ob_station->where($where)->count();
-        //根据总条数实例化page类
-        $page= new \Think\Page($count,8);
-        //分页显示输出
-        $show= $page->show();
-        $list = $ob_station->field($field)->where($where)->limit($page->firstRow,$page->listRows)->select();
+        $where=array_merge($where,$this->term);
         
-        //每个电站中桩的状态统计
-        $ob_pile=M('charge_pile');
+        $count=$this->ob_station->where($where)->count(); // 取得总条数
+        $page= new \Think\Page($count,8); // 根据总条数实例化page类
+        $show= $page->show(); // 分页显示输出
+        $list = $this->ob_station->field($field)->where($where)->limit($page->firstRow,$page->listRows)->select();
+       
+        // 统计每电站中桩三种状态的数量
+//         $ob_pile=M('charge_pile');
         foreach ($list as $k=>$v) {
             $stationID=$list[$k]['id'];
-            $list[$k]['sequence']=$k+1;
-            $list[$k]['pile_occupy']=$ob_pile->where("station_id=$stationID AND status='0'")->count();
-            $list[$k]['pile_idle']=$ob_pile->where("station_id=$stationID AND status='1'")->count();
-            $list[$k]['pile_fault']=$ob_pile->where("station_id=$stationID AND status='2'")->count();
-            // $pile_status[$k]=$ob_pile->where($where)->field("count(status) as num")->group("status")->select();
+            $list[$k]['sequence']=$k+1; // 列表序号
+            $list[$k]['pile_occupy']=$this->ob_pile->where("station_id=$stationID AND status='0'")->count(); //status为枚举值
+            $list[$k]['pile_idle']=$this->ob_pile->where("station_id=$stationID AND status='1'")->count();
+            $list[$k]['pile_fault']=$this->ob_pile->where("station_id=$stationID AND status='2'")->count();
         }
+
         $this->assign('prid',$msg['pridlist']);
         $this->assign('curdate',$date);
         $this->assign('curuser',$user);
@@ -76,54 +108,76 @@ class TerminalController extends Controller {
     
     public function detail() {
 
-        /*header*/
+/*header*/
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());  // 显示系统当前时间
         $user=mb_substr($_SESSION['admininfo']['uname'],0,4).'***';  // 显示系统当前登录的用户名
         $msg=session('admininfo');
-        /*状态栏*/
-        $ob=M('charge_pile');
-        $field='*';
-        $pile['totalQty']=$ob->field($field)->count(); // 桩总数
-        $pile['dcQty']=$ob->where('type=0')->count(); // 直流桩数量
-        $pile['acQty']=$ob->where('type=1')->count(); // 交流桩数量
+        
+/*状态栏*/
+//         $ob=M('charge_pile');
+        $queryString=$this->ob_pile->join('as p left join charge_station as s on p.station_id=s.id')
+                  ->field("count(type) as num,type,sum(s.times_today) as times")
+                  ->where($this->term)
+                  ->group(type)
+                  ->select();
+
+        foreach ($queryString as $k=>$v){
+            $pile['totalQty']+=$v['num']; // 桩总数
+            $v['type']=='0'?$pile['acQty']=$v['num']:$pile['dcQty']=$v['num']; // 直流交流桩数量
+        }
         
         // 今日充电次数
-        $times=$ob->field('sum(times_today) as times')->find();
+//         $ob_station=M('charge_station');
+        $times=$this->ob_station->field('sum(times_today) as times')->where($this->term)->find();
         $pile['times']=$times['times'];
         
-        // 注意status值为枚举类型
-        $pile['occupyQty']=$ob->where("status='0'")->count(); // 工作中
-        $pile['idleQty']=$ob->where("status='1'")->count(); // 空闲
-        $pile['faultQty']=$ob->where("status='2'")->count(); // 故障
+        // 电桩状态
+        $queryString=$this->ob_pile->join('as p left join charge_station as s on p.station_id=s.id')
+        ->field("count(status) as num,status")
+        ->where($this->term)
+        ->group(status)
+        ->select();
+
+        foreach ($queryString as $k=>$v){
+            switch ($v['status']) {
+                case '0':
+                    $pile['occupyQty']=$v['num']; // 工作中
+                    break;
+                case '1':
+                    $pile['idleQty']=$v['num']; // 空闲
+                    break;
+                case '2':
+                    $pile['faultQty']=$v['num']; // 故障
+                    break;                        
+            }
+        }
         
         $this->assign('prid',$msg['pridlist']);
         $this->assign('curdate',$date);
         $this->assign('curuser',$user);
         $this->assign('pilesinfo',$pile);
         
-
-        
         /*内容 电站信息*/
-        $ob=M('charge_station');
+//         $ob=M('charge_station');
         $where['id']=I('get.id'); // 电站ID
-        $re=$ob->where($where)->find();
+        $re=$this->ob_station->where($where)->find();
         $re['address']= mb_substr($re['address'],0,30).'*'; // 电站地址
         $re['total']= $re['ac_num']+$re['dc_num']; // 电桩总数
 
         // 该电站中桩状态
-        $ob_pile=M('charge_pile');
+//         $ob_pile=M('charge_pile');
         $stationID=I('get.id');
         
-        $pileStatus['occupy']=$ob_pile->where("station_id=$stationID AND status='0'")->count();
-        $pileStatus['idle']=$ob_pile->where("station_id=$stationID AND status='1'")->count();
-        $pileStatus['fault']=$ob_pile->where("station_id=$stationID AND status='2'")->count();
+        $pileStatus['occupy']=$this->ob_pile->where("station_id=$stationID AND status='0'")->count();
+        $pileStatus['idle']=$this->ob_pile->where("station_id=$stationID AND status='1'")->count();
+        $pileStatus['fault']=$this->ob_pile->where("station_id=$stationID AND status='2'")->count();
 
         // 该电站所有桩数据
         $field='id,station_id,pile_no,type,voltage,current,capacity,status,cur_voltage,cur_current,cur_electricity,cur_price,cur_duration';
-        $count=$ob_pile->where("station_id=$stationID")->count();
+        $count=$this->ob_pile->where("station_id=$stationID")->count();
         $page= new \Think\Page($count,7);
         $show= $page->show();
-        $pileInfo = $ob_pile->field($field)->where("station_id=$stationID")->limit($page->firstRow,$page->listRows)->select();
+        $pileInfo = $this->ob_pile->field($field)->where("station_id=$stationID")->order('pile_no')->limit($page->firstRow,$page->listRows)->select();
 
         $this->assign('st',$re); // 站信息
         $this->assign('pilestatus',$pileStatus); // 桩状态
@@ -153,7 +207,7 @@ class TerminalController extends Controller {
         $stationID=array_pop($arrayDuration); // 弹出站ID
         $strDuration=(implode(',',$arrayDuration)); // 生成以逗号分隔的时段与价格字符串
         
-        $ob=M('charge_station');
+//         $ob=M('charge_station');
         $where['id']=$stationID;
         
         switch ($category) {
@@ -167,7 +221,7 @@ class TerminalController extends Controller {
                 $data['charging_fee']=$strDuration;
                 break;
         }
-        $re=$ob->where($where)->data($data)->save();
+        $re=$this->ob_station->where($where)->data($data)->save();
         
         if($re){
             //$this->success('修改成功！','index');
@@ -186,10 +240,10 @@ class TerminalController extends Controller {
     public function adjustChargingFeeCommand(){
 
         // 筛选出更改过电价的电站ID以及调整电价的时间和费用
-        $obStation=M('charge_station');
+//         $obStation=M('charge_station');
         $field='id,number,charging_fee,charging_fee_flag';
         $where['charging_fee_flag']='1';
-        $reStation=$obStation->field($field)->where($where)->select(); 
+        $reStation=$this->ob_station->field($field)->where($where)->select(); 
         
         if(empty($reStation)){
             exit(0);
@@ -220,7 +274,7 @@ class TerminalController extends Controller {
                         
                         // 调价标志位清0
                         $data['charging_fee_flag']='0';
-                        $obStation->where("id=$stationID")->save($data);
+                        $this->ob_station->where("id=$stationID")->save($data);
 
                         // 发送调价命令
                         foreach ($rePile as $key=>$value){
@@ -238,6 +292,50 @@ class TerminalController extends Controller {
             }
         }
         
+    }
+    
+    /*
+     * 电桩启停、锁定及重启操作
+     */    
+    public function controlAction(){
+        
+        $pileID=I('post.pileID'); // 桩编号
+        $actionStr=I('post.actionStr'); // 操作类型
+        $userID=I('post.userID'); //用户ID
+        $gun=I('post.gun','1','trim'); // 默认为1号枪
+        
+        switch ($actionStr) {
+            case 'open':
+                $type='0'; // 开启电桩
+                
+//                 // for dubug
+// //                 sleep(3); 
+// //                 $answer['status']='0';
+                
+                $answer=switch_pile($pileID, $gun, $type,$userID);
+                $answer['status']=='0'?$return='1':$return='2'; // 开启充电成功/失败
+                
+                break;
+            case 'close':
+                $type='1'; // 关闭电桩
+                $answer=switch_pile($pileID, $gun, $type,$userID);
+                $answer['status']=='0'?$return='1':$return='2'; // 关闭充电成功/失败
+                break;
+            case 'reset':
+                $answer=reset_pile($pileID);
+                $answer['status']=='0'?$return='1':$return='2'; // 电桩重启成功/失败
+                break;
+            case 'lock':
+                $type='0'; // 0锁定 1解锁
+                $answer=lock_pile($pileID, $gun, $type);
+                $answer['status']=='0'?$return='1':$return='2'; // 电桩重启成功/失败
+                break;
+
+        }
+        echo $return; // 返回电桩控制操作结果
+        
+        // for dubug
+//         echo("电桩ID $pileID 操作是 $actionStr 用户ID $userID");
     }
     
   

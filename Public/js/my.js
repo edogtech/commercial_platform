@@ -143,12 +143,154 @@
 		
 	})	
 	
-	// 调价弹出框-取消
+
+	// 电桩控制弹框
+	$(".DivControlPile").click(function () {
+		var pileID=$(this).attr("value"); // 自定义属性value为电桩编号
+		$('#PopControlPile').css('display','block');
+		$("#test").css('display','block');
+		
+		var space="<span id='spanDot'>&nbsp</span>"; // 输出占位空格
+		$("#divProgress").html(space);
+		$("#pileID").attr("value",pileID); //为电桩控制弹窗中id为pileID的hidden赋值
+
+	})
+	
+	// 弹框-取消
 	$("div[name='dlgCancel']").click(function () {
-		$('#ChargingFee,#ParkingFee,#ServingFee').css('display','none');
+		$('#ChargingFee,#ParkingFee,#ServingFee,#PopControlPile').css('display','none');
 		$("#test").css('display','none');
 	})
 
+	// 电桩控制弹窗切换按钮样式
+	$('#sp1').click(function(){
+		$('#sp1').attr("class", "spanPileCtlSel");
+		$('#sp2,#sp3,#sp4').attr("class", "spanPileCtl");
+	})
+	$('#sp2').click(function(){
+		$('#sp2').attr("class", "spanPileCtlSel");
+		$('#sp1,#sp3,#sp4').attr("class", "spanPileCtl");
+	})
+	$('#sp3').click(function(){
+		$('#sp3').attr("class", "spanPileCtlSel");
+		$('#sp1,#sp2,#sp4').attr("class", "spanPileCtl");
+	})
+	$('#sp4').click(function(){
+		$('#sp4').attr("class", "spanPileCtlSel");
+		$('#sp1,#sp2,#sp3').attr("class", "spanPileCtl");
+	})
+	
+	// 电桩控制弹窗-发送指令并返回状态
+//	$("#sp1,#sp2,#sp3,#sp4").click(function(){
+//
+////		var url="{:U('Terminal/controlAction')}"; // 只可在模板中解析TP语法
+//		var actionStr=$(this).attr("action");
+//		var url="/commercial_platform/index.php/Admin/Terminal/controlAction";
+//		var pileID=$("#pileID").val();
+//		var userID=$("#userID").val();
+//		
+//		$.post(url,{pileID:pileID,actionStr:actionStr,userID:userID},function(data,status){
+//			$("#divProgress").html(data);
+//        })
+//		
+//		
+//	})
+	
+	$("#sp1").click(function(){
+		var actionStr=$(this).attr("action");
+		var url="/commercial_platform/index.php/Admin/Terminal/controlAction";
+		var pileID=$("#pileID").val();
+		var userID=$("#userID").val();
+		
+		$("#spanDot").html("正在开启充电"); // 初始化进度
+		$("#spanDot").append("<img src='/commercial_platform/Public/pic/doting.gif' width='25px'/>");
+		
+		$.post(url,{pileID:pileID,actionStr:actionStr,userID:userID},function(data,status){
+			
+//			$("#spanDot").html(data); //for dubug
+			switch(data){
+				case("1"):
+					$("#spanDot").html("开启充电成功√");
+					$("#spanDot").css("color","#e34747");
+				break;
+				case("2"):
+					$("#spanDot").html("开启充电失败×");
+					$("#spanDot").css("color","#e34747");
+				break;
+			}
+		})
+	})
+	
+	$("#sp2").click(function(){
+		var actionStr=$(this).attr("action");
+		var url="/commercial_platform/index.php/Admin/Terminal/controlAction";
+		var pileID=$("#pileID").val();
+		var userID=$("#userID").val();
+		
+		$("#spanDot").html("正在关闭充电"); // 初始化进度
+		$("#spanDot").append("<img src='/commercial_platform/Public/pic/doting.gif' width='25px'/>");
+		
+		$.post(url,{pileID:pileID,actionStr:actionStr,userID:userID},function(data,status){
+			switch(data){
+				case("1"):
+					$("#spanDot").html("关闭充电成功√");
+					$("#spanDot").css("color","#e34747");
+				break;
+				case("2"):
+					$("#spanDot").html("关闭充电失败×");
+					$("#spanDot").css("color","#e34747");
+				break;
+			}
+		})
+	})
+	
+//	$("#sp3").click(function(){
+//		var actionStr=$(this).attr("action");
+//		var url="/commercial_platform/index.php/Admin/Terminal/controlAction";
+//		var pileID=$("#pileID").val();
+//		var userID=$("#userID").val();
+//		
+//		$("#spanDot").html("正在重启电桩"); // 初始化进度
+//		
+//		$.post(url,{pileID:pileID,actionStr:actionStr,userID:userID},function(data,status){
+//			switch(data){
+//				case("1"):
+//					$("#spanDot").html("电桩重启成功√");
+//					$("#spanDot").css("color","red");
+//				break;
+//				case("2"):
+//					$("#spanDot").html("电桩重启失败×");
+//					$("#spanDot").css("color","#e34747");
+//				break;
+//			}
+//		})
+//	})
+//	
+//	$("#sp4").click(function(){
+//		var actionStr=$(this).attr("action");
+//		var url="/commercial_platform/index.php/Admin/Terminal/controlAction";
+//		var pileID=$("#pileID").val();
+//		var userID=$("#userID").val();
+//		
+//		$("#spanDot").html("正在锁定电桩"); // 初始化进度
+//		
+//		$.post(url,{pileID:pileID,actionStr:actionStr,userID:userID},function(data,status){
+//			switch(data){
+//				case("1"):
+//					$("#spanDot").html("电桩锁定成功√");
+//					$("#spanDot").css("color","red");
+//				break;
+//				case("2"):
+//					$("#spanDot").html("电桩锁定失败×");
+//					$("#spanDot").css("color","#e34747");
+//				break;
+//			}
+//		})
+//	})	
+	
+	
+	
+	
 })
 
 
