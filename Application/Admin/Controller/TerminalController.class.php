@@ -15,8 +15,8 @@ class TerminalController extends Controller {
         if (!in_array(1,$prid)){
             $this->error('您无此权限！');
         }
-        
-        $this->term[user_id]=$msg['uid'];
+
+        $this->term[user_id]=$msg['identity'];
         $this->ob_pile=M('charge_pile');
         $this->ob_station=M('charge_station');
     }
