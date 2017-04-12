@@ -227,7 +227,7 @@ class IndexController extends Controller {
                 $substrpid=substr($pridlist['privilegeid'],0,1);
                 $prid=explode(',',$pridlist['privilegeid']);
                 $_SESSION['admininfo']['pridlist']=$prid;
-                print_r(session('admininfo'));die;
+                //print_r(session('admininfo'));die;
                 $this->assign('prid',$prid);
                 $shows=D('PrivInfo')->field('paction')->where(array('pid'=>$substrpid))->find();
                 $this->assign('prid',$prid);
