@@ -12,7 +12,7 @@
 	
 </head>
 
-<body style="width:100%;margin-left:auto;margin-right:auto;min-height:600px;">
+<body style="min-width:1300px;margin-left:auto;margin-right:auto;min-height:600px;">
 	<!--登录判断-->
 	<if condition="!isset($_SESSION['admininfo'])">
 		<script>
@@ -28,7 +28,7 @@
 		<if condition="in_array(1,$prid)">
 			<div class="menu-item" style="float:left;">
 			<div style="margin-left:auto;margin-right:auto;height:100%;width:110px">
-				<img src="__PUBLIC__/pic/terminal_gray.png" style="float:left; margin-top:18px;width:15px;"/>
+				<img src="__PUBLIC__/pic/terminal_gray.png" style="float:left;margin-top:18px;width:15px;"/>
 				<a href="{:U('Terminal/index')}"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:16px;font-size:16px">终端管理</h5></a>
 				</div>
 			</div>
@@ -37,7 +37,7 @@
 		<if condition="in_array(2,$prid)">
 		<div class="menu-item" style="float:left;">
 		<div style="margin-left:auto;margin-right:auto;height:100%;width:110px">
-			<img src="__PUBLIC__/pic/finance_gray.png" style="float:left; margin-top:18px;width:15px;"/>
+			<img src="__PUBLIC__/pic/finance_gray.png" style="float:left;margin-top:18px;width:15px;"/>
 			<a href="{:U('Financial/index')}"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:16px;font-size:16px">财务管理</h5></a>
 			</div>
 		</div>
@@ -46,7 +46,7 @@
 		<if condition="in_array(3,$prid)">
 		<div class="menu-item" style="float:left;">
 		<div style="margin-left:auto;margin-right:auto;height:100%;width:110px">
-			<img src="__PUBLIC__/pic/market_gray.png" style="float:left; margin-top:18px;width:15px;"/>
+			<img src="__PUBLIC__/pic/market_gray.png" style="float:left;margin-top:18px;width:15px;"/>
 			<a href="#"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:16px;font-size:16px">经营管理</h5></a>
 			</div>
 		</div>
@@ -55,7 +55,7 @@
 		<if condition="in_array(4,$prid)">
 		<div class="menu-item" style="float:left;">
 		<div style="margin-left:auto;margin-right:auto;height:100%;width:110px">
-			<img src="__PUBLIC__/pic/operation_gray.png" style="float:left; margin-top:18px;width:15px;"/>
+			<img src="__PUBLIC__/pic/operation_gray.png" style="float:left;margin-top:18px;width:15px;"/>
 			<a href="#"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:16px;font-size:16px">运维管理</h5></a>
 			</div>
 		</div>
@@ -64,7 +64,7 @@
 		<if condition="in_array(5,$prid)">
 		<div class="menu-item" style="float:left;background:#1C1A1A;">
 		<div style="margin-left:auto;margin-right:auto;height:100%;width:110px">
-			<img src="__PUBLIC__/pic/system_red.png" style="float:left; margin-top:18px;width:15px;"/>
+			<img src="__PUBLIC__/pic/system_red.png" style="float:left;margin-top:18px;width:15px;"/>
 			<a href="{:U('Management/mindex')}"><h5 style="color:#E34648;float:left;margin-left:10px;margin-top:16px;font-size:16px">系统管理</h5></a>
 			</div>
 		</div>
@@ -79,6 +79,7 @@
      
     <!-- 自定义JS -->
     <script src="__PUBLIC__/js/my.js"></script>
+
 <block name="main">
 <!--状态栏-->
 	<div class="msysnav" style="float:left">
@@ -119,9 +120,9 @@
 		<!--搜索框-->
 		<form id="subsearch" method="get" action="{:U('Management/searchmana')}">
 		<div style="height:40px;margin-top:10px;">
-			<div style="float:left;font-size:13px;color:#e34747;padding-top:14px;padding-left:40px;">查询：</font></div>
+			<div style="float:left;font-size:16px;color:#E34747;padding-top:14px;padding-left:40px;">查询：</font></div>
 			<div style="float:left;padding-top:10px;padding-left:20px">
-				<input type='text' name="msearch" id="msearch" style="width:220px;height:100%;color:#C8C8C8;" value="请输入内容"/>
+				<input type='text' name="msearch" style="width:220px;height:100%;" value="{$zsearch}"/>
 			</div>
 			<div style="float:left;width:30px;height:30px;background-color:#e34748;margin-top:8px;margin-left:20px;">
 				<img src="__PUBLIC__/pic/search.png" style="width:25px;padding-top:8px;padding-left:8px;cursor:pointer" id="dsearch" />
@@ -132,42 +133,41 @@
 		</div>
 		</form>
 		<!--数据表格-->
-		<div id="mtermianltbl" style="height:380px">
+		<div id="mtermianltbl"  style="height:380px">
 		<div id="bbox">
-			<table class='table1' style="min-height:365px">
-				<tr >
-					<th width="10%" style="font-size:14px">序号</th>
-					<th width="25%" style="font-size:14px">用户名</th>
-					<th width="40%" style="font-size:14px">权限范围</th>
-					<th width="25%" style="font-size:14px">操作</th>
+			<table class='table1'>
+				<tr style="height:50px">
+					<th width="10%" style="font-size:15px">序号</th>
+					<th width="25%" style="font-size:15px">用户名</th>
+					<th width="40%" style="font-size:15px">权限范围</th>
+					<th width="25%" style="font-size:15px">操作</th>
 				</tr>
-				<if condition="empty($umsg)"><else/>
-					<tr>
-						<td width="15%" style="font-size:14px">0</td>
-						<td width="25%" style="font-size:14px">{$umsg.uname}</td>
-						<td width="35%" style="font-size:14px">
+				<if condition="empty($umsg)">
+				<else/>
+					<tr style="height:50px">
+						<td width="15%" style="font-size:15px">0</td>
+						<td width="25%" style="font-size:15px">{$umsg.uname}</td>
+						<td width="35%" style="font-size:15px">
 								administrator
 						</td>
-						<td width="25%" style="font-size:14px"><button style="background:#68aae7;width:110px;color:white;border-color:#68aae7">申请变更</button></td>
+						<td width="25%" style="font-size:15px"><button style="background:#68aae7;width:110px;color:white;border-color:#68aae7">申请变更</button></td>
 					</tr>
 				</if>
-				
-
 				<foreach name="arr" item="v">
 					<if condition="$v.level eq 0">
-						<tr>
-							<td width="15%" style="font-size:14px">{$v.uid}</td>
-							<td width="25%" style="font-size:14px">{$v.uname}</td>
-							<td width="35%" style="font-size:14px">
+						<tr style="height:50px">
+							<td width="15%" style="font-size:15px">{$v.uid}</td>
+							<td width="25%" style="font-size:15px">{$v.uname}</td>
+							<td width="35%" style="font-size:15px">
 									administrator
 							</td>
-							<td width="25%" style="font-size:14px"><button style="background:#68aae7;width:110px;color:white">申请变更</button></td>
+							<td width="25%" style="font-size:15px"><button style="background:#68aae7;width:110px;color:white">申请变更</button></td>
 						</tr>
 						<else />
-						<tr>
+						<tr style="height:50px">
 							<td>{$v.uid}</td>
-							<td style="font-size:14px">{$v.uname}</td>
-							<td style="font-size:14px">
+							<td style="font-size:15px">{$v.uname}</td>
+							<td style="font-size:15px">
 								<foreach name="v.privilegename" item="vo">
 									<!--<input type="checkbox" name="mchoice">{$vo.privilege}-->
 									<if condition="$vo.bi neq '' ">
@@ -177,7 +177,7 @@
 									</if>
 								</foreach>
 							</td>
-							<td style="font-size:14px"><span style="background:#e34748;color:white;cursor:pointer;" class='del' dd="{$v.id}" dm="{$v.uname}">&nbsp; 删 除 &nbsp;</span> &nbsp; <span style="background:#339e4c;color:white;cursor:pointer;" class="alt"  dd="{$v.id}" dm="{$v.uname}">&nbsp; 修 改 &nbsp;</span></td>
+							<td style="font-size:15px"><span style="background:#e34748;color:white;cursor:pointer;" class='del' dd="{$v.id}" dm="{$v.uname}">&nbsp; 删 除 &nbsp;</span> &nbsp; <span style="background:#339e4c;color:white;cursor:pointer;" class="alt"  dd="{$v.id}" dm="{$v.uname}">&nbsp; 修 改 &nbsp;</span></td>
 					</if>
 				</foreach>
 
@@ -210,6 +210,9 @@
 	$("#dsearch").click(function(){
     	$("#subsearch").submit();
     });
+    $("#subb").click(function(){
+    	$("#subform").submit();
+    });
 		/*添加management*/
 		/*$("#subb").click(function(){
 			var uname=$("#uname").val();
@@ -232,9 +235,6 @@
 			},'json')
 		})*/
 	/*add management*/
-		$('#msearch').click(function(){
-			$(this).val('');
-		})
 		$('#addmanage').click(function(){
 			var addurl='__URL__/addform';
 			$.post(addurl,function(m){

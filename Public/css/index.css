@@ -204,7 +204,7 @@ table,tr,td,th{
 
 table th{
 	background:#E6E6E6;
-	font-size:12px;
+	font-size:15px;
 	text-align:center;
 
 }
@@ -216,6 +216,7 @@ table tr:nth-child(even){
 }
 table tr td{
 	height:40px;
+	font-size:14px;
 }
 #termianltbl{
 	font-size:12px;
