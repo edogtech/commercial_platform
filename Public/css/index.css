@@ -11,13 +11,13 @@ img{ border:none;}/*去掉图片加完链接之后自带的边框*/
 }
 
 .menu{
-	width:13%;
+	width:14%;
 	height:640px;
 	background:#333131;
 
 }
 .menu-item{
-	width:99%;
+	width:100%;
 	height:50px;
 	border:1px solid;
 	border-top-color:#464444;
@@ -95,7 +95,7 @@ html,body {
 }
 #test {
     min-width:118%;
-    min-height:115%;
+    min-height:120%;
     over-flow:hidden;
     background-color:#000;
     position:absolute;
