@@ -10,7 +10,7 @@ class IndexController extends Controller {
        $val=$mem->get($cckie);
        $memuser=unserialize($val);
         $username=$memuser['uname'];
-        if (empty($cckie)) {
+        if (empty($cckie)||empty($username)) {
             $this->display();
         }else{
             if (stristr($username,'@')) {
