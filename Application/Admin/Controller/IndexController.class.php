@@ -3,8 +3,46 @@ namespace Admin\Controller;
 use Think\Controller;
 class IndexController extends Controller {
     public function index(){
-
-       $this->display();
+       $mem=new \Memcache();
+       $mem->connect("127.0.0.1", 11211) or die ("Could not connect");
+       //print_r($mem);die;
+       $cckie=cookie('identity:');
+       $val=$mem->get($cckie);
+       $memuser=unserialize($val);
+        $username=$memuser['uname'];
+        if (empty($cckie)) {
+            $this->display();
+        }else{
+            if (stristr($username,'@')) {
+                $userinfo=D('UserInfo')->where(array('uname'=>$username,'upswd'=>$memuser['upswd']))->find();
+                $_SESSION['admininfo']=$userinfo;
+                $muid=$userinfo['uid'];
+                $pridlist=D('PrivRelation')->field('privilegeid')->where(array('uid'=>$muid))->find();
+                $substrpid=substr($pridlist['privilegeid'],0,1);
+                $prid=explode(',',$pridlist['privilegeid']);
+                $_SESSION['admininfo']['pridlist']=$prid;
+                //print_r(session('admininfo'));die;
+                $this->assign('prid',$prid);
+                $shows=D('PrivInfo')->field('paction')->where(array('pid'=>$substrpid))->find();
+                $this->assign('prid',$prid);
+                $showdisp=$shows['paction'];
+                $this->redirect("$showdisp");
+            }else{
+                $userinfo=M("user_merchant")->where(array('uname'=>$username,'upswd'=>$memuser['upswd']))->find();
+                $_SESSION['admininfo']=$userinfo;
+                $prid1=$userinfo['privilegeid'];
+                $prid=explode(',',$prid1);
+                $_SESSION['admininfo']['pridlist']=$prid;
+                //print_r(session('admininfo'));die;
+                //展示页
+                $strpid=substr($prid1,0,1);
+                $show=D('PrivInfo')->field('paction')->where(array('pid'=>$strpid))->find();
+                $this->assign('prid',$prid);
+                $showdis=$show['paction'];
+                $this->redirect("$showdis");
+            }
+            
+        }
     }
 
     public function find_password1(){
@@ -199,6 +237,7 @@ class IndexController extends Controller {
         $password=trim($_POST['password']);
         $code=trim($_POST['code']);
         $auto_login=intval($_POST['auto_login']);
+        $mem = new \Memcache();
 
         $verify = new \Think\Verify();
         $verity_check=$verify->check($code);
@@ -217,10 +256,29 @@ class IndexController extends Controller {
                     $_SESSION['admininfo']=$userinfo;
                     $_SESSION['admininfo']['endtime']=time()+86400;
                     unset ($_SESSION['admininfo']['upswd']);
+                    $udata=serialize(array('uname'=>$userinfo['uname'],'upswd'=>$userinfo['upswd']));
+                    $iin=md5($userinfo['uname']);
+                   cookie('identity:',$iin,86400);
+                   //echo cookie('identity:');die;
+                     
+                   $mem->connect("127.0.0.1", 11211) or die ("Could not connect"); 
+                   $mem->set($iin,$udata,0,90000);
+                   /*$cckie=cookie('identity:');
+                   $val=$mem->get($cckie);
+                   print_r(unserialize($val));
+                   print_r(cookie('identity:'));die;*/
+
                 }else{
                     $_SESSION['admininfo']=$userinfo;
                     $_SESSION['admininfo']['endtime']=time()+86400;
                     unset ($_SESSION['admininfo']['upswd']);
+                    $udata=serialize(array('uname'=>$userinfo['uname'],'upswd'=>$userinfo['upswd']));
+                    $iin=md5($userinfo['uname']);
+                   cookie('identity:',$iin);
+                   //echo cookie('identity:');die;
+                     
+                   $mem->connect("127.0.0.1", 11211) or die ("Could not connect"); 
+                   $mem->set($iin,$udata,0,90000);
                 }
                 $muid=$userinfo['uid'];
                 $pridlist=D('PrivRelation')->field('privilegeid')->where(array('uid'=>$muid))->find();
@@ -251,10 +309,28 @@ class IndexController extends Controller {
                     $_SESSION['admininfo']=$userinfo;
                     $_SESSION['admininfo']['endtime']=time()+86400;
                     unset ($_SESSION['admininfo']['upswd']);
+                    $udata=serialize(array('uname'=>$userinfo['uname'],'upswd'=>$userinfo['upswd']));
+                    $iin=md5($userinfo['uname']);
+                   cookie('identity:',$iin,86400);
+                   //echo cookie('identity:');die;
+                    
+                   $mem->connect("127.0.0.1", 11211) or die ("Could not connect"); 
+                   $mem->set($iin,$udata,0,90000);
+                   /*$cckie=cookie('identity:');
+                   $val=$mem->get($cckie);
+                   print_r(unserialize($val));
+                   print_r(cookie('identity:'));die;*/
                 }else{
                     $_SESSION['admininfo']=$userinfo;
                     $_SESSION['admininfo']['endtime']=time()+86400;
                     unset ($_SESSION['admininfo']['upswd']);
+                    $udata=serialize(array('uname'=>$userinfo['uname'],'upswd'=>$userinfo['upswd']));
+                    $iin=md5($userinfo['uname']);
+                   cookie('identity:',$iin);
+                   //echo cookie('identity:');die;
+                     
+                   $mem->connect("127.0.0.1", 11211) or die ("Could not connect"); 
+                   $mem->set($iin,$udata,0,90000);
                 }
                 $prid1=$userinfo['privilegeid'];
                 $prid=explode(',',$prid1);
@@ -305,7 +381,11 @@ class IndexController extends Controller {
         }else{
             echo 'fail';
         }
-
+    }
+    /*退出登陆*/
+        public function loginout(){
+        cookie('identity:',null);
+        $this->success("注销成功,跳转登录页面",U("Index/index"));
     }
 
 
