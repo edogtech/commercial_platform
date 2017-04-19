@@ -78,10 +78,10 @@ class FinancialController extends Controller {
         }
 
         if(empty(trim($_GET['start'])) && !empty(trim($_GET['end']))){
-            $map['addtime']=array('lt',strtotime($_GET['time_start']));
+            $map['addtime']=array('lt',strtotime($_GET['end']));
         }
 
-        if(!empty(trim($_GET['start'])) && !empty(trim($_GET['time']))){
+        if(!empty(trim($_GET['start'])) && !empty(trim($_GET['end']))){
             $starttime=strtotime($_GET['start']);
             $endtime=strtotime($_GET['end']);
             $map['addtime']=array('exp',"between $starttime and $endtime");
@@ -92,6 +92,7 @@ class FinancialController extends Controller {
         //先查询数据
 
         $res=M('charge_order')->where($map)->select();
+
         if(empty($res)){
             echo 'fail';
             exit;
