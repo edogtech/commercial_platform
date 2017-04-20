@@ -146,14 +146,7 @@ class FinancialController extends Controller {
         }
 
         $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
-//        $today=date('Y-m-d',time());
-//        if(!file_exists("./Public/saveExcel/{$today}")){
-//            mkdir("./Public/saveExcel/{$today}");
-//        }
-//        if(!file_exists("./Public/saveExcel")){
-//            mkdir("./Public/saveExcel");
-//        }
-//        $path="./Public/saveExcel/{$today}/{$_SESSION['admininfo']['uname']}".time().".xlsx";
+
         $excelName='统计表';
         header ( "Content-Type: application/force-download" );
         header ( "Content-Type: application/octet-stream" );
