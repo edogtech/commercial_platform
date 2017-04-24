@@ -53,6 +53,11 @@ class OperateController extends Controller{
 		$this->display();
 	}
 
+    public function  add(){
+        dump($_POST);
+
+    }
+
     public function excel(){
         include './Public/phpexcel/Classes/PHPExcel.php';
         include './Public/phpexcel/Classes/PHPExcel/Writer/Excel2007.php';

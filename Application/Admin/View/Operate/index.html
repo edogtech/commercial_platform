@@ -135,7 +135,7 @@
                 <button id="excel" style="float:left;width:70px;height:30px;background-color:#E34747;margin-top:8px;margin-left:20px;text-align:center;color:white;border:none;" >
                     导出
                 </button>
-                <button id="excel" style="float:left;width:70px;height:30px;background-color:#E34747;margin-top:8px;margin-left:20px;text-align:center;color:white;border:none;" >
+                <button type="button" style="float:left;width:70px;height:30px;background-color:#E34747;margin-top:8px;margin-left:20px;text-align:center;color:white;border:none;" data-toggle="modal" data-target="#Modal2" >
                     添加
                 </button>
             </div>
@@ -175,7 +175,7 @@
                                 <case value="2">已解决</case>
                             </switch>
                             &nbsp;
-                            <img src="/pingtai/Public/pic/examine.png" data-toggle="modal" data-target="#Modal1" data-describe="{$vo['describe']}" data-customer="{$vo['customer']}" data-phone="{$vo['phone']}" data-type="{$vo['type']}" data-feedback="{$vo['feedback']}" data-addtime="{:date('Y-m-d H:i:s',$vo['addtime'])}" data-backtime="{:date('Y-m-d H:i:s',$vo['backtime'])}" style="width:16px;cursor: pointer;" />
+                            <img src="/pingtai/Public/pic/examine.png" data-toggle="modal" data-target="#Modal1" data-describe="{$vo['describe']}" data-customer="{$vo['customer']}" data-phone="{$vo['phone']}" data-type="{$vo['type']}" data-feedback="{$vo['feedback']}"  data-addtime="{:date('Y-m-d H:i:s',$vo['addtime'])}" data-backtime="{:date('Y-m-d H:i:s',$vo['backtime'])}" style="width:16px;cursor: pointer;" />
                         </td>
                     </tr>
                 </volist>
@@ -205,13 +205,13 @@
                 </div>
                 <div style="margin:20px 50px 0px 50px">
                     <span style="font-weight:600;float:left">问题分类:&nbsp;&nbsp;&nbsp;</span>
-                    <div style="border:2px solid #E8E7E4;width:23%;height:26px;display: inline-block;text-align: center;color:#96928D;">APP异常</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div style="border:2px solid #E8E7E4;width:23%;height:26px;display:inline-block;text-align: center;color:#96928D;">电桩异常</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div style="border:2px solid #E8E7E4;width:23%;height:26px;display:inline-block;text-align: center;color:#96928D;">刷卡异常</div>
+                    <div class="_type1 typeall" style="border:2px solid #E8E7E4;width:23%;height:26px;display: inline-block;text-align: center;color:#96928D;">APP异常</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="_type2 typeall" style="border:2px solid #E8E7E4;width:23%;height:26px;display:inline-block;text-align: center;color:#96928D;">电桩异常</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="_type3 typeall" style="border:2px solid #E8E7E4;width:23%;height:26px;display:inline-block;text-align: center;color:#96928D;">刷卡异常</div>
                 </div>
                 <div style="margin:0px 50px">
                     <div style="width:69px;height:26px;display: inline-block;text-align: center"></div>
-                    <div style="border:2px solid #E8E7E4;width:23%;height:26px;display: inline-block;text-align: center;color:#96928D;">其他问题</div>
+                    <div class="_type4 typeall" style="border:2px solid #E8E7E4;width:23%;height:26px;display: inline-block;text-align: center;color:#96928D;">其他问题</div>
                 </div>
                 <div style="margin:30px 50px 0px 50px ">
                     <span style="font-weight:600;float:left">问题描述:&nbsp;&nbsp;&nbsp;</span>
@@ -234,6 +234,52 @@
     </div>
 </div>
 
+<!-- Modal2 -->
+<div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="min-width:600px !important;">
+    <div class="modal-dialog" role="document" style="min-width:600px !important;">
+        <div class="modal-content" style="border-radius:0px;min-width:598px !important;">
+            <div class="modal-body">
+                <form action="{:U('Operate/add')}" method="post" id="form_add">
+                <h2 style="color:red;text-align: center">添加工单</h2>
+                <div style="margin:0px 50px 10px 50px; ">
+                    <span style="font-weight:600;float:left">用户称呼:&nbsp;&nbsp;&nbsp;</span><input type="text" value="" name="customer"  style="border:2px solid #E8E7E4;width:29%;float:left" />
+                    <span style="font-weight:600;float:left;margin-left:7px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户电话:&nbsp;</span>&nbsp;&nbsp;<input type="text" value="" name="phone" style="border:2px solid #E8E7E4;width:29%;" />
+                    <div style="clear:both"></div>
+                </div>
+                <div style="margin:20px 50px 0px 50px">
+                    <span style="font-weight:600;float:left">问题分类:&nbsp;&nbsp;&nbsp;</span>
+                    <div data_="1" class="submit_type" style="cursor:pointer;border:2px solid #E8E7E4;width:23%;height:26px;display: inline-block;text-align: center;color:#96928D;">APP异常</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div data_="2" class="submit_type" style="cursor:pointer;border:2px solid #E8E7E4;width:23%;height:26px;display:inline-block;text-align: center;color:#96928D;">电桩异常</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div data_="3" class="submit_type" style="cursor:pointer;border:2px solid #E8E7E4;width:23%;height:26px;display:inline-block;text-align: center;color:#96928D;">刷卡异常</div>
+                </div>
+                <div style="margin:0px 50px">
+                    <div style="width:69px;height:26px;display: inline-block;text-align: center"></div>
+                    <div data_="4" class="submit_type" style="cursor:pointer;border:2px solid #E8E7E4;width:23%;height:26px;display: inline-block;text-align: center;color:#96928D;">其他问题</div>
+                </div>
+                <div style="margin:30px 50px 0px 50px ">
+                    <span style="font-weight:600;float:left">问题描述:&nbsp;&nbsp;&nbsp;</span>
+                    <textarea id="describe" name="describe" style="resize: none;border:2px solid #E8E7E4;width:371px;height:100px;"></textarea>
+                    <div style="text-align: center;color:red;margin-top:20px;display:none" id="notice_">请填或选择写完整内容!</div>
+                </div>
+                <div style="margin:20px 50px 0px 50px;">
+                    <div style="border-top:2px solid #E8E7E4;"></div>
+                    <span id="submit_span" style="text-align: center;font-weight:600;cursor:pointer;font-size:23px;display:inline-block;width:48%">提交</span>
+                    <span style="font-size:30px;color:#E8E7E4">|</span>
+                    <span style="text-align: center;font-weight:600;cursor:pointer;font-size:23px;display:inline-block;width:48%" data-dismiss="modal">取消</span>
+                </div>
+                <div style="display: none;">
+                    <input name="type" type="radio" value="1" />
+                    <input name="type" type="radio" value="2" />
+                    <input name="type" type="radio" value="3" />
+                    <input name="type" type="radio" value="4" />
+                </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     laydate({
         elem: '#time_start', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
@@ -251,7 +297,29 @@
             var end_=$('#time_end').val();
             window.open("{:U('Operate/excel')}?search="+search_+"&start="+start_+"&end="+end_);
 
-        })
+        });
+
+        $('#submit_span').click(function(){
+            var customer=$("input[name='customer']").val();
+            var phone=$("input[name='phone']").val();
+            var describe=$("#describe").val();
+            var type=$('input[name="type"]:checked').val();
+
+            if($.trim(customer)=='' || $.trim(phone)=='' || $.trim(describe)=='' || !type ){
+                $('#notice_').css({'display':'block'});
+                return false;
+            }
+
+
+            $('#form_add').submit();
+        });
+
+        $('.submit_type').click(function(){
+            $('.submit_type').css({'border':'2px solid #E8E7E4','color':'#96928D'});
+            $(this).css({'border':'2px solid red','color':'red'});
+            var value=$(this).attr('data_');
+            $("input[name='type']").eq(value-1).attr('checked','true');
+        });
 
     })
 
@@ -280,6 +348,25 @@
             modal.find('._backtime').text(backtime);
         }
 
+        switch(type)
+        {
+            case 1:
+                modal.find('.typeall').css({'border':'2px solid #E8E7E4','color':'#96928D'});
+                modal.find('._type1').css({'border':'2px solid red','color':'red'});
+                break;
+            case 2:
+                modal.find('.typeall').css({'border':'2px solid #E8E7E4','color':'#96928D'});
+                modal.find('._type2').css({'border':'2px solid red','color':'red'});
+                break;
+            case 3:
+                modal.find('.typeall').css({'border':'2px solid #E8E7E4','color':'#96928D'});
+                modal.find('._type3').css({'border':'2px solid red','color':'red'});
+                break;
+            case 4:
+                modal.find('.typeall').css({'border':'2px solid #E8E7E4','color':'#96928D'});
+                modal.find('._type4').css({'border':'2px solid red','color':'red'});
+                break;
+        }
 
     })
 
