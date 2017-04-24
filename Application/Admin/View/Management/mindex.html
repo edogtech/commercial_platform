@@ -121,8 +121,8 @@
 		<form id="subsearch" method="get" action="{:U('Management/searchmana')}">
 		<div style="height:40px;margin-top:10px;">
 			<div style="float:left;font-size:16px;color:#E34747;padding-top:14px;padding-left:40px;">查询：</font></div>
-			<div style="float:left;padding-top:10px;padding-left:20px">
-				<input type='text' name="msearch" style="width:220px;height:100%;" value="{$zsearch}"/>
+			<div style="float:left;padding-top:10px;padding-left:20px;height:38px">
+				<input type='text' name="msearch" id="msearch" style="width:220px;height:100%;color:#c8c8c8" value="请输入内容"/>
 			</div>
 			<div style="float:left;width:30px;height:30px;background-color:#e34748;margin-top:8px;margin-left:20px;">
 				<img src="__PUBLIC__/pic/search.png" style="width:25px;padding-top:8px;padding-left:8px;cursor:pointer" id="dsearch" />
@@ -206,6 +206,10 @@
 	</div>
 	<script src="__PUBLIC__/js/jquery-1.8.3.min.js"></script>
 	<script>
+	/*清空搜索*/
+	$("#msearch").click(function(){
+		$("#msearch").val('');
+	});
 	/*搜索*/
 	$("#dsearch").click(function(){
     	$("#subsearch").submit();
