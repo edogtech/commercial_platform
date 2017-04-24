@@ -19,7 +19,7 @@ class OperateController extends Controller{
         //查询页面内容
         //添加检索条件
         if(!empty(trim($_GET['search']))){
-            $map['phone']=array('like','%'.$_GET['search'].'%');
+            $map['phone']=array('eq',$_GET['search']);
         }
 
         if(!empty(trim($_GET['time_start'])) && empty(trim($_GET['time_end']))){
@@ -47,7 +47,6 @@ class OperateController extends Controller{
 
 
 
-
         $this->assign('lists',$order);
         $this->assign('show',$show);
         $this->assign(array('curuser'=>$user,'prid'=>$msg['pridlist'],'curdate'=>$date));
@@ -62,7 +61,7 @@ class OperateController extends Controller{
         //接收筛选参数
         //添加检索条件
         if(!empty(trim($_GET['search']))){
-            $map['phone']=array('like','%'.$_GET['search'].'%');
+            $map['phone']=array('eq',$_GET['search']);
         }
 
         if(!empty(trim($_GET['start'])) && empty(trim($_GET['end']))){
