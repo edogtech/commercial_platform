@@ -6,7 +6,7 @@ class MaintainController extends Controller{
         parent::__construct();
         $msg=session('admininfo');
         $prid=$msg['pridlist'];
-        if (!in_array(2,$prid)){
+        if (!in_array(4,$prid)){
             $this->error('您无此权限！');
         }
     }

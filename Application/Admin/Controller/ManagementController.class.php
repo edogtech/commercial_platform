@@ -94,7 +94,7 @@ param：、、、、
 
         // 在header显示系统当前登录的用户名
         $user=mb_substr($_SESSION['admininfo']['uname'],0,4).'***';
-        $searchval=I('get.msearch');
+        $searchval=trim(I('get.msearch')==''?'':I('get.msearch','','strip_tags'));
         //echo $searchval;die;
         $msg=session('admininfo');
         $uid=$msg['uid'];
