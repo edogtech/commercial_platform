@@ -30,7 +30,7 @@ class MaintenanceController extends Controller {
      * */
     public function index(){
         /*header*/
-        $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time()); // 显示系统当前时间
+        $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time()); // 显示系统当前时间 
         
         $user=mb_substr($_SESSION['admininfo']['uname'],0,4).'***'; // 显示系统当前登录的用户名
         //         $msg=session('admininfo');
