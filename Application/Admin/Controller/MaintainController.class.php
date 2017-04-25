@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
-class MaintenanceController extends Controller{
+class MaintainController extends Controller{
 	public function __construct(){
         parent::__construct();
         $msg=session('admininfo');

@@ -3,7 +3,7 @@ namespace Admin\Controller;
 use Think\Controller;
 class ManagementController extends Controller {
 /*
-author：zwm
+author：z
 createtime：17-03-20
 @权限管理
 @
