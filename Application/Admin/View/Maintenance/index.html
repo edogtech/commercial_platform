@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>运维管理</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="__PUBLIC__/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 自定义CSS -->
+    <link href="__PUBLIC__/css/index.css" rel="stylesheet">
+
+</head>
+
+<body style="min-width:1300px;margin-left:auto;margin-right:auto;min-height:350px;">
+<!--登录判断-->
+<!-- <if condition="!isset($_SESSION['admininfo'])">
+    <script>
+        window.location.href="{:U('Login/index')}";
+    </script>
+</if> -->
+
+<!--菜单栏-->
+<div class="menu" style="float:left;min-height:116%;overflow:hidden">
+    <div class="menu-item" style="height:80px;float:left;background:#E34747;border-right-color:red;border-top-color:red;width:100%">
+        <img src="__PUBLIC__/pic/logo.png" style="float:left;margin-left:10%;margin-top:8%;height:48px;width:80%;"/>
+    </div>
+    <if condition="in_array(1,$prid)">
+        <div class="menu-item" style="float:left;">
+        <div style="margin-left:auto;margin-right:auto;height:100%;width:110px">
+            <img src="__PUBLIC__/pic/terminal_gray.png" style="float:left; margin-top:18px;width:15px;"/>
+            <a href="{:U('Terminal/index')}"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:16px;font-size:16px">终端管理</h5></a>
+            </div>
+        </div>
+        <else/>
+    </if>
+    <if condition="in_array(2,$prid)">
+        <div class="menu-item" style="float:left;background:#1C1A1A;">
+        <div style="margin-left:auto;margin-right:auto;height:100%;width:110px">
+            <img src="__PUBLIC__/pic/finance_red.png" style="float:left; margin-top:18px;width:15px;"/>
+            <a href="{:U('Financial/index')}"><h5 style="color:#E34648;float:left;margin-left:10px;margin-top:16px;font-size:16px">财务管理</h5></a>
+            </div>
+        </div>
+        <else/>
+    </if>
+    <if condition="in_array(3,$prid)">
+        <div class="menu-item" style="float:left;">
+        <div style="margin-left:auto;margin-right:auto;height:100%;width:110px">
+            <img src="__PUBLIC__/pic/market_gray.png" style="float:left; margin-top:18px;width:15px;"/>
+            <a href="#"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:16px;font-size:16px">经营管理</h5></a>
+            </div>
+        </div>
+        <else/>
+    </if>
+    <if condition="in_array(4,$prid)">
+        <div class="menu-item" style="float:left;">
+        <div style="margin-left:auto;margin-right:auto;height:100%;width:110px">
+            <img src="__PUBLIC__/pic/operation_gray.png" style="float:left; margin-top:18px;width:15px;"/>
+            <a href="#"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:16px;font-size:16px">运维管理</h5></a>
+            </div>
+        </div>
+        <else/>
+    </if>
+    <if condition="in_array(5,$prid)">
+        <div class="menu-item" style="float:left;">
+        <div style="margin-left:auto;margin-right:auto;height:100%;width:110px">
+            <img src="__PUBLIC__/pic/system_gray.png" style="float:left; margin-top:18px;width:15px;"/>
+            <a href="{:U('Management/mindex')}"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:16px;font-size:16px">系统管理</h5></a>
+            </div>
+        </div>
+        <else/>
+    </if>
+</div>
+<!-- 标题栏 -->
+<include file="Public/header" />
+
+<!-- jQuery -->
+<script src="__PUBLIC__/js/jquery-1.8.3.min.js"></script>
+
+<!-- 自定义JS -->
+<script src="__PUBLIC__/js/my.js"></script>
+
+<!-- 日期插件 -->
+<script src="__PUBLIC__/laydate/laydate.js"></script>
+<block name="main">
+    <!--账户信息-->
+    <div class="status" style="float:left;min-width:1108px;">
+        <div class="status-left" style="float:left;background-color:#F3F3F3;margin-top:20px;width:85%;" >
+            <div id="divFailure" class="addSelecedBorder" style="background-color:#fff;height:125px;width:37%;float:left;margin-left:20px;">
+                <div style="float:left;height:100%;width:44%;">
+                    <div style="font-size:14px;margin-top:10px;text-align:center;">当前待处理故障</div>
+                    <div  style="width:100%;font-size:30px;margin-top:15px;color:white;text-align:center;"><div class="circle" style="background-color:red;margin:0 auto;">{$failureNum['pending']}</div></div>
+                </div>
+                <div style="float:left;height:100%;border-left:2px solid pink;"></div>
+                <div style="float:left;width:55%;">
+                   <div style="font-size:14px;margin-top:10px;text-align:center;">今日已解决故障</div>
+                   <div style="height:22px;text-align:center;margin-top:15px">
+                        <span style="height:20px;width:30px;font-size:20px;color:red;">{$failureNum['processed']}</span>
+                   </div>
+                   <div style="height:100%;margin-top:15px;">
+                        <span style="display:inline-block;text-align:right;width:30%;font-size:12px;">累计</span><span style="display:inline-block;text-align:center;font-size:12px;color:red;width:40%;">{$failureNum['total']}</span><span style="display:inline-block;text-align:left;font-size:12px;width:30%;">（笔）</span></div>
+                </div>
+            </div>
+            <div id="divPendingSheet" style="background-color:#fff;height:125px;width:37%;float:left;margin-left:20px;">
+                <div style="float:left;height:100%;width:44%;">
+                    <div style="font-size:14px;margin-top:10px;text-align:center;">当前待处理工单</div>
+                    <div  style="width:100%;font-size:30px;margin-top:15px;color:white;text-align:center;"><div class="circle" style="background-color:red;margin:0 auto;">{$sheetNum[0]['pending']}</div></div>
+                </div>
+                <div style="float:left;height:100%;border-left:2px solid pink;"></div>
+                <div style="float:left;width:55%;">
+                   <div style="font-size:14px;margin-top:10px;text-align:center;">今日已解决工单</div>
+                   <div style="height:22px;text-align:center;margin-top:15px">
+                        <span style="height:20px;width:30px;font-size:20px;color:red;">{$sheetNum[0]['processed']}</span>
+                   </div>
+                   <div style="height:100%;margin-top:15px;">
+                        <span style="display:inline-block;text-align:right;width:30%;font-size:12px;">累计</span><span style="display:inline-block;text-align:center;font-size:12px;color:red;width:40%;">{$sheetNum[0]['total']}</span><span style="display:inline-block;text-align:left;font-size:12px;width:30%;">（笔）</span></div>
+                </div>
+            </div>            
+            <div style="clear:both;"></div>
+        </div>
+        <div class="status-right" style="float:right;">
+            <div style="float:left;font-size:15px;color:white;padding-top:10px;padding-left:33%;">充电站</div>
+            <div><img src="__PUBLIC__/pic/arrow.png" style="padding-top:13px;width:20px;padding-left:9px;" /></div>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+
+    <!--内容-->
+    <div class="content" style="float:left;">
+        <!--搜索框-->
+        <form id="subsearch" method="get" action="{:U('Maintenance/index')}">
+            <div style="height:40px;margin-top:10px;">
+                <div style="float:left;font-size:16px;color:#e34747;padding-top:14px;padding-left:40px;">查询：</font></div>
+                <div style="float:left;padding-top:10px;padding-left:20px">
+                    <input type='text' id="search" name="search" style="width:220px;height:100%;" value="{:empty($_GET['search'])?'':$_GET['search'];}" placeholder="输入充电站"名称 />
+                </div>
+                <div style="float:left;padding-top:10px;padding-left:20px">
+                    <input type='text' id="time_start" name="time_start" style="width:150px;height:100%;" value="{:empty($_GET['time_start'])?'':$_GET['time_start'];}" placeholder="开始时间" />
+                </div>
+                <div style="float:left;padding-top:10px;padding-left:20px">
+                    <input type='text' id="time_end" name="time_end" style="width:150px;height:100%;" value="{:empty($_GET['time_end'])?'':$_GET['time_end'];}" placeholder="结束时间" />
+                </div>
+				
+                <button type="submit" style="float:left;width:50px;height:30px;background-color:#E34747;margin-top:8px;margin-left:20px;text-align:center;color:white;border:none;" >
+                    <img src="__PUBLIC__/pic/search.png" style="width:20px;padding-top:2px;padding-left:3px;"/>
+                </button>
+                <button id="excel" style="float:left;width:100px;height:30px;background-color:#E34747;margin-top:8px;margin-left:20px;text-align:center;color:white;border:none;" >
+                    导出
+                </button>
+            </div>
+        </form>
+        <!--数据表格-->
+        <div id="termianltbl" style="margin-top:15px">
+            <table rules="none">
+                <tr style="line-height:42px;height:50px">
+                    <th>序号</th>
+                    <th>流水号</th>
+                    <th>充电站名称</th>
+                    <th>桩号</th>
+                    <th>故障代码</th>
+                    <th>订单日期</th>
+                    <th>售后电话</th>
+                    <th>状态</th>
+                </tr>
+                <volist name="lists" id="vo">
+                    <tr style="height:50px">
+                        <td>{$vo['sequence']}</td>
+                        <td>{$vo['batch_no']}</td>
+                        <td>{$vo['name']}</td>
+                        <td>{$vo['pile_no']}</td>
+						<td>{$vo['gun_fault']}</td>
+                        <td>{:date('Y-m-d H:i:s',$vo['ele_starttime'])}</td>
+                        <td>xxxxx</td>
+                        <td>
+	                        <switch name="vo.status" >
+	                            <case value="1">
+	                            	<div style="color:red;">待处理</div>
+	                            </case>
+	                            <case value="2">
+	                            	<div>已解决</div>
+	                            </case>
+	                        </switch>
+                        </td>
+                        <!-- 待处理自定义value属性 值为工单ID -->
+                    </tr>
+                </volist>
+            </table>
+            <if condition="empty($lists)">
+                <div style="text-align:center;margin-top:50px;">抱歉，暂时没有您要找的内容</div>
+            </if>
+        </div>
+        <!-- 分页内容 -->
+        <div style="text-align:center;"><h4>{$show}</h4></div>
+    </div><!-- 内容结束 -->
+    	
+    
+    
+    
+    
+</block>
+</body>
+<script>
+    laydate({
+        elem: '#time_start', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
+        event: 'focus' //响应事件。如果没有传入event，则按照默认的click
+    });
+    laydate({
+        elem: '#time_end', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
+        event: 'focus' //响应事件。如果没有传入event，则按照默认的click
+    });
+
+    $(function(){
+        $('#excel').click(function(){
+            var search_=$('#search').val();
+            var start_=$('#time_start').val();
+            var end_=$('#time_end').val();
+            window.open("{:U('Maintenance/exportFailure')}?search="+search_+"&time_start="+start_+"&time_end="+end_);
+
+        })
+
+    })
+
+</script>
+</html>
+
