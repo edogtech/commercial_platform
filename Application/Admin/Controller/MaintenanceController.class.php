@@ -33,7 +33,7 @@ class MaintenanceController extends Controller {
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time()); // 显示系统当前时间 
         
         $user=mb_substr($_SESSION['admininfo']['uname'],0,4).'***'; // 显示系统当前登录的用户名
-        //         $msg=session('admininfo');
+        $msg=session('admininfo');
         
         /*状态栏*/
         // 工单（总数、待处理、已处理）
@@ -115,12 +115,11 @@ class MaintenanceController extends Controller {
         }
         
         $this->assign('prid',$msg['pridlist']);
-        $this->assign('curdate',$date);
-        $this->assign('curuser',$user);
         $this->assign('sheetNum',$sheetNum);
         $this->assign('failureNum',$failureNum);
         $this->assign('lists',$list);
         $this->assign("show",$show);
+        $this->assign(array('curuser'=>$user,'prid'=>$msg['pridlist'],'curdate'=>$date));
         $this->display();
     }
     

@@ -35,10 +35,10 @@
         <else/>
     </if>
     <if condition="in_array(2,$prid)">
-        <div class="menu-item" style="float:left;background:#1C1A1A;">
+        <div class="menu-item" style="float:left;">
         <div style="margin-left:auto;margin-right:auto;height:100%;width:110px">
             <img src="__PUBLIC__/pic/finance_red.png" style="float:left; margin-top:18px;width:15px;"/>
-            <a href="{:U('Financial/index')}"><h5 style="color:#E34648;float:left;margin-left:10px;margin-top:16px;font-size:16px">财务管理</h5></a>
+            <a href="{:U('Financial/index')}"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:16px;font-size:16px">财务管理</h5></a>
             </div>
         </div>
         <else/>
@@ -47,16 +47,16 @@
         <div class="menu-item" style="float:left;">
         <div style="margin-left:auto;margin-right:auto;height:100%;width:110px">
             <img src="__PUBLIC__/pic/market_gray.png" style="float:left; margin-top:18px;width:15px;"/>
-            <a href="#"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:16px;font-size:16px">经营管理</h5></a>
+            <a href="{:U('Operate/index')}"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:16px;font-size:16px">经营管理</h5></a>
             </div>
         </div>
         <else/>
     </if>
     <if condition="in_array(4,$prid)">
-        <div class="menu-item" style="float:left;">
+        <div class="menu-item" style="float:left;background:#1C1A1A;">
         <div style="margin-left:auto;margin-right:auto;height:100%;width:110px">
             <img src="__PUBLIC__/pic/operation_gray.png" style="float:left; margin-top:18px;width:15px;"/>
-            <a href="#"><h5 style="color:#959595;float:left;margin-left:10px;margin-top:16px;font-size:16px">运维管理</h5></a>
+            <a href="{:U('Maintenance/index')}"><h5 style="color:#E34648;float:left;margin-left:10px;margin-top:16px;font-size:16px">运维管理</h5></a>
             </div>
         </div>
         <else/>
