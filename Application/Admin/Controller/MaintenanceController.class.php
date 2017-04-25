@@ -12,7 +12,7 @@ class MaintenanceController extends Controller {
         parent::__construct();
        $msg=session('admininfo');
        $prid=$msg['pridlist'];
-        if (!in_array(1,$prid)){
+        if (!in_array(4,$prid)){
             $this->error('您无此权限！');
         }
 
