@@ -175,27 +175,27 @@ label{
 @media (min-width: 1200px) {
 
     .web_foot>div:nth-child(1){
-        margin-top:20px;
+        margin-top:70px;
     }
     .web_foot>div:nth-child(2){
-        margin:10px 0px;
+        margin:30px 30px;
     }
     .web_foot>div:nth-child(3){
-        margin-bottom:30px;
+        margin-bottom:80px;
     }
     #index_head{
-        margin:30px 0px;
+        margin:60px 40px;
         padding:0px 0px;
         font-size:18px;
     }
     #huanying{
-        font-size:20px;
+        font-size:30px;
         text-align:left;
-        margin-top:28px;
+        margin-top:60px;
     }
 
     #white_box{
-        padding:30px 60px;
+        padding:60px 90px;
     }
 
 }
