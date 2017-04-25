@@ -91,16 +91,16 @@
             <div id="divFailure" class="addSelecedBorder" style="background-color:#fff;height:125px;width:37%;float:left;margin-left:20px;">
                 <div style="float:left;height:100%;width:44%;">
                     <div style="font-size:14px;margin-top:10px;text-align:center;">当前待处理故障</div>
-                    <div  style="width:100%;font-size:30px;margin-top:15px;color:white;text-align:center;"><div class="circle" style="background-color:red;margin:0 auto;">{$failureNum['pending']}</div></div>
+                    <div  style="width:100%;font-size:30px;margin-top:15px;color:white;text-align:center;"><div class="circle" style="background-color:red;margin:0 auto;">{:empty($failureNum['pending'])?'0':$failureNum['pending'];}</div></div>
                 </div>
                 <div style="float:left;height:100%;border-left:2px solid pink;"></div>
                 <div style="float:left;width:55%;">
                    <div style="font-size:14px;margin-top:10px;text-align:center;">今日已解决故障</div>
                    <div style="height:22px;text-align:center;margin-top:15px">
-                        <span style="height:20px;width:30px;font-size:20px;color:red;">{$failureNum['processed']}</span>
+                        <span style="height:20px;width:30px;font-size:20px;color:red;">{:empty($failureNum['processed'])?'0':$failureNum['processed'];}</span>
                    </div>
                    <div style="height:100%;margin-top:15px;">
-                        <span style="display:inline-block;text-align:right;width:30%;font-size:12px;">累计</span><span style="display:inline-block;text-align:center;font-size:12px;color:red;width:40%;">{$failureNum['total']}</span><span style="display:inline-block;text-align:left;font-size:12px;width:30%;">（笔）</span></div>
+                        <span style="display:inline-block;text-align:right;width:30%;font-size:12px;">累计</span><span style="display:inline-block;text-align:center;font-size:12px;color:red;width:40%;">{:empty($failureNum['total'])?'0':$failureNum['total'];}</span><span style="display:inline-block;text-align:left;font-size:12px;width:30%;">（笔）</span></div>
                 </div>
             </div>
             <div id="divPendingSheet" style="background-color:#fff;height:125px;width:37%;float:left;margin-left:20px;">
