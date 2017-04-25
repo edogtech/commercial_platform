@@ -21,8 +21,8 @@ class MaintenanceController extends Controller {
         $this->ob_workorder=M('workorder_control');
         $this->ob_station=M('charge_station');
         
-        $this->ob_tmp=M('e_charge_tmp_eledata');
-        $this->ob_tmp_err=M('e_charge_tmp_eledata_err');
+        $this->ob_tmp=M('charge_tmp_eledata');
+        $this->ob_tmp_err=M('charge_tmp_eledata_err');
     }
 
     /*
@@ -86,7 +86,7 @@ class MaintenanceController extends Controller {
         $where=array_merge($where,$this->term);
         
         // 取得总条数
-        $count=$this->ob_tmp_err->join('as err left join e_charge_tmp_eledata as tmp on tmp.pile_no=err.pile_no left join charge_station as st on st.number=tmp.site_no')
+        $count=$this->ob_tmp_err->join('as err left join charge_tmp_eledata as tmp on tmp.pile_no=err.pile_no left join charge_station as st on st.number=tmp.site_no')
                     ->field("err.batch_no,st.name,err.pile_no,err.gun_fault,err.ele_startTime")
                     ->where($where)
                     ->count();
@@ -94,7 +94,7 @@ class MaintenanceController extends Controller {
         // 实例化page类分页显示输出
         $page= new \Think\Page($count,8);
         $show= $page->show();
-        $list=$this->ob_tmp_err->join('as err left join e_charge_tmp_eledata as tmp on tmp.pile_no=err.pile_no left join charge_station as st on st.number=tmp.site_no')
+        $list=$this->ob_tmp_err->join('as err left join charge_tmp_eledata as tmp on tmp.pile_no=err.pile_no left join charge_station as st on st.number=tmp.site_no')
                    ->field("err.batch_no,st.name,err.pile_no,err.gun_fault,err.ele_startTime")
                    ->where($where)
                    ->limit($page->firstRow,$page->listRows)
@@ -375,7 +375,7 @@ class MaintenanceController extends Controller {
         
         $where=array_merge($where,$this->term);
         
-        $res=$this->ob_tmp_err->join('as err left join e_charge_tmp_eledata as tmp on tmp.pile_no=err.pile_no left join charge_station as st on st.number=tmp.site_no')
+        $res=$this->ob_tmp_err->join('as err left join charge_tmp_eledata as tmp on tmp.pile_no=err.pile_no left join charge_station as st on st.number=tmp.site_no')
         ->field("err.batch_no,st.name,err.pile_no,err.gun_fault,err.ele_startTime")
         ->where($where)
         ->select();
