@@ -158,7 +158,7 @@
 	
 	// 弹框-取消
 	$("div[name='dlgCancel']").click(function () {
-		$('#ChargingFee,#ParkingFee,#ServingFee,#PopControlPile').css('display','none');
+		$('#ChargingFee,#ParkingFee,#ServingFee,#PopControlPile,#PopPendingSheet').css('display','none');
 		$("#test").css('display','none');
 	})
 
@@ -289,7 +289,63 @@
 //	})	
 	
 	
+	// 待处理工单弹框
+	$("#DivPending").click(function () {
+		$("#response").val(""); // 清空问题反馈文本域
+		
+		$('#PopPendingSheet').css('display','block');
+		$("#test").css('display','block');
+		var sheetID=$(this).attr("sheetID"); // 自定义属性sheetID为工单ID
+		var customer=$(this).attr("customer");
+		var phone=$(this).attr("phone");
+		var describe=$(this).attr("describe");
+		var addtime=$(this).attr("addtime");
+		var type=$(this).attr("type");
+		
+		$('#sheetID').val(sheetID);
+		$('#sheetCustomer').val(customer);
+		$('#sheetPhone').val(phone);
+		$('#sheetDescribe').val(describe);
+		$('#sheetAddtime').html(addtime);
+		
+		switch(type){
+			case("1"):
+				$("#txtAppException").css("border","red 1px solid");
+				$("#txtAppException").css("color","#e34747");
+			break;
+			case("2"):
+				$("#txtPileException").css("color","#e34747");
+			break;
+			case("3"):
+				$("#txtSwipeException").css("color","#e34747");
+			break;
+			case("4"):
+				$("#txtOtherException").css("color","#e34747");
+			break;
+		}
+
+	})
 	
+	// 待处理工单弹框-确定
+	$("#dlgSheetOK").click(function(){
+		var describe=$("#response").val();
+		if($.trim(describe).length==0){
+			$("#response").css("border","2px solid red");
+			return;
+		}else{
+			$("#frmPendingSheet").submit();
+		}
+		
+	})
+	
+	// 待处理工单/故障显示标签切换
+	$("#divFailure").click(function(){
+		location.href="http://local.gitcode.com/commercial_platform/admin/Maintenance/index";
+	})	
+	$("#divPendingSheet").click(function(){
+		location.href="http://local.gitcode.com/commercial_platform/admin/Maintenance/worksheet";
+	})
+
 	
 })
 
