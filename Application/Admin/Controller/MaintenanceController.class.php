@@ -16,8 +16,10 @@ class MaintenanceController extends Controller {
             $this->error('您无此权限！');
         }
 
-        $this->term['user_id']=$msg['identity'];
-        $this->term['user_id']='1';
+        $userIdentity=$msg['identity'];
+        $this->term['user_id']=$userIdentity;
+        $this->condition['mid']= $userIdentity;
+        
         $this->ob_workorder=M('workorder_control');
         $this->ob_station=M('charge_station');
         
@@ -113,6 +115,21 @@ class MaintenanceController extends Controller {
             $tmpSet=$this->ob_tmp->where($map)->order('id desc')->find(); // 取最新交易记录
             $tmpSet['batch_status']=='3'?$list[$k]['status']=2:$list[$k]['status']=1; //1待处理 2已解决
         }
+
+        
+        // 按状态待处理-已解决排序
+        for ($i = 0; $i < count($list)-1; $i++) {
+            for ($j = $i+1; $j < count($list); $j++) {
+                if($list[$i]['status']>$list[$j]['status']){
+                    $tmp=$list[$i]['status'];
+                    $list[$i]['status']=$list[$j]['status'];
+                    $list[$j]['status']=$tmp;
+                }
+            }
+        }
+        
+        $this->assign('prid',$msg['pridlist']);
+
         $this->assign('sheetNum',$sheetNum);
         $this->assign('failureNum',$failureNum);
         $this->assign('lists',$list);
@@ -138,7 +155,7 @@ class MaintenanceController extends Controller {
 		// 工单（待处理、已处理、总数）
 		$today=date('Ymd',time());
 		$string="date('Ymd',backtime)";
-        $query="SELECT count(1) AS total,(SELECT count(*)FROM workorder_control WHERE	STATUS = 1) AS pending,	(SELECT	count(*) FROM	workorder_control	WHERE	STATUS = 2 AND DATE_FORMAT(NOW(),'%Y%m%d') = $today) AS processed FROM workorder_control where status=2";
+        $query="SELECT count(1) AS total,(SELECT count(*)FROM workorder_control WHERE STATUS = 1) AS pending,	(SELECT	count(*) FROM	workorder_control	WHERE	STATUS = 2 AND DATE_FORMAT(NOW(),'%Y%m%d') = $today) AS processed FROM workorder_control where status=2";
         $sheetNum=$this->ob_workorder->query($query);
         
         /*
@@ -161,42 +178,35 @@ class MaintenanceController extends Controller {
         }
         
         /*列表及分页*/
-        $where=array(); // 设定搜索条件
+        $where=array();
         
-        $station=I('get.search','','trim');
+        $phone=I('get.search','','trim');
         $startTime=strtotime(I('get.time_start','','trim'));
         $endTime=strtotime(I('get.time_end','','trim'));
         
-        if(!empty($station)){
-            $where['name']=array('like',"%{$station}%");
+        if(!empty($phone)){
+            $where['phone']=array('like',"%{$phone}%");
         }
-        
-        if (empty($startTime) && !empty($endTime)) {
-            $where['w.addtime']=array('elt',$endTime);
-        }elseif (!empty($startTime) && empty($endTime)){
-            $where['w.addtime']=array('egt',$startTime);
-        }elseif (!empty($startTime) && !empty($endTime)){
-            $where['w.addtime']=array('between',"$startTime,$endTime");
-        }
-        
-        $where=array_merge($where,$this->term);
 
-        // 取得总条数
-        $count=$this->ob_workorder->join('as w left join charge_station as s on w.station_id=s.id left join charge_pile as p on w.pile_id=p.id')
-                    ->field("s.name,w.order_number,w.type,w.addtime,w.telephone,w.status,p.pile_no")
-                    ->where($where)
-                    ->count();
-        
-        // 实例化page类分页显示输出
+        if (empty($startTime) && !empty($endTime)) {
+            $where['addtime']=array('elt',$endTime);
+        }elseif (!empty($startTime) && empty($endTime)){
+            $where['addtime']=array('egt',$startTime);
+        }elseif (!empty($startTime) && !empty($endTime)){
+            $where['addtime']=array('between',"$startTime,$endTime");
+        }
+
+        $where=array_merge($where,$this->condition);
+        //$where['mid']=$msg['identity'];
+        dump($this->term);
+        dump($this->condition);
+        $count=$this->ob_workorder->field($field)->where($where)->count();
         $page= new \Think\Page($count,8); 
         $show= $page->show();
-        $list=$this->ob_workorder->join('as w left join charge_station as s on w.station_id=s.id left join charge_pile as p on w.pile_id=p.id')
-                    ->field("w.id,w.order_number,w.customer,w.operator,w.phone,w.type,w.describe,w.addtime,w.telephone,w.status,s.name,p.pile_no")
-                    ->where($where)
-                    ->order('w.status')
-                    ->limit($page->firstRow,$page->listRows)
-                    ->select();
-             
+        
+        $field='id,order_number,customer,operator,phone,type,describe,addtime,telephone,status';
+        $list=$this->ob_workorder->field($field)->where($where)->order('status')->limit($page->firstRow,$page->listRows)->select();
+
         // 处理列表数据
         foreach ($list as $k=>$v) {
             $list[$k]['sequence']=$k+1; // 列表序号
@@ -244,12 +254,12 @@ class MaintenanceController extends Controller {
     
         //接收筛选参数
         //添加检索条件
-        $station=I('get.search','','trim');
+        $phone=I('get.search','','trim');
         $startTime=strtotime(I('get.time_start','','trim'));
         $endTime=strtotime(I('get.time_end','','trim'));
         
-        if(!empty($station)){
-            $where['name']=array('like',"%{$station}%");
+        if(!empty($phone)){
+            $where['phone']=array('like',"%{$phone}%");
         }
         
         if (empty($startTime) && !empty($endTime)) {
@@ -260,14 +270,12 @@ class MaintenanceController extends Controller {
             $where['w.addtime']=array('between',"$startTime,$endTime");
         }
         
-        $where=array_merge($where,$this->term);
-        //先查询数据
-        $res=$this->ob_workorder->join('as w left join charge_station as s on w.station_id=s.id left join charge_pile as p on w.pile_id=p.id')
-        ->field("w.id,w.order_number,w.customer,w.operator,w.phone,w.type,w.describe,w.addtime,w.telephone,w.status,s.name,p.pile_no")
-        ->where($where)
-        ->order('w.status')
-        ->select();
-        
+       $where=array_merge($where,$this->mid);
+       
+        // 查询数据
+       $field='id,order_number,customer,operator,phone,type,describe,addtime,telephone,status';
+       $res=$this->ob_workorder->field($field)->where($where)->order('status')->select();
+//        echo $this->ob_workorder->getlastsql();
         if(empty($res)){
             echo 'fail';
             exit;
