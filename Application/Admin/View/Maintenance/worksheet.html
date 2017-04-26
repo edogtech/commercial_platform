@@ -134,7 +134,7 @@
             <div style="height:40px;margin-top:10px;">
                 <div style="float:left;font-size:16px;color:#e34747;padding-top:14px;padding-left:40px;">查询：</font></div>
                 <div style="float:left;padding-top:10px;padding-left:20px">
-                    <input type='text' id="search" name="search" style="width:220px;height:100%;" value="{:empty($_GET['search'])?'':$_GET['search'];}" placeholder="输入充电站"名称 />
+                    <input type='text' id="search" name="search" style="width:220px;height:100%;" value="{:empty($_GET['search'])?'':$_GET['search'];}" placeholder="输入用户电话" />
                 </div>
                 <div style="float:left;padding-top:10px;padding-left:20px">
                     <input type='text' id="time_start" name="time_start" style="width:150px;height:100%;" value="{:empty($_GET['time_start'])?'':$_GET['time_start'];}" placeholder="开始时间" />
@@ -183,7 +183,7 @@
                         <td>
 	                        <switch name="vo.status" >
 	                            <case value="1">
-	                            	<div id="DivPending" style="cursor:pointer;color:red;" sheetID="{$vo['id']}" customer="{$vo['customer']}" phone="{$vo['phone']}" type="{$vo['type']}" describe="{$vo['describe']}" addtime="{$vo['addtime']|date='Y-m-d H:i s',###}" >
+	                            	<div class="DivPending" style="cursor:pointer;color:red;" sheetID="{$vo['id']}" customer="{$vo['customer']}" phone="{$vo['phone']}" type="{$vo['type']}" describe="{$vo['describe']}" addtime="{$vo['addtime']|date='Y-m-d H:i s',###}" >
 	                            		待处理<img src="__PUBLIC__/pic/pending.png" style="width:20px;padding-left:3px;"/>
 	                            	</div>
 	                            </case>

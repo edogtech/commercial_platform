@@ -290,7 +290,7 @@
 	
 	
 	// 待处理工单弹框
-	$("#DivPending").click(function () {
+	$(".DivPending").click(function () {
 		$("#response").val(""); // 清空问题反馈文本域
 		
 		$('#PopPendingSheet').css('display','block');
