@@ -36,6 +36,7 @@ class OperateController extends Controller{
             $map['addtime']=array('exp',"between $starttime and $endtime");
         }
 
+        $map['mid']=array('eq',$_SESSION['admininfo']['identity']);
 
         //订单数据
         $count=M('workorder_control')->where($map)->count();
@@ -44,17 +45,23 @@ class OperateController extends Controller{
         $show=$page->show();
         $order=M('workorder_control')->order('id desc')->where($map)->limit($page->firstRow,$page->listRows)->select();
 
+        //待处理数据
+        $count=array();
+        $workorder=M('workorder_control')->where("mid={$_SESSION['admininfo']['identity']} and status=1")->count();
 
 
+        $count['workorder']=$workorder;
 
         $this->assign('lists',$order);
         $this->assign('show',$show);
+        $this->assign('count',$count);
         $this->assign(array('curuser'=>$user,'prid'=>$msg['pridlist'],'curdate'=>$date));
 		$this->display();
 	}
 
     public function  add(){
-        if(empty($_POST['operator']) || empty($_POST['customer']) || empty($_POST['phone']) || empty($_POST['describe']) ||empty($_POST['type'])){
+
+        if( empty($_POST['customer']) || empty($_POST['phone']) || empty($_POST['describe']) ||empty($_POST['type'])){
             $this->error('请填写完整信息');
         }
         $data['customer']=trim($_POST['customer']);
@@ -65,7 +72,7 @@ class OperateController extends Controller{
         $data['mid']=trim($_POST['mid']);
         $data['addtime']=time();
         $data['status']=1;
-        $data['order_number']='WOC'.$data['addtime'];
+        $data['order_number']='EGD'.get_micro_time(3).mt_rand(1000,9999);;
         $data['feedback']='';
 
         $res=M('workorder_control')->add($data);

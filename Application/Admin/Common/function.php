@@ -818,3 +818,30 @@ function getFavorableTime($borrow_time,$return_time) {
  	
  	return array('times'=>$eveningPackageSum,'second'=>$eveningSecondSum);
  }
+
+/**
+ * 返回毫秒级时间戳
+ * @access public
+ * @param int $length 位数（默认毫秒是3位）
+ * @param string $type 返回值类型（int整形，string字符串型）
+ * @return string/int 如果为int、可能会变成科学计数法
+ * @author Jine <luxikun@andlisoft.com>
+ */
+function get_micro_time($length=3,$type='string'){
+    $temp = explode(" ", microtime());
+    // echo $temp[0],'<br>';//毫秒小数位 0.960877001445485906
+    // echo $temp[1],'<br>';//秒，和时间戳一样 1445485906
+
+    if( $type == 'string' ){
+        $re2 = round( $temp[0]*pow(10,$length) );//四舍五入
+        // echo $temp[1],'<br>';
+        // echo $re2,'<br>';
+        // echo $re2,'<br>';
+        settype($re2,$type);
+        settype($temp[1],$type);
+        return $temp[1].$re2;
+    }else{
+        $re = bcadd($temp[0], $temp[1], $length);//二者相加、保留 $length 位小数
+        return $re*pow(10,$length);//6位竟然返回1.4454856885957E+15
+    }
+}

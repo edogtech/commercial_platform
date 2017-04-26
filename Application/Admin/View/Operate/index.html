@@ -92,7 +92,7 @@
         <div class="msysnav-left" >
             <div class="msysnavlnav" style="cursor:pointer;border:2px solid red">
                 <div style="text-align:left;font-weight: bold;margin-top:10px;margin-left: 15px;">工单管理</div>
-                <div style="text-align: center">待处理&nbsp;&nbsp;<div style="color:#008CF2;font-size:32px;display: inline-block;">8</div>&nbsp;&nbsp;(笔)</div>
+                <div style="text-align: center">待处理&nbsp;&nbsp;<div style="color:#008CF2;font-size:32px;display: inline-block;">{$count['workorder']}</div>&nbsp;&nbsp;(笔)</div>
             </div>
             <div class="msysnavlnav" style="cursor:pointer">
                 <div style="text-align:left;font-weight: bold;margin-top:10px;margin-left: 15px;">成本管理</div>
@@ -273,7 +273,8 @@
                     <input name="type" type="radio" value="3" />
                     <input name="type" type="radio" value="4" />
                     <input name="operator" type="text" value="{$_SESSION['admininfo']['uname']}" />
-                    <input name="mid" type="text" value="{$_SESSION['admininfo']['uid']}" />
+                    <input name="mid" type="text" value="{$_SESSION['admininfo']['identity']}" />
+                    <input name="operator_level" type="text" value="{$_SESSION['admininfo']['tableid']}" />
                 </div>
 
                 </form>
