@@ -196,10 +196,8 @@ class MaintenanceController extends Controller {
             $where['addtime']=array('between',"$startTime,$endTime");
         }
 
-        $where=array_merge($where,$this->condition);
-        //$where['mid']=$msg['identity'];
-        dump($this->term);
-        dump($this->condition);
+        $where['mid']=$msg['identity'];
+
         $count=$this->ob_workorder->field($field)->where($where)->count();
         $page= new \Think\Page($count,8); 
         $show= $page->show();
@@ -248,6 +246,8 @@ class MaintenanceController extends Controller {
     
     // 导出工单信息
     public function exportWorksheet(){
+        $msg=session('admininfo');
+        
         include './Public/phpexcel/Classes/PHPExcel.php';
         include './Public/phpexcel/Classes/PHPExcel/Writer/Excel2007.php';
         set_time_limit(0);
@@ -270,13 +270,13 @@ class MaintenanceController extends Controller {
             $where['w.addtime']=array('between',"$startTime,$endTime");
         }
         
-       $where=array_merge($where,$this->mid);
-       
+       //$where=array_merge($where,$this->mid);
+        $where['mid']=$msg['identity'];
         // 查询数据
        $field='id,order_number,customer,operator,phone,type,describe,addtime,telephone,status';
        $res=$this->ob_workorder->field($field)->where($where)->order('status')->select();
-//        echo $this->ob_workorder->getlastsql();
-        if(empty($res)){
+
+       if(empty($res)){
             echo 'fail';
             exit;
         }
