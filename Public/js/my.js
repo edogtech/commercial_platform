@@ -237,6 +237,7 @@
 		var userID=$("#userID").val();
 		
 		$("#spanDot").html("正在重启电桩"); // 初始化进度
+		$("#spanDot").append("<img src='/commercial/Public/pic/doting.gif' width='25px'/>");
 		
 		$.post(url,{pileID:pileID,actionStr:actionStr,userID:userID},function(data,status){
 			switch(data){
@@ -259,6 +260,7 @@
 		var userID=$("#userID").val();
 		
 		$("#spanDot").html("正在锁定电桩"); // 初始化进度
+		$("#spanDot").append("<img src='/commercial/Public/pic/doting.gif' width='25px'/>");
 		
 		$.post(url,{pileID:pileID,actionStr:actionStr,userID:userID},function(data,status){
 			switch(data){
