@@ -113,11 +113,11 @@ class MaintenanceController extends Controller {
             $tmpSet=$this->ob_tmp->where($map)->order('id desc')->find(); // 取最新交易记录
             $tmpSet['batch_status']=='3'?$list[$k]['status']=2:$list[$k]['status']=1; //1待处理 2已解决
         }
-        $this->assign(array('curuser'=>$user,'prid'=>$msg['pridlist'],'curdate'=>$date));
         $this->assign('sheetNum',$sheetNum);
         $this->assign('failureNum',$failureNum);
         $this->assign('lists',$list);
         $this->assign("show",$show);
+        $this->assign(array('curuser'=>$user,'prid'=>$msg['pridlist'],'curdate'=>$date));
         $this->display();
     }
     
