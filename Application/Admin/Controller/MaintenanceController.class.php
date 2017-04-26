@@ -3,7 +3,7 @@ namespace Admin\Controller;
 use Think\Controller;
 
 class MaintenanceController extends Controller {
-    
+    private $condition; // 条件 工单商户ID
     private $term; // 条件 商户ID
     private $ob_workorder; // 工单表
     private $ob_station; // 站表
@@ -16,9 +16,8 @@ class MaintenanceController extends Controller {
             $this->error('您无此权限！');
         }
 
-        $userIdentity=$msg['identity'];
-        $this->term['user_id']=$userIdentity;
-        $this->condition['mid']= $userIdentity;
+        $this->term['user_id']= $msg['identity'];
+        $this->condition['mid']= $msg['identity'];
         
         $this->ob_workorder=M('workorder_control');
         $this->ob_station=M('charge_station');
@@ -101,7 +100,7 @@ class MaintenanceController extends Controller {
                    ->where($where)
                    ->limit($page->firstRow,$page->listRows)
                    ->select();
-     
+   
         // 处理列表数据
         unset($map);
         foreach ($list as $k=>$v) {
@@ -196,7 +195,7 @@ class MaintenanceController extends Controller {
             $where['addtime']=array('between',"$startTime,$endTime");
         }
 
-        $where['mid']=$msg['identity'];
+        $where=array_merge($where,$this->condition);
 
         $count=$this->ob_workorder->field($field)->where($where)->count();
         $page= new \Think\Page($count,8); 
@@ -270,8 +269,8 @@ class MaintenanceController extends Controller {
             $where['w.addtime']=array('between',"$startTime,$endTime");
         }
         
-       //$where=array_merge($where,$this->mid);
-        $where['mid']=$msg['identity'];
+       $where=array_merge($where,$this->condition);
+
         // 查询数据
        $field='id,order_number,customer,operator,phone,type,describe,addtime,telephone,status';
        $res=$this->ob_workorder->field($field)->where($where)->order('status')->select();

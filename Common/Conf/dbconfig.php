@@ -4,8 +4,8 @@ $arr1 = array(
     'DB_TYPE'           => 'mysql',
     'DB_HOST'           => '192.168.1.100',
     'DB_NAME'           => 'db_commercial',
-    'DB_USER'           => 'app',
-    'DB_PWD'            => 'app',
+    'DB_USER'           => 'comm',
+    'DB_PWD'            => 'comm',
     'DB_PORT'           => '3306',
     'DB_PREFIX'         => '',
     

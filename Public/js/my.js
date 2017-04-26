@@ -181,29 +181,15 @@
 	})
 	
 	// 电桩控制弹窗-发送指令并返回状态
-//	$("#sp1,#sp2,#sp3,#sp4").click(function(){
-//
-////		var url="{:U('Terminal/controlAction')}"; // 只可在模板中解析TP语法
-//		var actionStr=$(this).attr("action");
-//		var url="/commercial_platform/index.php/Admin/Terminal/controlAction";
-//		var pileID=$("#pileID").val();
-//		var userID=$("#userID").val();
-//		
-//		$.post(url,{pileID:pileID,actionStr:actionStr,userID:userID},function(data,status){
-//			$("#divProgress").html(data);
-//        })
-//		
-//		
-//	})
 	
 	$("#sp1").click(function(){
 		var actionStr=$(this).attr("action");
-		var url="/commercial_platform/index.php/Admin/Terminal/controlAction";
+		var url="/commercial/index.php/Admin/Terminal/controlAction";
 		var pileID=$("#pileID").val();
 		var userID=$("#userID").val();
 		
 		$("#spanDot").html("正在开启充电"); // 初始化进度
-		$("#spanDot").append("<img src='/commercial_platform/Public/pic/doting.gif' width='25px'/>");
+		$("#spanDot").append("<img src='/commercial/Public/pic/doting.gif' width='25px'/>");
 		
 		$.post(url,{pileID:pileID,actionStr:actionStr,userID:userID},function(data,status){
 			
@@ -223,12 +209,12 @@
 	
 	$("#sp2").click(function(){
 		var actionStr=$(this).attr("action");
-		var url="/commercial_platform/index.php/Admin/Terminal/controlAction";
+		var url="/commercial/index.php/Admin/Terminal/controlAction";
 		var pileID=$("#pileID").val();
 		var userID=$("#userID").val();
 		
 		$("#spanDot").html("正在关闭充电"); // 初始化进度
-		$("#spanDot").append("<img src='/commercial_platform/Public/pic/doting.gif' width='25px'/>");
+		$("#spanDot").append("<img src='/commercial/Public/pic/doting.gif' width='25px'/>");
 		
 		$.post(url,{pileID:pileID,actionStr:actionStr,userID:userID},function(data,status){
 			switch(data){
@@ -244,49 +230,49 @@
 		})
 	})
 	
-//	$("#sp3").click(function(){
-//		var actionStr=$(this).attr("action");
-//		var url="/commercial_platform/index.php/Admin/Terminal/controlAction";
-//		var pileID=$("#pileID").val();
-//		var userID=$("#userID").val();
-//		
-//		$("#spanDot").html("正在重启电桩"); // 初始化进度
-//		
-//		$.post(url,{pileID:pileID,actionStr:actionStr,userID:userID},function(data,status){
-//			switch(data){
-//				case("1"):
-//					$("#spanDot").html("电桩重启成功√");
-//					$("#spanDot").css("color","red");
-//				break;
-//				case("2"):
-//					$("#spanDot").html("电桩重启失败×");
-//					$("#spanDot").css("color","#e34747");
-//				break;
-//			}
-//		})
-//	})
-//	
-//	$("#sp4").click(function(){
-//		var actionStr=$(this).attr("action");
-//		var url="/commercial_platform/index.php/Admin/Terminal/controlAction";
-//		var pileID=$("#pileID").val();
-//		var userID=$("#userID").val();
-//		
-//		$("#spanDot").html("正在锁定电桩"); // 初始化进度
-//		
-//		$.post(url,{pileID:pileID,actionStr:actionStr,userID:userID},function(data,status){
-//			switch(data){
-//				case("1"):
-//					$("#spanDot").html("电桩锁定成功√");
-//					$("#spanDot").css("color","red");
-//				break;
-//				case("2"):
-//					$("#spanDot").html("电桩锁定失败×");
-//					$("#spanDot").css("color","#e34747");
-//				break;
-//			}
-//		})
-//	})	
+	$("#sp3").click(function(){
+		var actionStr=$(this).attr("action");
+		var url="/commercial/index.php/Admin/Terminal/controlAction";
+		var pileID=$("#pileID").val();
+		var userID=$("#userID").val();
+		
+		$("#spanDot").html("正在重启电桩"); // 初始化进度
+		
+		$.post(url,{pileID:pileID,actionStr:actionStr,userID:userID},function(data,status){
+			switch(data){
+				case("1"):
+					$("#spanDot").html("电桩重启成功√");
+					$("#spanDot").css("color","red");
+				break;
+				case("2"):
+					$("#spanDot").html("电桩重启失败×");
+					$("#spanDot").css("color","#e34747");
+				break;
+			}
+		})
+	})
+	
+	$("#sp4").click(function(){
+		var actionStr=$(this).attr("action");
+		var url="/commercial/index.php/Admin/Terminal/controlAction";
+		var pileID=$("#pileID").val();
+		var userID=$("#userID").val();
+		
+		$("#spanDot").html("正在锁定电桩"); // 初始化进度
+		
+		$.post(url,{pileID:pileID,actionStr:actionStr,userID:userID},function(data,status){
+			switch(data){
+				case("1"):
+					$("#spanDot").html("电桩锁定成功√");
+					$("#spanDot").css("color","red");
+				break;
+				case("2"):
+					$("#spanDot").html("电桩锁定失败×");
+					$("#spanDot").css("color","#e34747");
+				break;
+			}
+		})
+	})	
 	
 	
 	// 待处理工单弹框
