@@ -15,31 +15,37 @@ class IndexController extends Controller {
         }else{
             if (stristr($username,'@')) {
                 $userinfo=D('UserInfo')->where(array('uname'=>$username,'upswd'=>$memuser['upswd']))->find();
-                $_SESSION['admininfo']=$userinfo;
-                $muid=$userinfo['uid'];
-                $pridlist=D('PrivRelation')->field('privilegeid')->where(array('uid'=>$muid))->find();
-                $substrpid=substr($pridlist['privilegeid'],0,1);
-                $prid=explode(',',$pridlist['privilegeid']);
-                $_SESSION['admininfo']['pridlist']=$prid;
-                //print_r(session('admininfo'));die;
-                $this->assign('prid',$prid);
-                $shows=D('PrivInfo')->field('paction')->where(array('pid'=>$substrpid))->find();
-                $this->assign('prid',$prid);
-                $showdisp=$shows['paction'];
-                $this->redirect("$showdisp");
+                if($userinfo && session('admininfo')){
+                    $muid=$userinfo['uid'];
+                    $pridlist=D('PrivRelation')->field('privilegeid')->where(array('uid'=>$muid))->find();
+                    $substrpid=substr($pridlist['privilegeid'],0,1);
+                    $prid=explode(',',$pridlist['privilegeid']);
+                    //print_r(session('admininfo'));die;
+                    $this->assign('prid',$prid);
+                    $shows=D('PrivInfo')->field('paction')->where(array('pid'=>$substrpid))->find();
+                    $this->assign('prid',$prid);
+                    $showdisp=$shows['paction'];
+                    $this->redirect("$showdisp");exit;
+                }else{
+                    $this->display();exit('请重新登录!');
+                }
+                
             }else{
                 $userinfo=M("user_merchant")->where(array('uname'=>$username,'upswd'=>$memuser['upswd']))->find();
-                $_SESSION['admininfo']=$userinfo;
-                $prid1=$userinfo['privilegeid'];
-                $prid=explode(',',$prid1);
-                $_SESSION['admininfo']['pridlist']=$prid;
-                //print_r(session('admininfo'));die;
-                //展示页
-                $strpid=substr($prid1,0,1);
-                $show=D('PrivInfo')->field('paction')->where(array('pid'=>$strpid))->find();
-                $this->assign('prid',$prid);
-                $showdis=$show['paction'];
-                $this->redirect("$showdis");
+                if ($userinfo && session('admininfo')) {
+                    $prid1=$userinfo['privilegeid'];
+                    $prid=explode(',',$prid1);
+                    //print_r(session('admininfo'));die;
+                    //展示页
+                    $strpid=substr($prid1,0,1);
+                    $show=D('PrivInfo')->field('paction')->where(array('pid'=>$strpid))->find();
+                    $this->assign('prid',$prid);
+                    $showdis=$show['paction'];
+                    $this->redirect("$showdis");exit;
+                }else{
+                    $this->display();exit('请重新登录!');
+                }
+                
             }
             
         }
@@ -288,7 +294,6 @@ class IndexController extends Controller {
                 $prid=explode(',',$pridlist['privilegeid']);
                 $_SESSION['admininfo']['pridlist']=$prid;
                 //print_r(session('admininfo'));die;
-                $this->assign('prid',$prid);
                 $shows=D('PrivInfo')->field('paction')->where(array('pid'=>$substrpid))->find();
                 $this->assign('prid',$prid);
                 $showdisp=$shows['paction'];
