@@ -54,7 +54,28 @@ class OperateController extends Controller{
 	}
 
     public function  add(){
-        dump($_POST);
+        if(empty($_POST['operator']) || empty($_POST['customer']) || empty($_POST['phone']) || empty($_POST['describe']) ||empty($_POST['type'])){
+            $this->error('请填写完整信息');
+        }
+        $data['customer']=trim($_POST['customer']);
+        $data['phone']=trim($_POST['phone']);
+        $data['describe']=trim($_POST['describe']);
+        $data['type']=trim($_POST['type']);
+        $data['operator']=trim($_POST['operator']);
+        $data['mid']=trim($_POST['mid']);
+        $data['addtime']=time();
+        $data['status']=1;
+        $data['order_number']='WOC'.$data['addtime'];
+        $data['feedback']='';
+
+        $res=M('workorder_control')->add($data);
+
+        if($res){
+            $this->success('添加成功',U('Operate/index'));
+        }else{
+            $this->error('添加失败');
+        }
+
 
     }
 

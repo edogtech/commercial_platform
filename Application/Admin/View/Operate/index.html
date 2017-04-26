@@ -112,7 +112,6 @@
             <div><img src="__PUBLIC__/pic/arrow.png" style="padding-top:13px;width:20px;padding-left:9px;" /></div>
         </div>
     </div>
-
     <div class="content" style="float:left;">
         <!--搜索框-->
         <form id="subsearch" method="get" action="{:U('Operate/index')}">
@@ -194,7 +193,7 @@
 </body>
 
 <!-- Modal1 -->
-<div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="min-width:600px !important;">
+<div class="modal" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="min-width:600px !important;">
     <div class="modal-dialog" role="document" style="min-width:600px !important;">
         <div class="modal-content" style="border-radius:0px;min-width:598px !important;">
             <div class="modal-body">
@@ -236,7 +235,7 @@
 </div>
 
 <!-- Modal2 -->
-<div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="min-width:600px !important;">
+<div class="modal" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="min-width:600px !important;">
     <div class="modal-dialog" role="document" style="min-width:600px !important;">
         <div class="modal-content" style="border-radius:0px;min-width:598px !important;">
             <div class="modal-body">
@@ -273,6 +272,8 @@
                     <input name="type" type="radio" value="2" />
                     <input name="type" type="radio" value="3" />
                     <input name="type" type="radio" value="4" />
+                    <input name="operator" type="text" value="{$_SESSION['admininfo']['uname']}" />
+                    <input name="mid" type="text" value="{$_SESSION['admininfo']['uid']}" />
                 </div>
 
                 </form>
