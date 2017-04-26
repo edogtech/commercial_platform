@@ -340,10 +340,10 @@
 	
 	// 待处理工单/故障显示标签切换
 	$("#divFailure").click(function(){
-		location.href="http://local.gitcode.com/commercial_platform/admin/Maintenance/index";
+		location.href="http://local.gitcode.com/commercial/admin/Maintenance/index";
 	})	
 	$("#divPendingSheet").click(function(){
-		location.href="http://local.gitcode.com/commercial_platform/admin/Maintenance/worksheet";
+		location.href="http://local.gitcode.com/commercial/admin/Maintenance/worksheet";
 	})
 
 	
