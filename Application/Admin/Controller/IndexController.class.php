@@ -255,6 +255,7 @@ class IndexController extends Controller {
                 if($auto_login==1){
                     $_SESSION['admininfo']=$userinfo;
                     $_SESSION['admininfo']['endtime']=time()+86400;
+                    $_SESSION['admininfo']['tableid']=1;
                     unset ($_SESSION['admininfo']['upswd']);
                     $udata=serialize(array('uname'=>$userinfo['uname'],'upswd'=>$userinfo['upswd']));
                     $iin=md5($userinfo['uname']);
@@ -271,6 +272,7 @@ class IndexController extends Controller {
                 }else{
                     $_SESSION['admininfo']=$userinfo;
                     $_SESSION['admininfo']['endtime']=time()+86400;
+                    $_SESSION['admininfo']['tableid']=1;
                     unset ($_SESSION['admininfo']['upswd']);
                     $udata=serialize(array('uname'=>$userinfo['uname'],'upswd'=>$userinfo['upswd']));
                     $iin=md5($userinfo['uname']);
@@ -308,6 +310,7 @@ class IndexController extends Controller {
                 if($auto_login==1){
                     $_SESSION['admininfo']=$userinfo;
                     $_SESSION['admininfo']['endtime']=time()+86400;
+                    $_SESSION['admininfo']['tableid']=0;
                     unset ($_SESSION['admininfo']['upswd']);
                     $udata=serialize(array('uname'=>$userinfo['uname'],'upswd'=>$userinfo['upswd']));
                     $iin=md5($userinfo['uname']);
@@ -323,6 +326,7 @@ class IndexController extends Controller {
                 }else{
                     $_SESSION['admininfo']=$userinfo;
                     $_SESSION['admininfo']['endtime']=time()+86400;
+                    $_SESSION['admininfo']['tableid']=0;
                     unset ($_SESSION['admininfo']['upswd']);
                     $udata=serialize(array('uname'=>$userinfo['uname'],'upswd'=>$userinfo['upswd']));
                     $iin=md5($userinfo['uname']);
