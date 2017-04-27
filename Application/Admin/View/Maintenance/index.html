@@ -133,20 +133,20 @@
         <form id="subsearch" method="get" action="{:U('Maintenance/index')}">
             <div style="height:40px;margin-top:10px;">
                 <div style="float:left;font-size:16px;color:#e34747;padding-top:14px;padding-left:40px;">查询：</font></div>
-                <div style="float:left;padding-top:10px;padding-left:20px">
+                <div style="float:left;padding-top:10px;padding-left:20px;height:40px">
                     <input type='text' id="search" name="search" style="width:220px;height:100%;" value="{:empty($_GET['search'])?'':$_GET['search'];}" placeholder="输入充电站名称" />
                 </div>
-                <div style="float:left;padding-top:10px;padding-left:20px">
+                <div style="float:left;padding-top:10px;padding-left:20px;height:40px">
                     <input type='text' id="time_start" name="time_start" style="width:150px;height:100%;" value="{:empty($_GET['time_start'])?'':$_GET['time_start'];}" placeholder="开始时间" />
                 </div>
-                <div style="float:left;padding-top:10px;padding-left:20px">
+                <div style="float:left;padding-top:10px;padding-left:20px;height:40px">
                     <input type='text' id="time_end" name="time_end" style="width:150px;height:100%;" value="{:empty($_GET['time_end'])?'':$_GET['time_end'];}" placeholder="结束时间" />
                 </div>
 				
-                <button type="submit" style="float:left;width:50px;height:30px;background-color:#E34747;margin-top:8px;margin-left:20px;text-align:center;color:white;border:none;" >
+                <button type="submit" style="float:left;width:50px;height:30px;background-color:#E34747;margin-top:8.5px;margin-left:20px;text-align:center;color:white;border:none;" >
                     <img src="__PUBLIC__/pic/search.png" style="width:20px;padding-top:2px;padding-left:3px;"/>
                 </button>
-                <button id="excel" style="float:left;width:100px;height:30px;background-color:#E34747;margin-top:8px;margin-left:20px;text-align:center;color:white;border:none;" >
+                <button id="excel" style="float:left;width:100px;height:30px;background-color:#E34747;margin-top:8.5px;margin-left:20px;text-align:center;color:white;border:none;" >
                     导出
                 </button>
             </div>
