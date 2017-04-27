@@ -247,9 +247,9 @@ class IndexController extends Controller {
 
         $verify = new \Think\Verify();
         $verity_check=$verify->check($code);
-        /*if(!$verity_check){
+        if (!$verity_check) {
             $this->redirect('Index/index', array('error' => 1));
-        }*/
+        }
         //登录管理2017-04-07
         if (stristr($username,'@')) {
             $userinfo=D('UserInfo')->where(array('uname'=>$username))->find();
