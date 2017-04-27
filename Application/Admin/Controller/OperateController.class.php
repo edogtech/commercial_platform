@@ -48,9 +48,11 @@ class OperateController extends Controller{
         //待处理数据
         $count=array();
         $workorder=M('workorder_control')->where("mid={$_SESSION['admininfo']['identity']} and status=1")->count();
+        $costorder=M('cost_control')->where("mid={$_SESSION['admininfo']['identity']}")->count();
 
 
         $count['workorder']=$workorder;
+        $count['costorder']=$costorder;
 
         $this->assign('lists',$order);
         $this->assign('show',$show);
@@ -59,26 +61,23 @@ class OperateController extends Controller{
 		$this->display();
 	}
 
-    public function  add(){
+    public function  work_add(){
 
-        if( empty($_POST['customer']) || empty($_POST['phone']) || empty($_POST['describe']) ||empty($_POST['type'])){
+        if( empty($_POST['type']) || empty($_POST['price']) ){
             $this->error('请填写完整信息');
         }
-        $data['customer']=trim($_POST['customer']);
-        $data['phone']=trim($_POST['phone']);
-        $data['describe']=trim($_POST['describe']);
         $data['type']=trim($_POST['type']);
+        $data['price']=trim($_POST['price']);
         $data['operator']=trim($_POST['operator']);
         $data['mid']=trim($_POST['mid']);
         $data['addtime']=time();
-        $data['status']=1;
-        $data['order_number']='EGD'.get_micro_time(3).mt_rand(1000,9999);;
-        $data['feedback']='';
+        $data['order_number']='ECB'.get_micro_time(3).mt_rand(1000,9999);;
+        $data['operator_level']=trim($_POST['operator_level']);
 
-        $res=M('workorder_control')->add($data);
+        $res=M('cost_control')->add($data);
 
         if($res){
-            $this->success('添加成功',U('Operate/index'));
+            $this->success('添加成功',U('Operate/cost'));
         }else{
             $this->error('添加失败');
         }
@@ -86,7 +85,7 @@ class OperateController extends Controller{
 
     }
 
-    public function excel(){
+    public function work_excel(){
         include './Public/phpexcel/Classes/PHPExcel.php';
         include './Public/phpexcel/Classes/PHPExcel/Writer/Excel2007.php';
         set_time_limit(0);
@@ -111,7 +110,7 @@ class OperateController extends Controller{
             $map['addtime']=array('exp',"between $starttime and $endtime");
         }
 
-
+        $map['mid']=array('eq',$_GET['mid']);
 
         //先查询数据
 
@@ -194,5 +193,169 @@ class OperateController extends Controller{
 
 
     }
+
+    public function cost(){
+        $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
+        // 在header显示系统当前登录的用户名
+        $user=mb_substr($_SESSION['admininfo']['uname'],0,4).'***';
+        $msg=session('admininfo');
+
+        //查询页面内容
+        //添加检索条件
+
+        if(!empty(trim($_GET['time_start'])) && empty(trim($_GET['time_end']))){
+            $map['addtime']=array('gt',strtotime($_GET['time_start']));
+        }
+
+        if(empty(trim($_GET['time_start'])) && !empty(trim($_GET['time_end']))){
+            $map['addtime']=array('lt',strtotime($_GET['time_start']));
+        }
+
+        if(!empty(trim($_GET['time_start'])) && !empty(trim($_GET['time_end']))){
+            $starttime=strtotime($_GET['time_start']);
+            $endtime=strtotime($_GET['time_end']);
+            $map['addtime']=array('exp',"between $starttime and $endtime");
+        }
+
+        $map['mid']=array('eq',$_SESSION['admininfo']['identity']);
+
+        //订单数据
+        $count=M('cost_control')->where($map)->count();
+
+        $page= new \Think\Page($count,5);
+        $show=$page->show();
+        $order=M('cost_control')->order('id desc')->where($map)->limit($page->firstRow,$page->listRows)->select();
+
+        //页头待处理数据
+        $count=array();
+        $workorder=M('workorder_control')->where("mid={$_SESSION['admininfo']['identity']} and status=1")->count();
+        $costorder=M('cost_control')->where("mid={$_SESSION['admininfo']['identity']}")->count();
+
+
+        $count['workorder']=$workorder;
+        $count['costorder']=$costorder;
+
+        $this->assign('lists',$order);
+        $this->assign('show',$show);
+        $this->assign('count',$count);
+        $this->assign(array('curuser'=>$user,'prid'=>$msg['pridlist'],'curdate'=>$date));
+        $this->display();
+    }
+
+    public function cost_excel(){
+        include './Public/phpexcel/Classes/PHPExcel.php';
+        include './Public/phpexcel/Classes/PHPExcel/Writer/Excel2007.php';
+        set_time_limit(0);
+
+        //接收筛选参数
+        //添加检索条件
+        if(!empty(trim($_GET['start'])) && empty(trim($_GET['end']))){
+            $map['addtime']=array('gt',strtotime($_GET['start']));
+        }
+
+        if(empty(trim($_GET['start'])) && !empty(trim($_GET['end']))){
+            $map['addtime']=array('lt',strtotime($_GET['end']));
+        }
+
+        if(!empty(trim($_GET['start'])) && !empty(trim($_GET['end']))){
+            $starttime=strtotime($_GET['start']);
+            $endtime=strtotime($_GET['end']);
+            $map['addtime']=array('exp',"between $starttime and $endtime");
+        }
+
+        $map['mid']=array('eq',$_GET['mid']);
+
+        //先查询数据
+        $res=M('cost_control')->where($map)->select();
+
+        if(empty($res)){
+            echo '没有数据可导出,请查看您是否有成本管理录入或检查您的筛选条件';
+            exit;
+        }
+        //设置F列(订单号)为文本格式
+        $objPHPExcel=new \PHPExcel();//新建一个excel文件类
+
+        //设置表头
+        $objPHPExcel->getActiveSheet()->setCellValue('A1','序号');
+        $objPHPExcel->getActiveSheet()->setCellValue('B1','流水号');
+        $objPHPExcel->getActiveSheet()->setCellValue('C1','费用金额');
+        $objPHPExcel->getActiveSheet()->setCellValue('D1','费用类别');
+        $objPHPExcel->getActiveSheet()->setCellValue('E1','工单日期');
+        $objPHPExcel->getActiveSheet()->setCellValue('F1','操作员');
+
+
+        //设置每列宽度
+        $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(30);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(20);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(12);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(30);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
+        $line=2;
+        foreach($res as $k=>$v){
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.$line,$v['id']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.$line,$v['order_number']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.$line,$v['price']);;
+
+            switch ($v['type']) {
+                case 1:
+                    $objPHPExcel->getActiveSheet()->setCellValue('D'.$line, '电费缴纳');
+                    break;
+                case 2:
+                    $objPHPExcel->getActiveSheet()->setCellValue('D'.$line, '维护费用');
+                    break;
+                case 3:
+                    $objPHPExcel->getActiveSheet()->setCellValue('D'.$line,'其他问题');
+                    break;
+            }
+
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.$line,date('Y-m-d H:i:s',$v['addtime']));
+            $objPHPExcel->getActiveSheet()->setCellValue('F'.$line,$v['operator']);
+
+            $line++;
+        }
+
+        $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
+
+        $excelName='统计表';
+        header ( "Content-Type: application/force-download" );
+        header ( "Content-Type: application/octet-stream" );
+        header ( "Content-Type: application/download" );
+        header ( "Content-Disposition: attachment; filename=" . $excelName . ".xlsx" );
+        header ( "Content-Transfer-Encoding: binary" );
+        header ( "Cache-Control: must-revalidate, post-check=0, pre-check=0" );
+        header ( "Pragma: no-cache" );
+
+        $objWriter->save('php://output');
+
+
+    }
+
+    public function  cost_add(){
+
+        if( empty($_POST['customer']) || empty($_POST['phone']) || empty($_POST['describe']) ||empty($_POST['type'])){
+            $this->error('请填写完整信息');
+        }
+        $data['customer']=trim($_POST['customer']);
+        $data['phone']=trim($_POST['phone']);
+        $data['describe']=trim($_POST['describe']);
+        $data['type']=trim($_POST['type']);
+        $data['operator']=trim($_POST['operator']);
+        $data['mid']=trim($_POST['mid']);
+        $data['addtime']=time();
+        $data['status']=1;
+        $data['order_number']='EGD'.get_micro_time(3).mt_rand(1000,9999);;
+        $data['feedback']='';
+
+        $res=M('workorder_control')->add($data);
+
+        if($res){
+            $this->success('添加成功',U('Operate/index'));
+        }else{
+            $this->error('添加失败');
+        }
+
+
+    }
+
 
 }
