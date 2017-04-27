@@ -21,6 +21,7 @@ class IndexController extends Controller {
                     $substrpid=substr($pridlist['privilegeid'],0,1);
                     $prid=explode(',',$pridlist['privilegeid']);
                     //print_r(session('admininfo'));die;
+                    $_SESSION['admininfo']['pridlist'] = $prid;
                     $this->assign('prid',$prid);
                     $shows=D('PrivInfo')->field('paction')->where(array('pid'=>$substrpid))->find();
                     $this->assign('prid',$prid);
@@ -35,6 +36,7 @@ class IndexController extends Controller {
                 if ($userinfo) {
                     $prid1=$userinfo['privilegeid'];
                     $prid=explode(',',$prid1);
+                    $_SESSION['admininfo']['pridlist'] = $prid;
                     //print_r(session('admininfo'));die;
                     //展示页
                     $strpid=substr($prid1,0,1);
