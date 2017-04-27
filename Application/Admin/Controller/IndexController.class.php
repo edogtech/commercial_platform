@@ -10,12 +10,12 @@ class IndexController extends Controller {
        $val=$mem->get($cckie);
        $memuser=unserialize($val);
         $username=$memuser['uname'];
-        if (empty($cckie)||empty($username)) {
+        if (empty($cckie) || empty($username)) {
             $this->display();
         }else{
             if (stristr($username,'@')) {
                 $userinfo=D('UserInfo')->where(array('uname'=>$username,'upswd'=>$memuser['upswd']))->find();
-                if($userinfo && session('admininfo')){
+                if ($userinfo) {
                     $muid=$userinfo['uid'];
                     $pridlist=D('PrivRelation')->field('privilegeid')->where(array('uid'=>$muid))->find();
                     $substrpid=substr($pridlist['privilegeid'],0,1);
@@ -32,7 +32,7 @@ class IndexController extends Controller {
                 
             }else{
                 $userinfo=M("user_merchant")->where(array('uname'=>$username,'upswd'=>$memuser['upswd']))->find();
-                if ($userinfo && session('admininfo')) {
+                if ($userinfo) {
                     $prid1=$userinfo['privilegeid'];
                     $prid=explode(',',$prid1);
                     //print_r(session('admininfo'));die;

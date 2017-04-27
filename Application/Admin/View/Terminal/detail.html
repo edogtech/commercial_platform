@@ -129,7 +129,7 @@
 						<span style="display:inline-block;margin-right:20px;margin-left:10%;color:red;font-size:25px;width:30px">{$st['times_today']}</span>
 						<span style="display:inline-block;font-size:12px;">（次）</span>
 					</div>
-					<div style="margin-left:30px;margin-top:5px;font-size:12px;">
+					<div style="margin-left:30px;margin-top:4%;font-size:12px;">
 						<span style="display:inline-block; float:left;padding-left:6%"><img src="__PUBLIC__/pic/charge_fee.png" style="width:15px;"/></span>
 						<span style="display:inline-block; float:left;margin-left:4px;">充电费：</span>
 						<span style="display:inline-block; float:left;margin-right:10%;width:45%"> {$st['charging_fee']}元/度</span>
@@ -156,7 +156,7 @@
 							<span style="display:inline-block;margin-right:15px;margin-left:10px;color:red;font-size:25px;width:30px">{$st['total']}</span>
 							<span style="display:inline-block;font-size:12px;">（个）</span>
 					</div>
-					<div style="margin-left:11%;margin-top:5px;font-size:12px;">
+					<div style="margin-left:11%;margin-top:4%;font-size:12px;">
 						<span style="display:inline-block; float:left;margin-right:4px;padding-left:6%"><img src="__PUBLIC__/pic/dc_pile.png" style="width:15px;"/></span>
 						<span style="display:inline-block; float:left;width:40%;">直流桩：{$st['ac_num']}</span>
 						<span style="display:inline-block; float:left;margin-right:4px;"><img src="__PUBLIC__/pic/idle_pile.png" style="width:15px;"/></span>
@@ -184,7 +184,7 @@
 			<volist name="lists" id="vo">
 				<div style="width:23%;height:140px;float:left;background-color:white;margin-right:10px;margin-bottom:8px;">
 					<!-- 左上 -->
-					<div style="height:60%;width:70%;float:left;border-right:1px solid;border-bottom:1px solid;border-color:#e8e8e8;">
+					<div style="height:60%;width:70%;float:left;border-right:1px solid;border-bottom:1px solid;border-color:#e8e8e8;padding-left:5%">
 						<!-- 图标  -->
 						<if condition="$vo['type'] eq 0 ">
 							<div style="float:left;height:100%;width:30%;padding:8px 3px;"><img src="__PUBLIC__/pic/ac_pile_60.png" width="45px"/></div>
@@ -193,7 +193,7 @@
 						</if>
 						
 						 <!-- 桩号  -->
-						 <div style="float:left;height:100%;width:70%;">
+						<div style="float:left;height:100%;width:70%;padding-left:5%">
 							<div style="font-size:12px;">
 								<div style="color:red;text-align:left;padding-top:10px;">{:substr($vo['pile_no'],-1,1)}号充电桩</div>
 								<div style="padding-top:10px;">
@@ -242,7 +242,7 @@
 		</div> <!-- 桩信息结束 -->
 		
 		 <!-- 分页 -->
-		<div style="text-align:center;">{$show}</div>
+		<div style="margin-left:50%">{$show}</div>
 		
 		<!-- 弹窗 遮罩 -->
 		<div id="test" style="display:none"></div>

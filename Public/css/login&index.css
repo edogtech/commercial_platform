@@ -11,7 +11,7 @@
 .web_body{
     background-color:#E8E7E4;
     text-align:center;
-    min-height:303px;
+    min-height: 468px;
 }
 
 #ziti{
@@ -153,8 +153,8 @@
 /*在大于1200像素的屏幕里,这里的样式才生效*/
 @media (min-width: 1200px) {
     #index_head{
-        margin:100px 0px;
-        padding:30px 30px;
+        margin: 80px 0px;
+        padding: 40px 30px;
         font-size:25px;
     }
     .web_foot>div:nth-child(1){
@@ -167,7 +167,7 @@
         margin-bottom:60px;
     }
     #login_box{
-        top:-110px;
+        top: -100px;
     }
 
     #huanying{
@@ -189,7 +189,7 @@
 
 /*登录框样式*/
 #login_box{
-    min-height:350px;
+    min-height: 380px;
     background-color:#ffffff;
     position:relative;
     z-index:100;
