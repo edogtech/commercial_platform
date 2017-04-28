@@ -49,10 +49,12 @@ class OperateController extends Controller{
         $count=array();
         $workorder=M('workorder_control')->where("mid={$_SESSION['admininfo']['identity']} and status=1")->count();
         $costorder=M('cost_control')->where("mid={$_SESSION['admininfo']['identity']}")->count();
+        $priceorder=M('price_control')->where("mid={$_SESSION['admininfo']['identity']}")->count();
 
 
         $count['workorder']=$workorder;
         $count['costorder']=$costorder;
+        $count['priceorder']=$priceorder;
 
         $this->assign('lists',$order);
         $this->assign('show',$show);
@@ -71,7 +73,7 @@ class OperateController extends Controller{
         $data['operator']=trim($_POST['operator']);
         $data['mid']=trim($_POST['mid']);
         $data['addtime']=time();
-        $data['order_number']='ECB'.get_micro_time(3).mt_rand(1000,9999);;
+        $data['order_number']='ECB'.get_micro_time(3).mt_rand(1000,9999);
         $data['operator_level']=trim($_POST['operator_level']);
 
         $res=M('cost_control')->add($data);
@@ -230,10 +232,12 @@ class OperateController extends Controller{
         $count=array();
         $workorder=M('workorder_control')->where("mid={$_SESSION['admininfo']['identity']} and status=1")->count();
         $costorder=M('cost_control')->where("mid={$_SESSION['admininfo']['identity']}")->count();
+        $priceorder=M('price_control')->where("mid={$_SESSION['admininfo']['identity']}")->count();
 
 
         $count['workorder']=$workorder;
         $count['costorder']=$costorder;
+        $count['priceorder']=$priceorder;
 
         $this->assign('lists',$order);
         $this->assign('show',$show);
@@ -354,7 +358,56 @@ class OperateController extends Controller{
             $this->error('添加失败');
         }
 
+    }
 
+    public function price(){
+        $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
+        // 在header显示系统当前登录的用户名
+        $user=mb_substr($_SESSION['admininfo']['uname'],0,4).'***';
+        $msg=session('admininfo');
+
+        //查询页面内容
+        //添加检索条件
+
+        if(!empty(trim($_GET['time_start'])) && empty(trim($_GET['time_end']))){
+            $map['addtime']=array('gt',strtotime($_GET['time_start']));
+        }
+
+        if(empty(trim($_GET['time_start'])) && !empty(trim($_GET['time_end']))){
+            $map['addtime']=array('lt',strtotime($_GET['time_start']));
+        }
+
+        if(!empty(trim($_GET['time_start'])) && !empty(trim($_GET['time_end']))){
+            $starttime=strtotime($_GET['time_start']);
+            $endtime=strtotime($_GET['time_end']);
+            $map['addtime']=array('exp',"between $starttime and $endtime");
+        }
+
+        $map['mid']=array('eq',$_SESSION['admininfo']['identity']);
+
+        //订单数据
+        $count=M('price_control')->where($map)->count();
+
+        $page= new \Think\Page($count,5);
+        $show=$page->show();
+        $order=M('price_control')->order('id desc')->where($map)->limit($page->firstRow,$page->listRows)->select();
+
+        //页头待处理数据
+        $count=array();
+        $workorder=M('workorder_control')->where("mid={$_SESSION['admininfo']['identity']} and status=1")->count();
+        $costorder=M('cost_control')->where("mid={$_SESSION['admininfo']['identity']}")->count();
+        $priceorder=M('price_control')->where("mid={$_SESSION['admininfo']['identity']}")->count();
+
+
+        $count['workorder']=$workorder;
+        $count['costorder']=$costorder;
+        $count['priceorder']=$priceorder;
+
+        $this->assign('lists',$order);
+        $this->assign('show',$show);
+        $this->assign('count',$count);
+        $this->assign(array('curuser'=>$user,'prid'=>$msg['pridlist'],'curdate'=>$date));
+        $this->display();
     }
 
 

@@ -100,7 +100,7 @@
             </div>
             <div  class="msysnavlnav" id="price_redirect" style="cursor:pointer">
                 <div style="text-align:left;font-weight: bold;margin-top:10px;margin-left: 15px;">价格管理</div>
-                <div style="text-align: center">已调价&nbsp;&nbsp;<div style="color:#EFDC2B;font-size:32px;display: inline-block;">8</div>&nbsp;&nbsp;(次)</div>
+                <div style="text-align: center">已调价&nbsp;&nbsp;<div style="color:#EFDC2B;font-size:32px;display: inline-block;">{$count['priceorder']}</div>&nbsp;&nbsp;(次)</div>
             </div>
             <div class="msysnavlnav" id="invoice_redirect" style="cursor:pointer">
                 <div style="text-align:left;font-weight: bold;margin-top:10px;margin-left: 15px;">发票管理</div>
@@ -335,6 +335,10 @@
 
         $('#cost_redirect').click(function(){
             location.href="{:U('Operate/cost')}";
+        });
+
+        $('#price_redirect').click(function(){
+            location.href="{:U('Operate/price')}";
         });
 
     });
