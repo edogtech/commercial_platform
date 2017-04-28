@@ -61,7 +61,7 @@ img{ border:none;}/*去掉图片加完链接之后自带的边框*/
 	background:#ffffff;
 	float:left;
 	margin-top:10px;
-	margin-left:2%;
+	margin-left: 1%;
 	}
 .msysnavlnav dl{
 		padding-left:0;

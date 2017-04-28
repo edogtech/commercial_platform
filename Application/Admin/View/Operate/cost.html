@@ -116,7 +116,8 @@
         <!--搜索框-->
         <form id="subsearch" method="get" action="{:U('Operate/cost')}">
             <div style="height:40px;margin-top:10px;">
-                <div style="float:left;font-size:16px;color:#e34747;padding-top:14px;padding-left:20px;">查询：</font></div>
+                <div style="float:left;font-size:16px;color:#e34747;padding-top:14px;padding-left:40px;">
+                    查询：</font></div>
                 <div style="float:left;padding-top:10px;padding-left:20px;height:40px">
                     <input type='text' id="time_start" name="time_start" style="width:150px;height:100%;border:1px solid #CCC8C3" value="{:empty($_GET['time_start'])?'':$_GET['time_start'];}" placeholder="请输入开始日期" />
                 </div>
@@ -125,13 +126,17 @@
                     <input type='text' id="time_end" name="time_end" style="width:150px;height:100%;border:1px solid #CCC8C3" value="{:empty($_GET['time_end'])?'':$_GET['time_end'];}" placeholder="请输入结束日期" />
                 </div>
 
-                <button type="submit" style="float:left;width:70px;height:30px;background-color:#E34747;margin-top:8px;margin-left:20px;text-align:center;color:white;border:none;" >
+                <button type="submit"
+                        style="float:left;width:70px;height:30px;background-color:#E34747;margin-top:8.7px;margin-left:20px;text-align:center;color:white;border:none;">
                     查询
                 </button>
-                <button id="excel" style="float:left;width:70px;height:30px;background-color:#E34747;margin-top:8px;margin-left:20px;text-align:center;color:white;border:none;" >
+                <button id="excel"
+                        style="float:left;width:70px;height:30px;background-color:#E34747;margin-top:8.7px;margin-left:20px;text-align:center;color:white;border:none;">
                     导出
                 </button>
-                <button type="button" style="float:left;width:70px;height:30px;background-color:#E34747;margin-top:8px;margin-left:20px;text-align:center;color:white;border:none;" data-toggle="modal" data-target="#Modal2" >
+                <button type="button"
+                        style="float:left;width:70px;height:30px;background-color:#E34747;margin-top:8.7px;margin-left:20px;text-align:center;color:white;border:none;"
+                        data-toggle="modal" data-target="#Modal2">
                     添加
                 </button>
             </div>

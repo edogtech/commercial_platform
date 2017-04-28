@@ -67,9 +67,9 @@ class TerminalController extends Controller {
                     break;                        
             }
         }
-        
-        
-/*列表及分页*/
+
+
+        /*列表及分页*/
         $station=I('post.txtStation','','trim');
         $where=array();
         
