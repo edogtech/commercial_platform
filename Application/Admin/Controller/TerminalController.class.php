@@ -169,19 +169,25 @@ class TerminalController extends Controller {
         $arrayChg=explode(',', $re['charging_fee']);
         for($i=0;$i<sizeof($arrayChg);$i=$i+3){
             if($clock>=$arrayChg[$i] && $clock<=$arrayChg[$i+1]){
-                $re['charging_fee']=$arrayChg[$i+2];
+                $re['charging_fee']=$arrayChg[$i+2].'元/度';
+            }else {
+                $re['charging_fee']='该时间段未设定';
             }
         }
         $arrayPark=explode(',', $re['parking_fee']);
         for($i=0;$i<sizeof($arrayPark);$i=$i+3){
             if($clock>=$arrayPark[$i] && $clock<=$arrayPark[$i+1]){
-                $re['parking_fee']=$arrayPark[$i+2];
+                $re['parking_fee']=$arrayPark[$i+2].'元/小时';
+            }else {
+                $re['parking_fee']='该时间段未设定';
             }
         }
         $arrayServe=explode(',', $re['serving_fee']);
         for($i=0;$i<sizeof($arrayServe);$i=$i+3){
             if($clock>=$arrayServe[$i] && $clock<=$arrayServe[$i+1]){
-                $re['serving_fee']=$arrayServe[$i+2];
+                $re['serving_fee']=$arrayServe[$i+2].'元/度';
+            }else {
+                $re['serving_fee']='该时间段未设定';
             }
         }
 
@@ -228,28 +234,48 @@ class TerminalController extends Controller {
         $stationID=array_pop($arrayDuration); // 弹出站ID
         $strDuration=(implode(',',$arrayDuration)); // 生成以逗号分隔的时段与价格字符串
         
-//         $ob=M('charge_station');
         $where['id']=$stationID;
+        $res=$this->ob_station->field('name,parking_fee,serving_fee,charging_fee')->where($where)->find();
         
         switch ($category) {
             case 'parking':
                 $data['parking_fee']=$strDuration;
+                $type='1';
+                $prePrice=$res['parking_fee'];
                 break;
             case 'serving':
                 $data['serving_fee']=$strDuration;
+                $type='2';
+                $prePrice=$res['serving_fee'];
                 break;
             case 'charging':
                 $data['charging_fee']=$strDuration;
+                $type='3';
+                $prePrice=$res['charging_fee'];
                 break;
         }
+        // 更新电站调价信息
         $re=$this->ob_station->where($where)->data($data)->save();
-        
-        if($re){
+
+        // 向价格管理添加记录
+        $info['station_name']=$res['name'];
+        $info['station_id']=$stationID;
+        $info['order_number']='EJG'.get_micro_time(3).mt_rand(1000,9999);
+        $info['type']=$type;
+        $info['operator']=session('admininfo.uname');
+        $info['addtime']=time();
+        $info['old_price']=$prePrice;
+        $info['new_price']=$strDuration;
+        $info['mid']=session('admininfo.identity');
+
+        $res=M('price_control')->data($info)->add();
+
+        if(empty($re)||empty($res)){
             //$this->success('修改成功！','index');
             //$this->redirect("Terminal/detail");
-            $this->success('修改成功！');
-        }else{
             $this->error("修改失败");
+        }else{
+            $this->success('修改成功！');
         }
         
     }

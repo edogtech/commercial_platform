@@ -79,6 +79,10 @@ $(function(){
 				$("#txtAdjustFee12").css('border-color','pink');
 				return;
 			}
+			if($.trim(time11).length==0 && $.trim(time12).length==0){
+				$("#txtAdjustFee11,#txtAdjustFee12").css('border-color','pink');
+				return;
+			}
 		}else{
 			$("#txtAdjustFee13").css('border-color','pink');
 			return;
