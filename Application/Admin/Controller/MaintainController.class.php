@@ -7,7 +7,7 @@ class MaintainController extends Controller{
         $msg=session('admininfo');
         $prid=$msg['pridlist'];
         if (!in_array(4,$prid)){
-            $this->error('您无此权限！');
+            $this->error('您无此权限！', 'Index/index', 2);
         }
     }
 	public function index(){

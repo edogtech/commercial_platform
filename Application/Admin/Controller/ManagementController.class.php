@@ -16,7 +16,7 @@ param：、、、、
         $uid=$msg['uid'];
         $issole=D('UserMerchant')->where(array('uname'=>$uname,'uid'=>$uid))->find();
         if (empty($issole)) {
-            $this->error('您无此权限！');
+            $this->error('您无此权限！', 'Index/index', 2);
         }
     }
     public function mindex(){

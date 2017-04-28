@@ -7,7 +7,7 @@ class FinancialController extends Controller {
         $msg=session('admininfo');
         $prid=$msg['pridlist'];
         if (!in_array(2,$prid)){
-            $this->error('您无此权限！');
+            $this->error('您无此权限！', 'Index/index', 2);
         }
     }
     //关于我们页面的展示
