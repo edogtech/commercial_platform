@@ -196,7 +196,9 @@
                         <td>
 	                        <switch name="vo.status" >
 	                            <case value="1">
-	                            	<div class="DivPending" style="cursor:pointer;color:red;" sheetID="{$vo['id']}" customer="{$vo['customer']}" phone="{$vo['phone']}" type="{$vo['type']}" describe="{$vo['describe']}" addtime="{$vo['addtime']|date='Y-m-d H:i s',###}" >
+                                    <div class="DivPending" style="cursor:pointer;color:red;" sheetID="{$vo['id']}"
+                                         customer="{$vo['customer']}" phone="{$vo['phone']}" type="{$vo['type']}"
+                                         describe="{$vo['describe']}" addtime="{$vo['addtime']|date='Y-m-d H:i:s',###}">
 	                            		待处理<img src="__PUBLIC__/pic/pending.png" style="width:20px;padding-left:3px;"/>
 	                            	</div>
 	                            </case>
@@ -235,21 +237,29 @@
 						<span style="display:inline-block;"><input id="txtAppException" type="text" size="10" style="text-align:center;" readonly value="APP异常"/></span>
 						<span style="display:inline-block;padding-left:5%;"><input id="txtPileException" type="text" size="10" style="text-align:center;" readonly value="电桩异常" /></span>
 						<span style="display:inline-block;padding-left:5%;text-align:right;"><input id="txtSwipeException" type="text"  size="10" style="text-align:center;" readonly value="刷卡异常"/></span>
-						<span style="display:block;padding-left:18%;padding-top:1%;"><input id="txtOtherException" type="text" size="10" style="text-align:center;" readonly  value="其他问题"/></span>
+                        <span style="display:block;padding-left:17.5%;padding-top:1%;"><input id="txtOtherException"
+                                                                                              type="text" size="10"
+                                                                                              style="text-align:center;"
+                                                                                              readonly
+                                                                                              value="其他问题"/></span>
 					</div>
 					<div style="margin-top:3%;">
 						<span>
 							<label>问题描述：</label>
-							<textarea id="sheetDescribe" style="vertical-align:top;resize:none;" rows="3" cols="41" readonly></textarea>
+							<textarea id="sheetDescribe"
+                                      style="vertical-align:top;resize:none; width:310px; height:80px;"
+                                      readonly></textarea>
 						</span>
-						<span id="sheetAddtime" style="display:block;text-align:right;padding-right:7%;font-size:10px;"></span>
+                        <span id="sheetAddtime"
+                              style="display:block;text-align:right;padding-right:10%;font-size:10px;"></span>
 					</div>
 					<div style="margin-top:3%;">
 						<span>
 							<label>问题反馈：</label>
-							<textarea id="response" name="response" style="vertical-align:top;resize:none;" rows="3" cols="41" ></textarea>
+							<textarea id="response" name="response"
+                                      style="vertical-align:top;resize:none; width:310px; height:80px;"></textarea>
 						</span>
-						<span style="display:block;text-align:right;padding-right:7%;font-size:10px;">{:date('Y-m-d H:i s',time())}</span>
+                        <span style="display:block;text-align:right;padding-right:10%;font-size:10px;">{:date('Y-m-d H:i:s',time())}</span>
 					</div>
 				</div>
 				<!-- 进度消息栏 -->
