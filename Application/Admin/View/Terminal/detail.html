@@ -82,7 +82,7 @@
      
     <!-- 自定义JS -->
     <script src="__PUBLIC__/js/my.js"></script>
-<block name="main">
+	<block name="main">
 	<!--状态栏-->
 	<div class="status" style="float:left">
 		<div class="status-left" style="float:left" >
@@ -133,14 +133,14 @@
 						<span style="display:inline-block; float:left;padding-left:6%"><img src="__PUBLIC__/pic/charge_fee.png" style="width:15px;"/></span>
 						<span style="display:inline-block; float:left;margin-left:4px;">充电费：</span>
 						<span style="display:inline-block; float:left;margin-right:10%;width:45%"> {$st['charging_fee']}元/度</span>
-						<span id="adjustChargingFee" style="display:inline-block;"><a href="#" data-toggle="modal" data-target="#ChargingFeeModal" data-id="{$vo['id']}">调价</a></span>						
+						<span id="adjustChargingFee" style="display:inline-block;cursor:pointer;">调价</span>						
 					</div>
 
 					<div style="margin-left:30px;margin-top:5px;font-size:12px;">
 						<span style="display:inline-block; float:left;padding-left:6%"><img src="__PUBLIC__/pic/service_fee.png" style="width:15px;"/></span>
 						<span style="display:inline-block; float:left;margin-left:4px;">服务费：</span>
 						<span style="display:inline-block; float:left;margin-right:10%;width:45%">{$st['serving_fee']}元/度</span>
-						<span id="adjustServingFee" style="display:inline-block;"><a href="#" data-toggle="modal" data-target="#ServingFeeModal" data-id="{$vo['id']}">调价</a></span>						
+						<span id="adjustServingFee" style="display:inline-block;cursor:pointer;">调价</span>						
 					</div>
 					<div style="margin-left:30px;margin-top:5px;font-size:12px;">
 						<span style="display:inline-block; float:left;padding-left:6%"><img src="__PUBLIC__/pic/parking_fee.png" style="width:15px;"/></span>
@@ -246,114 +246,38 @@
 		
 		<!-- 弹窗 遮罩 -->
 		<div id="test" style="display:none"></div>
-		<!-- 弹窗 调整停车费 -->
-		<div id="ParkingFee" class="AdjustFee" style="display:none;">
+		<!-- 弹窗 调整充电费/服务费/停车费 -->
+		<div id="divAdjustFee" class="AdjustFee" style="display:none;">
 			<div style="margin:10px 30px;">
-			<form id="frmParkingFee" method="post" action="{:U('Terminal/adjustFee')}">
-				<div style="color:red;font-size:22px;margin-top:20px;text-align:center;">停车费调价</div>
+			<form id="frmAdjustFee" method="post" action="{:U('Terminal/adjustFee')}">
+				<div id="feeCaption" style="color:red;font-size:22px;margin-top:20px;text-align:center;"></div>
 				<div style="margin-top:15px;">
-					<span style="display:inline-block;margin-left: 85px">开始时间</span><span style="display:inline-block;margin-left:60px;">结束时间</span><span style="display:inline-block;margin-left:65px">停车费</span>
+					<span style="display:inline-block;margin-left: 85px">开始时间</span><span style="display:inline-block;margin-left:60px;">结束时间</span><span id="feeCaption2" style="display:inline-block;margin-left:65px"></span>
 				</div>
 				<div style="text-align:center;margin-top:15px;">
 					<label>时段1：</label>
-					<input style="display:inline;width:20%;height:20px;" type="text" id="txtParking11" name="txtParking11">&nbsp;—
-					<input style="display:inline;width:20%;height:20px;" type="text" id="txtParking12" name="txtParking12">
-					<input style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtParking13" name="txtParking13">&nbsp;元/小时
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtAdjustFee11" name="txtAdjustFee11">&nbsp;—
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtAdjustFee12" name="txtAdjustFee12">
+					<input style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtAdjustFee13" name="txtAdjustFee13"><span class="unit"></span>
 				</div>
 				<div style="text-align:center;margin-top:15px;">
 					<label>时段2：</label>
-					<input style="display:inline;width:20%;height:20px;" type="text" id="txtParking21" name="txtParking21">&nbsp;—
-					<input style="display:inline;width:20%;height:20px;" type="text" id="txtParking22" name="txtParking22">
-					<input style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtParking23" name="txtParking23">&nbsp;元/小时
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtAdjustFee21" name="txtAdjustFee21">&nbsp;—
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtAdjustFee22" name="txtAdjustFee22">
+					<input style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtAdjustFee23" name="txtAdjustFee23"><span class="unit"></span>
 				</div>
 				<div style="text-align:center;margin-top:15px;">
 					<label>时段3：</label>
-					<input style="display:inline;width:20%;height:20px;" type="text" id="txtParking31" name="txtParking31">&nbsp;—
-					<input style="display:inline;width:20%;height:20px;" type="text" id="txtParking32" name="txtParking32">
-					<input style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtParking33" name="txtParking33">&nbsp;元/小时
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtAdjustFee31" name="txtAdjustFee31">&nbsp;—
+					<input style="display:inline;width:20%;height:20px;" type="text" id="txtAdjustFee32" name="txtAdjustFee32">
+					<input style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtAdjustFee33" name="txtAdjustFee33"><span class="unit"></span>
 				</div>
 				<input type="hidden" name="stationID" value="{$st['id']}" />
-				<input type="hidden" name="flag" value="parking" />
+				<input type="hidden" id="hiddenFlag" name="flag" value="" />
 				
 				<div style=" margin-top:18px;border-top:2px solid;border-color:#e8e8e8;"></div>
 				<div style=" margin-top:5px;text-align:center;font-size:22px;">
-					<div id="dlgParkingOK" style="width:50%;float:left;cursor:pointer;border-right:1px solid;border-color:#e8e8e8;">确定</div>
-					<div name="dlgCancel" style="width:50%;float:right;cursor:pointer;">取消</div>
-				</div>
-			</form>
-			</div>
-		</div>
-		
-		<!-- 弹窗 调整服务费 -->
-		<div id="ServingFee" class="AdjustFee" style="display:none;">
-			<div style="margin:10px 30px;">
-			<form id="frmServingFee" method="post" action="{:U('Terminal/adjustFee')}">
-				<div style="color:red;font-size:22px;margin-top:20px;text-align:center;">服务费调价</div>
-				<div style="margin-top:15px;">
-					<span style="display:inline-block;margin-left: 85px">开始时间</span><span style="display:inline-block;margin-left:60px;">结束时间</span><span style="display:inline-block;margin-left:65px">服务费</span>
-				</div>
-				<div style="text-align:center;margin-top:15px;">
-					<label>时段1：</label>
-					<input style="display:inline;width:20%;height:20px;" type="text" id="txtServing11" name="txtServing11">&nbsp;—
-					<input style="display:inline;width:20%;height:20px;" type="text" id="txtServing12" name="txtServing12">
-					<input style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtServing13" name="txtServing13">&nbsp;元/小时
-				</div>
-				<div style="text-align:center;margin-top:15px;">
-					<label>时段2：</label>
-					<input style="display:inline;width:20%;height:20px;" type="text" id="txtServing21" name="txtServing21">&nbsp;—
-					<input style="display:inline;width:20%;height:20px;" type="text" id="txtServing22" name="txtServing22">
-					<input style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtServing23" name="txtServing23">&nbsp;元/小时
-				</div>
-				<div style="text-align:center;margin-top:15px;">
-					<label>时段3：</label>
-					<input style="display:inline;width:20%;height:20px;" type="text" id="txtServing31" name="txtServing31">&nbsp;—
-					<input style="display:inline;width:20%;height:20px;" type="text" id="txtServing32" name="txtServing32">
-					<input style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtServing33" name="txtServing33">&nbsp;元/小时
-				</div>
-				<input type="hidden" name="stationID" value="{$st['id']}" />
-				<input type="hidden" name="flag" value="serving" />
-				
-				<div style=" margin-top:18px;border-top:2px solid;border-color:#e8e8e8;"></div>
-				<div style=" margin-top:5px;text-align:center;font-size:22px;">
-					<div id="dlgServingOK" style="width:50%;float:left;cursor:pointer;border-right:1px solid;border-color:#e8e8e8;">确定</div>
-					<div name="dlgCancel" style="width:50%;float:right;cursor:pointer;">取消</div>
-				</div>
-			</form>
-			</div>
-		</div>
-		
-		<!-- 弹窗 调整充电费 -->
-		<div id="ChargingFee" class="AdjustFee" style="display:none;">
-			<div style="margin:10px 30px;">
-			<form id="frmChargingFee" method="post" action="{:U('Terminal/adjustFee')}">
-				<div style="color:red;font-size:22px;margin-top:20px;text-align:center;">充电费调价</div>
-				<div style="margin-top:15px;">
-					<span style="display:inline-block;margin-left: 85px">开始时间</span><span style="display:inline-block;margin-left:60px;">结束时间</span><span style="display:inline-block;margin-left:65px">充电费</span>
-				</div>
-				<div style="text-align:center;margin-top:15px;">
-					<label>时段1：</label>
-					<input class="chkReg" style="display:inline;width:20%;height:20px;" type="text" id="txtCharging11" name="txtCharging11">&nbsp;—
-					<input class="chkReg" style="display:inline;width:20%;height:20px;" type="text" id="txtCharging12" name="txtCharging12">
-					<input class="chkNaN" style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtCharging13" name="txtCharging13">&nbsp;元/小时
-				</div>
-				<div style="text-align:center;margin-top:15px;">
-					<label>时段2：</label>
-					<input class="chkReg" style="display:inline;width:20%;height:20px;" type="text" id="txtCharging21" name="txtCharging21">&nbsp;—
-					<input class="chkReg" style="display:inline;width:20%;height:20px;" type="text" id="txtCharging22" name="txtCharging22">
-					<input class="chkNaN" style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtCharging23" name="txtCharging23">&nbsp;元/小时
-				</div>
-				<div style="text-align:center;margin-top:15px;">
-					<label>时段3：</label>
-					<input class="chkReg" style="display:inline;width:20%;height:20px;" type="text" id="txtCharging31" name="txtCharging31">&nbsp;—
-					<input class="chkReg" style="display:inline;width:20%;height:20px;" type="text" id="txtCharging32" name="txtCharging32">
-					<input class="chkNaN" style="display:inline;width:20%;height:20px;margin-left:20px;"type="text" id="txtCharging33" name="txtCharging33">&nbsp;元/小时
-				</div>
-				<input type="hidden" name="stationID" value="{$st['id']}" />
-				<input type="hidden" name="flag" value="charging" />
-				
-				<div style=" margin-top:18px;border-top:2px solid;border-color:#e8e8e8;"></div>
-				<div style=" margin-top:5px;text-align:center;font-size:22px;">
-					<div id="dlgChargingOK" style="width:50%;float:left;cursor:pointer;border-right:1px solid;border-color:#e8e8e8;">确定</div>
+					<div class="divAdjustFeeOK" value="parking" style="width:50%;float:left;cursor:pointer;border-right:1px solid;border-color:#e8e8e8;">确定</div>
 					<div name="dlgCancel" style="width:50%;float:right;cursor:pointer;">取消</div>
 				</div>
 			</form>

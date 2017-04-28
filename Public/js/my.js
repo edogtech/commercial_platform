@@ -1,4 +1,6 @@
-﻿$(function(){
+﻿var adjustFeeCategory = ""; // 定义充电费/服务费/停车费类型全局变量 
+
+$(function(){
 	// 导出
     $('#export').click(function () {
     	 var selectValue=$("#paytype option:selected").val();  //获取Select选择值
@@ -22,91 +24,102 @@
     	location.reload();
     });
     
-    // 调价弹出框
+    /* 充电费/服务费/停车费调价弹框-触发*/
 	$('#adjustParkingFee').click(function () {
-		$('#ParkingFee').css('display','block');
+		$('#feeCaption').html("停车费调价");
+		$('#feeCaption2').html("停车费");
+		$('.unit').html("&nbsp;元/小时");
+		
+		$('#divAdjustFee').css('display','block'); // 弹窗
 		$("#test").css('display','block');
+		adjustFeeCategory="parking";
+		
 	})
 	$('#adjustServingFee').click(function () {
-		$('#ServingFee').css('display','block');
+		$('#feeCaption').html("服务费调价");
+		$('#feeCaption2').html("服务费");
+		$('.unit').html("&nbsp;元/度");
+		
+		$('#divAdjustFee').css('display','block');
 		$("#test").css('display','block');
+		adjustFeeCategory="serving";
+		
 	})
 	$('#adjustChargingFee').click(function () {
-		$('#ChargingFee').css('display','block');
+		$('#feeCaption').html("充电费调价");
+		$('#feeCaption2').html("充电费");
+		$('.unit').html("&nbsp;元/度");
+		
+		$('#divAdjustFee').css('display','block');
 		$("#test").css('display','block');
+		adjustFeeCategory="charging";
 	})
 	
-	// 调价弹出框-确定
-	$("#dlgParkingOK").click(function(){
-		$("#frmParkingFee").submit();
-	})
-	$("#dlgServingOK").click(function(){
-		$("#frmServingFee").submit();
-	})
-	$("#dlgChargingOK").click(function(){
-		var time11=$("#txtCharging11").val();
-		var time12=$("#txtCharging12").val();
-		var price1=$("#txtCharging13").val();
+	/*充电费/服务费/停车费调价弹框-校验*/
+	$(".divAdjustFeeOK").click(function(){
+		var time11=$("#txtAdjustFee11").val();
+		var time12=$("#txtAdjustFee12").val();
+		var price1=$("#txtAdjustFee13").val();
 		
-		var time21=$("#txtCharging21").val();
-		var time22=$("#txtCharging22").val();
-		var price2=$("#txtCharging23").val();
+		var time21=$("#txtAdjustFee21").val();
+		var time22=$("#txtAdjustFee22").val();
+		var price2=$("#txtAdjustFee23").val();
 		
-		var time31=$("#txtCharging31").val();
-		var time32=$("#txtCharging32").val();
-		var price3=$("#txtCharging33").val();
+		var time31=$("#txtAdjustFee31").val();
+		var time32=$("#txtAdjustFee32").val();
+		var price3=$("#txtAdjustFee33").val();
 	
 		// 验证价格与时段必填
 		if($.trim(price1).length!=0){
 			if($.trim(time11).length==0 && $.trim(time12).length!=0){
-				$("#txtCharging11").css('border-color','pink');
+				$("#txtAdjustFee11").css('border-color','pink');
 				return;
 			}
 			if($.trim(time11).length!=0 && $.trim(time12).length==0){
-				$("#txtCharging12").css('border-color','pink');
+				$("#txtAdjustFee12").css('border-color','pink');
 				return;
 			}
 		}else{
-			$("#txtCharging13").css('border-color','pink');
+			$("#txtAdjustFee13").css('border-color','pink');
 			return;
 		}
 		
 		if($.trim(price2).length!=0){
 			if($.trim(time21).length==0 && $.trim(time22).length!=0){
-				$("#txtCharging21").css('border-color','pink');
+				$("#txtAdjustFee21").css('border-color','pink');
 				return;
 			}
 			if($.trim(time21).length!=0 && $.trim(time22).length==0){
-				$("#txtCharging22").css('border-color','pink');
+				$("#txtAdjustFee22").css('border-color','pink');
 				return;
 			}
 			if($.trim(time21).length==0 || $.trim(time22).length==0){
-				$("#txtCharging21,#txtCharging22").css('border-color','pink');
+				$("#txtAdjustFee21,#txtAdjustFee22").css('border-color','pink');
 				return;
 			}
 		}else{
 			if($.trim(time21).length!=0 || $.trim(time22).length!=0){
-				$("#txtCharging21,#txtCharging22").css('border-color','pink');
+				$("#txtAdjustFee21,#txtAdjustFee22").css('border-color','pink');
 				return;
 			}
 		}
 		
 		if($.trim(price3).length!=0){
 			if($.trim(time31).length==0 && $.trim(time32).length!=0){
-				$("#txtCharging31").css('border-color','pink');
+				$("#txtAdjustFee31").css('border-color','pink');
 				return;
 			}
 			if($.trim(time31).length!=0 && $.trim(time32).length==0){
-				$("#txtCharging32").css('border-color','pink');
+				$("#txtAdjustFee32").css('border-color','pink');
 				return;
 			}
 			if($.trim(time31).length==0 || $.trim(time32).length==0){
-				$("#txtCharging31,#txtCharging32").css('border-color','pink');
+				$("#txtAdjustFee31,#txtAdjustFee32").css('border-color','pink');
 				return;
 			}
 		}else{
 			if($.trim(time31).length!=0 || $.trim(time32).length!=0){
-				$("#txtCharging31,#txtCharging32").css('border-color','pink');
+				$("#txtAdjustFee31,#txtAdjustFee32").css('border-color','pink');
 				return;
 			}
 		}
@@ -139,9 +152,11 @@
 		})
 		if(exitFlag){return;}
 		
-		$("#frmChargingFee").submit();
-		
-	})	
+		// 提交
+		$("#hiddenFlag").val(adjustFeeCategory);
+		$("#frmAdjustFee").submit();
+	})
+	
 	
 
 	// 电桩控制弹框
@@ -158,7 +173,7 @@
 	
 	// 弹框-取消
 	$("div[name='dlgCancel']").click(function () {
-		$('#ChargingFee,#ParkingFee,#ServingFee,#PopControlPile,#PopPendingSheet').css('display','none');
+		$('#divAdjustFee,#PopControlPile,#PopPendingSheet').css('display','none');
 		$("#test").css('display','none');
 	})
 
@@ -181,7 +196,6 @@
 	})
 	
 	// 电桩控制弹窗-发送指令并返回状态
-	
 	$("#sp1").click(function(){
 		var actionStr=$(this).attr("action");
 		var url="/commercial/index.php/Admin/Terminal/controlAction";
