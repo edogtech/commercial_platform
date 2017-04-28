@@ -12,9 +12,9 @@ class TerminalController extends Controller {
         parent::__construct();
         $msg=session('admininfo');
         $prid=$msg['pridlist'];
-        if (!in_array(1,$prid)){
-            $this->error('您无此权限！', 'Index/index', 2);
-        }
+//         if (!in_array(1,$prid)){
+//             $this->error('您无此权限！', 'Index/index', 2);
+//         }
 
         $this->term[user_id]=$msg['identity'];
         $this->ob_pile=M('charge_pile');
@@ -215,6 +215,31 @@ class TerminalController extends Controller {
     }
     
     /*
+     * AJAX回调显示充电/服务/停车费
+     */
+    public function displayFee(){
+        $stationID=I('post.stationID');
+        $type=I('post.type');
+        
+        $map['id']=$stationID;
+        $re=$this->ob_station->field('parking_fee,serving_fee,charging_fee')->where($map)->find();
+        
+        switch ($type) {
+            case 'parking':
+                $return=explode(',',$re['parking_fee']);
+                break;
+            case 'serving':
+                $return=explode(',',$re['serving_fee']);
+                break;
+            case 'charging':
+                $return=explode(',',$re['charging_fee']);
+                break;
+        }
+        
+        echo json_encode($return);
+    }
+    
+    /*
      * 调整充电/服务/停车费
      */
     public function adjustFee(){
@@ -282,7 +307,7 @@ class TerminalController extends Controller {
     
     
     /*
-     * crontab安时发送调整充电费命令
+     * crontab根据时段发送调整充电费命令
      */
     public function adjustChargingFeeCommand(){
 

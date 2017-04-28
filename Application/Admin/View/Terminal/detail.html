@@ -133,20 +133,20 @@
 						<span style="display:inline-block; float:left;padding-left:6%"><img src="__PUBLIC__/pic/charge_fee.png" style="width:15px;"/></span>
 						<span style="display:inline-block; float:left;margin-left:4px;">充电费：</span>
 						<span style="display:inline-block; float:left;margin-right:10%;width:45%"> {$st['charging_fee']}</span>
-						<span id="adjustChargingFee" style="display:inline-block;cursor:pointer;">调价</span>						
+						<span id="adjustChargingFee" stationID={$st['id']} style="display:inline-block;cursor:pointer;">调价</span>						
 					</div>
 
 					<div style="margin-left:30px;margin-top:5px;font-size:12px;">
 						<span style="display:inline-block; float:left;padding-left:6%"><img src="__PUBLIC__/pic/service_fee.png" style="width:15px;"/></span>
 						<span style="display:inline-block; float:left;margin-left:4px;">服务费：</span>
 						<span style="display:inline-block; float:left;margin-right:10%;width:45%">{$st['serving_fee']}</span>
-						<span id="adjustServingFee" style="display:inline-block;cursor:pointer;">调价</span>						
+						<span id="adjustServingFee" stationID={$st['id']} style="display:inline-block;cursor:pointer;" >调价</span>						
 					</div>
 					<div style="margin-left:30px;margin-top:5px;font-size:12px;">
 						<span style="display:inline-block; float:left;padding-left:6%"><img src="__PUBLIC__/pic/parking_fee.png" style="width:15px;"/></span>
 						<span style="display:inline-block; float:left;margin-left:4px;">停车费：</span>
 						<span style="display:inline-block; float:left;margin-right:7.5%;width:47.5%">{$st['parking_fee']}</span>
-						<span id="adjustParkingFee" style="display:inline-block;cursor:pointer;">调价</span>
+						<span id="adjustParkingFee" stationID={$st['id']} style="display:inline-block;cursor:pointer;">调价</span>
 					</div>
 				</div>
 				

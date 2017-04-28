@@ -34,33 +34,46 @@ $(function(){
     
     /* 充电费/服务费/停车费调价弹框-触发*/
 	$('#adjustParkingFee').click(function () {
+		adjustFeeCategory="parking";
+		
 		$('#feeCaption').html("停车费调价");
 		$('#feeCaption2').html("停车费");
 		$('.unit').html("&nbsp;元/小时");
 		
 		$('#divAdjustFee').css('display','block'); // 弹窗
 		$("#test").css('display','block');
-		adjustFeeCategory="parking";
+			
+//		var stationID=$(this).attr("stationID"); // 显示费用
+//		var url="/commercial_platform/index.php/Admin/Terminal/displayFee";
+//		$.post(url,{stationID:stationID,type:adjustFeeCategory},function(result,status){
+//			var data=$.parseJSON(result);
+//			console.log(data);
+//		})
 		
 	})
+	
 	$('#adjustServingFee').click(function () {
+		adjustFeeCategory="serving";
+		
 		$('#feeCaption').html("服务费调价");
 		$('#feeCaption2').html("服务费");
 		$('.unit').html("&nbsp;元/度");
 		
 		$('#divAdjustFee').css('display','block');
 		$("#test").css('display','block');
-		adjustFeeCategory="serving";
+		
 		
 	})
 	$('#adjustChargingFee').click(function () {
+		adjustFeeCategory="charging";
+		
 		$('#feeCaption').html("充电费调价");
 		$('#feeCaption2').html("充电费");
 		$('.unit').html("&nbsp;元/度");
 		
 		$('#divAdjustFee').css('display','block');
 		$("#test").css('display','block');
-		adjustFeeCategory="charging";
+		
 	})
 	
 	/*充电费/服务费/停车费调价弹框-校验*/
