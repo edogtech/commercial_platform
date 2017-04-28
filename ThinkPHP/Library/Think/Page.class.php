@@ -26,8 +26,8 @@ class Page{
 	// 分页显示定制
     private $config  = array(
         'header' => '<span class="rows">共 %TOTAL_ROW% 条记录</span>',
-        'prev'   => '上一页',
-        'next'   => '下一页',
+        'prev' => '<span class="current" style="height:25px;width:60px;display:block;background:#E0E0E0;margin-right:5px;float:left;text-align:center;line-height:25px">' . '上一页' . '</span>',
+        'next' => '<span class="current" style="height:25px;width:60px;display:block;background:#E0E0E0;margin-right:5px;float:left;text-align:center;line-height:25px">' . '下一页' . '</span>',
         'first'  => '1...',
         'last'   => '...%TOTAL_PAGE%',
         'theme'  => '%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%',
@@ -124,13 +124,13 @@ class Page{
             if($page > 0 && $page != $this->nowPage){
 
                 if($page <= $this->totalPages){
-                    $link_page .= '<a class="num" href="' . $this->url($page) . '" style="height:25px;width:25px;display:block;background:#e0e0e0;margin-right:5px;float:left;text-align:center">' . $page . '</a>';
+                    $link_page .= '<a class="num" href="' . $this->url($page) . '" style="height:25px;width:25px;display:block;background:#E0E0E0;margin-right:5px;float:left;text-align:center;line-height:25px">' . $page . '</a>';
                 }else{
                     break;
                 }
             }else{
                 if($page > 0 && $this->totalPages != 1){
-                    $link_page .= '<span class="current" style="height:25px;width:25px;display:block;background:#e0e0e0;margin-right:5px;float:left;text-align:center">' . $page . '</span>';
+                    $link_page .= '<span class="current" style="height:25px;width:25px;display:block;background:#E34747;margin-right:5px;float:left;text-align:center;line-height:25px">' . $page . '</span>';
                 }
             }
         }
@@ -138,7 +138,7 @@ class Page{
         //替换分页内容
         $page_str = str_replace(
             array('%HEADER%', '%NOW_PAGE%', '%UP_PAGE%', '%DOWN_PAGE%', '%FIRST%', '%LINK_PAGE%', '%END%', '%TOTAL_ROW%', '%TOTAL_PAGE%'),
-            array($this->config['header'], $this->nowPage, $up_page, $down_page, $the_first, $link_page, $the_end, $this->totalRows, $this->totalPages),
+            array($this->config['header'], $this->nowPage, $up_page, $down_page, $the_first, '<font style="color:white">' . $link_page . '</font>', $the_end, $this->totalRows, $this->totalPages),
             $this->config['theme']);
         return "<div>{$page_str}</div>";
     }

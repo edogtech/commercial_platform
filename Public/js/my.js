@@ -13,12 +13,20 @@ $(function(){
     $("#stationSearch").click(function(){
     	$("#frmStationSearch").submit();
     });
-    
-    // 终端管理-清空搜索框
+
+	// 终端管理-清空搜索框
     $("#txtStation").click(function(){
     	$("#txtStation").val("");
     });
-   
+	$("#search").click(function () {
+		$("#search").attr('placeholder', '');
+	})
+	$("#time_start").click(function () {
+		$("#time_start").attr('placeholder', '');
+	})
+	$("#time_end").click(function () {
+		$("#time_end").attr('placeholder', '');
+	});
     // 标题栏-刷新
     $('#PageRefresh').click(function() {
     	location.reload();
