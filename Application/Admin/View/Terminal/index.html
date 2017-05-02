@@ -90,8 +90,10 @@
 			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">交流桩：{$pilesinfo['acQty']}</div>	
 			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">今日充电次数：{$pilesinfo['times']}</div>	
 			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">工作：{$pilesinfo['occupyQty']}</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">空闲：{$pilesinfo['idleQty']}</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">故障：{$pilesinfo['faultQty']}</div>
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">空闲：{$pilesinfo['idleQty']}</div>
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">
+				故障：{:empty($pilesinfo['faultQty'])?0:$pilesinfo['faultQty']}
+			</div>
 			
 		</div>
 		<div class="status-right" style="float:right;">
@@ -152,7 +154,7 @@
 			</if>
 		</div>
 		<!-- 分页内容 -->
-		<div style="margin-left:50%"><h4>{$show}</h4></div>
+		<div style="margin-left:45%;margin-top:20px"><h4>{$show}</h4></div>
 		 <!--  <div class="viciao">{$show}<span class="disabled"> <  Prev</span><a href="#?page=2">Next  > </a></div>-->
 	</div>
 </block>

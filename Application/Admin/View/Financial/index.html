@@ -120,7 +120,9 @@
             </div>
             <div style="background-color:#ffffff;height:125px;width:20%;float:left;margin-left:20px;">
                 <div style="margin-top:20px;margin-left:20px;text-align:center;width:70px;border-radius:4px;line-height:22px;height:24px;background-color:#E34747;color:#ffffff;font-size:14px;">本月收入</div>
-                <div style="text-align:center;margin-top:20px;"><span style="font-size:25px;color:#E34747;">{$totle['sum']}</span> <div style="display:inline-flex;font-size:16px;vertical-align:top;margin-top:8px;">元</div></div>
+                <div style="text-align:center;margin-top:20px;"><span style="font-size:25px;color:#E34747;">{:empty($totle['sum'])?0:$totle['sum']}</span>
+                    <div style="display:inline-flex;font-size:16px;vertical-align:top;margin-top:8px;">元</div>
+                </div>
             </div>
             <div style="background-color:#ffffff;height:125px;width:20%;float:left;margin-left:20px">
                 <div style="margin-top:20px;margin-left:20px;text-align:center;width:70px;border-radius:4px;line-height:22px;height:24px;background-color:#E34747;color:#ffffff;font-size:14px;">本月订单</div>
@@ -206,7 +208,7 @@
             </if>
         </div>
         <!-- 分页内容 -->
-        <div style="margin-left:50%;"><h4>{$show}</h4></div>
+        <div style="margin-left:45%;margin-top:20px"><h4>{$show}</h4></div>
         <!--  <div class="viciao">{$show}<span class="disabled"> <  Prev</span><a href="#?page=2">Next  > </a></div>-->
     </div>
 </block>

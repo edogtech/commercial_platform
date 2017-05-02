@@ -91,8 +91,10 @@
 			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">交流桩：{$pilesinfo['acQty']}</div>	
 			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">今日充电次数：{$pilesinfo['times']}</div>	
 			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">工作：{$pilesinfo['occupyQty']}</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">空闲：{$pilesinfo['idleQty']}</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">故障：{$pilesinfo['faultQty']}</div>
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">空闲：{$pilesinfo['idleQty']}</div>
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">
+				故障：{:empty($pilesinfo['faultQty'])?0:$pilesinfo['faultQty']}
+			</div>
 			
 		</div>
 		<div class="status-right" style="float:right;">
@@ -244,7 +246,7 @@
 		</div> <!-- 桩信息结束 -->
 		
 		 <!-- 分页 -->
-		<div style="margin-left:50%">{$show}</div>
+		<div style="margin-left:45%;margin-top:320px">{$show}</div>
 		
 		<!-- 弹窗 遮罩 -->
 		<div id="test" style="display:none"></div>

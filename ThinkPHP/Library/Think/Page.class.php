@@ -30,7 +30,7 @@ class Page{
         'next' => '<span class="current" style="height:25px;width:60px;display:block;background:#E0E0E0;margin-right:5px;float:left;text-align:center;line-height:25px">' . '下一页' . '</span>',
         'first'  => '1...',
         'last'   => '...%TOTAL_PAGE%',
-        'theme'  => '%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%',
+        'theme' => '%FIRST% %LINK_PAGE% %UP_PAGE% %DOWN_PAGE% %END%',
     );
 
     /**
