@@ -81,7 +81,8 @@
                                     <img src="{:U('Login/code')}" class="img-responsive" alt="验证码" style="height:34px;margin:0 auto" onclick="this.src='{:U('Login/code')}?='+Math.random();">
                                 </div>
                             </div>
-                            <div class="col-xs-12" style="text-align:center;color:red;font-size:14px;" id="message_">
+                            <div class="col-xs-12" style="text-align:center;color:#E34747;font-size:14px;"
+                                 id="message_">
                                 <if condition="isset($_GET['error'])">
                                     <switch name="_GET['error']" >
                                         <case value="1">验证码错误!</case>
@@ -92,7 +93,8 @@
                                 </if>
                             </div>
                             <div class="col-xs-9 col-xs-offset-2" style="margin-top:20px;">
-                                <button type="submit" class="btn btn-danger" style="width:100%;background:red">下一步</button>
+                                <button type="submit" class="btn btn-danger" style="width:100%;background:#E34747">下一步
+                                </button>
                             </div>
                         </form>
                     </div>

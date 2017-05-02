@@ -15,7 +15,7 @@
 }
 
 #ziti{
-    color:#FB393B;
+    color: #E34747;
     vertical-align:middle;
 }
 
@@ -155,7 +155,7 @@
     #index_head{
         margin: 80px 0px;
         padding: 40px 30px;
-        font-size:25px;
+        font-size: 30px;
     }
     .web_foot>div:nth-child(1){
         margin-top:50px;
