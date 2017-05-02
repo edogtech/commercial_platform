@@ -410,5 +410,94 @@ class OperateController extends Controller{
         $this->display();
     }
 
+    public function price_excel(){
+        include './Public/phpexcel/Classes/PHPExcel.php';
+        include './Public/phpexcel/Classes/PHPExcel/Writer/Excel2007.php';
+        set_time_limit(0);
+
+        //接收筛选参数
+        //添加检索条件
+        if(!empty(trim($_GET['start'])) && empty(trim($_GET['end']))){
+            $map['addtime']=array('gt',strtotime($_GET['start']));
+        }
+
+        if(empty(trim($_GET['start'])) && !empty(trim($_GET['end']))){
+            $map['addtime']=array('lt',strtotime($_GET['end']));
+        }
+
+        if(!empty(trim($_GET['start'])) && !empty(trim($_GET['end']))){
+            $starttime=strtotime($_GET['start']);
+            $endtime=strtotime($_GET['end']);
+            $map['addtime']=array('exp',"between $starttime and $endtime");
+        }
+
+        $map['mid']=array('eq',$_GET['mid']);
+
+        //先查询数据
+        $res=M('price_control')->where($map)->select();
+
+        if(empty($res)){
+            echo '没有数据可导出,请查看您是否有成本管理录入或检查您的筛选条件';
+            exit;
+        }
+        //设置F列(订单号)为文本格式
+        $objPHPExcel=new \PHPExcel();//新建一个excel文件类
+
+        //设置表头
+        $objPHPExcel->getActiveSheet()->setCellValue('A1','序号');
+        $objPHPExcel->getActiveSheet()->setCellValue('B1','流水号');
+        $objPHPExcel->getActiveSheet()->setCellValue('C1','费用分类');
+        $objPHPExcel->getActiveSheet()->setCellValue('D1','原价格');
+        $objPHPExcel->getActiveSheet()->setCellValue('E1','新价格');
+        $objPHPExcel->getActiveSheet()->setCellValue('F1','订单日期');
+        $objPHPExcel->getActiveSheet()->setCellValue('G1','操作员');
+
+
+        //设置每列宽度
+        $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(30);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(12);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(12);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(12);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(20);
+        $line=2;
+        foreach($res as $k=>$v){
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.$line,$v['id']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.$line,$v['order_number']);
+            switch ($v['type']) {
+                case 1:
+                    $objPHPExcel->getActiveSheet()->setCellValue('C'.$line, '停车费');
+                    break;
+                case 2:
+                    $objPHPExcel->getActiveSheet()->setCellValue('C'.$line, '服务费');
+                    break;
+                case 3:
+                    $objPHPExcel->getActiveSheet()->setCellValue('C'.$line,'充电费');
+                    break;
+            }
+
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.$line,$v['old_price']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.$line,$v['new_price']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F'.$line,date('Y-m-d H:i:s',$v['addtime']));
+            $objPHPExcel->getActiveSheet()->setCellValue('G'.$line,$v['operator']);
+
+            $line++;
+        }
+
+        $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
+
+        $excelName='统计表';
+        header ( "Content-Type: application/force-download" );
+        header ( "Content-Type: application/octet-stream" );
+        header ( "Content-Type: application/download" );
+        header ( "Content-Disposition: attachment; filename=" . $excelName . ".xlsx" );
+        header ( "Content-Transfer-Encoding: binary" );
+        header ( "Cache-Control: must-revalidate, post-check=0, pre-check=0" );
+        header ( "Pragma: no-cache" );
+
+        $objWriter->save('php://output');
+
+    }
+
 
 }
