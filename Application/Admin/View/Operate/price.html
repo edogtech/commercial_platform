@@ -104,7 +104,7 @@
             </div>
             <div class="msysnavlnav" id="invoice_redirect" style="cursor:pointer">
                 <div style="text-align:left;font-weight: bold;margin-top:10px;margin-left: 15px;">发票管理</div>
-                <div style="text-align: center">待开票&nbsp;&nbsp;<div style="color:#00AB46;font-size:32px;display: inline-block;">8</div>&nbsp;&nbsp;(份)</div>
+                <div style="text-align: center">待开票&nbsp;&nbsp;<div style="color:#00AB46;font-size:32px;display: inline-block;">{$count['invoiceorder']}</div>&nbsp;&nbsp;(份)</div>
             </div>
         </div>
         <div class="msysnav-right" style="float:left;margin-left:1.8%;">
@@ -214,6 +214,10 @@
 
         $('#price_redirect').click(function(){
             location.href="{:U('Operate/price')}";
+        });
+
+        $('#invoice_redirect').click(function(){
+            location.href="{:U('Operate/invoice')}";
         });
 
     });
