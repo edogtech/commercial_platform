@@ -25,7 +25,8 @@
 
 <!--菜单栏-->
 <div class="menu" style="float:left;min-height:116%;overflow:hidden">
-    <div class="menu-item" style="height:80px;float:left;background:#E34747;border-right-color:red;border-top-color:red;width:100%">
+    <div class="menu-item"
+         style="height:80px;float:left;background:#E34747;border-right-color:#E34747;border-top-color:#E34747;width:100%">
         <img src="__PUBLIC__/pic/logo.png" style="float:left;margin-left:10%;margin-top:8%;height:48px;width:80%;"/>
     </div>
     <if condition="in_array(1,$prid)">
@@ -102,7 +103,7 @@
                 <div style="text-align:left;font-weight: bold;margin-top:10px;margin-left: 15px;">价格管理</div>
                 <div style="text-align: center">已调价&nbsp;&nbsp;<div style="color:#EFDC2B;font-size:32px;display: inline-block;">{$count['priceorder']}</div>&nbsp;&nbsp;(次)</div>
             </div>
-            <div class="msysnavlnav" id="invoice_redirect" style="cursor:pointer;border:2px solid red">
+            <div class="msysnavlnav" id="invoice_redirect" style="cursor:pointer;border:2px solid #E34747">
                 <div style="text-align:left;font-weight: bold;margin-top:10px;margin-left: 15px;">发票管理</div>
                 <div style="text-align: center">待开票&nbsp;&nbsp;<div style="color:#00AB46;font-size:32px;display: inline-block;">{$count['invoiceorder']}</div>&nbsp;&nbsp;(份)</div>
             </div>
@@ -198,7 +199,7 @@
     <div class="modal-dialog" role="document" style="min-width:600px !important;">
         <div class="modal-content" style="border-radius:0px;min-width:598px !important;">
             <div class="modal-body">
-                <h2 style="color:red;text-align: center">发票详情</h2>
+                <h2 style="color:#E34747;text-align: center">发票详情</h2>
                 <div style="margin:20px 50px 10px 50px; ">
                     <span style="font-weight:600;float:left">用户称呼:&nbsp;&nbsp;&nbsp;</span><input type="text" name="" class="_customer" style="border:2px solid #E8E7E4;width:29%;float:left" />
                     <span style="font-weight:600;float:left;margin-left:7px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户电话:&nbsp;</span>&nbsp;&nbsp;<input type="text" class="_phone" name="" style="border:2px solid #E8E7E4;width:29%;" />
@@ -249,7 +250,7 @@
         <div class="modal-content" style="border-radius:0px;min-width:598px !important;">
             <div class="modal-body">
                 <form action="{:U('Operate/invoice_add')}" method="post" id="form_add">
-                <h2 style="color:red;text-align: center">添加工单</h2>
+                    <h2 style="color:#E34747;text-align: center">添加发票</h2>
                 <div style="margin:20px 50px 10px 50px; ">
                     <span style="font-weight:600;float:left">用户称呼:&nbsp;&nbsp;&nbsp;</span><input type="text" name="customer"  style="border:2px solid #E8E7E4;width:29%;float:left" />
                     <span style="font-weight:600;float:left;margin-left:7px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户电话:&nbsp;</span>&nbsp;&nbsp;<input type="text"  name="phone" style="border:2px solid #E8E7E4;width:29%;" />
@@ -271,7 +272,9 @@
                     <span style="font-weight:600;float:left">邮寄地址:&nbsp;&nbsp;&nbsp;</span>
                     <textarea name="address" id="address" style="resize: none;border:2px solid #E8E7E4;width:371px;height:100px;"></textarea>
                     <div style="text-align: right;padding-right:26px;" class="_addtime"></div>
-                    <div style="text-align: center;color:red;margin-top:20px;display:none" id="notice_">请填或选择写完整内容!</div>
+                    <div style="text-align: center;color:#E34747;margin-top:20px;display:none" id="notice_">
+                        请填或选择写完整内容!
+                    </div>
                 </div>
                 <div style="margin:20px 50px 0px 50px;">
                     <div style="border-top:2px solid #E8E7E4;"></div>
@@ -336,7 +339,7 @@
 
         $('.submit_type').click(function(){
             $('.submit_type').css({'border':'2px solid #E8E7E4','color':'#96928D'});
-            $(this).css({'border':'2px solid red','color':'red'});
+            $(this).css({'border': '2px solid #E34747', 'color': '#E34747'});
             var value=$(this).attr('data_');
             $("input[name='type']").eq(value-1).attr('checked','true');
         });
@@ -393,19 +396,19 @@
         {
             case 1:
                 modal.find('.typeall').css({'border':'2px solid #E8E7E4','color':'#96928D'});
-                modal.find('._type1').css({'border':'2px solid red','color':'red'});
+                modal.find('._type1').css({'border': '2px solid #E34747', 'color': '#E34747'});
                 break;
             case 2:
                 modal.find('.typeall').css({'border':'2px solid #E8E7E4','color':'#96928D'});
-                modal.find('._type2').css({'border':'2px solid red','color':'red'});
+                modal.find('._type2').css({'border': '2px solid #E34747', 'color': '#E34747'});
                 break;
             case 3:
                 modal.find('.typeall').css({'border':'2px solid #E8E7E4','color':'#96928D'});
-                modal.find('._type3').css({'border':'2px solid red','color':'red'});
+                modal.find('._type3').css({'border': '2px solid #E34747', 'color': '#E34747'});
                 break;
             case 4:
                 modal.find('.typeall').css({'border':'2px solid #E8E7E4','color':'#96928D'});
-                modal.find('._type4').css({'border':'2px solid red','color':'red'});
+                modal.find('._type4').css({'border': '2px solid #E34747', 'color': '#E34747'});
                 break;
         }
 

@@ -25,7 +25,8 @@
 
 <!--菜单栏-->
 <div class="menu" style="float:left;min-height:116%;overflow:hidden">
-    <div class="menu-item" style="height:80px;float:left;background:#E34747;border-right-color:red;border-top-color:red;width:100%">
+    <div class="menu-item"
+         style="height:80px;float:left;background:#E34747;border-right-color:#E34747;border-top-color:#E34747;width:100%">
         <img src="__PUBLIC__/pic/logo.png" style="float:left;margin-left:10%;margin-top:8%;height:48px;width:80%;"/>
     </div>
     <if condition="in_array(1,$prid)">
@@ -98,7 +99,7 @@
                 <div style="text-align:left;font-weight: bold;margin-top:10px;margin-left: 15px;">成本管理</div>
                 <div style="text-align: center">已录入&nbsp;&nbsp;<div style="color:#FB393B;font-size:32px;display: inline-block;">{$count['costorder']}</div>&nbsp;&nbsp;(次)</div>
             </div>
-            <div  class="msysnavlnav" id="price_redirect" style="cursor:pointer;border:2px solid red">
+            <div class="msysnavlnav" id="price_redirect" style="cursor:pointer;border:2px solid #E34747">
                 <div style="text-align:left;font-weight: bold;margin-top:10px;margin-left: 15px;">价格管理</div>
                 <div style="text-align: center">已调价&nbsp;&nbsp;<div style="color:#EFDC2B;font-size:32px;display: inline-block;">{$count['priceorder']}</div>&nbsp;&nbsp;(次)</div>
             </div>

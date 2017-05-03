@@ -25,7 +25,8 @@
 
 <!--菜单栏-->
 <div class="menu" style="float:left;min-height:116%;overflow:hidden">
-    <div class="menu-item" style="height:80px;float:left;background:#E34747;border-right-color:red;border-top-color:red;width:100%">
+    <div class="menu-item"
+         style="height:80px;float:left;background:#E34747;border-right-color:#E34747;border-top-color:#E34747;width:100%">
         <img src="__PUBLIC__/pic/logo.png" style="float:left;margin-left:10%;margin-top:8%;height:48px;width:80%;"/>
     </div>
     <if condition="in_array(1,$prid)">
@@ -94,7 +95,7 @@
                 <div style="text-align:left;font-weight: bold;margin-top:10px;margin-left: 15px;">工单管理</div>
                 <div style="text-align: center">待处理&nbsp;&nbsp;<div style="color:#008CF2;font-size:32px;display: inline-block;">{$count['workorder']}</div>&nbsp;&nbsp;(笔)</div>
             </div>
-            <div class="msysnavlnav" id="cost_redirect" style="cursor:pointer;border:2px solid red">
+            <div class="msysnavlnav" id="cost_redirect" style="cursor:pointer;border:2px solid #E34747">
                 <div style="text-align:left;font-weight: bold;margin-top:10px;margin-left: 15px;">成本管理</div>
                 <div style="text-align: center">已录入&nbsp;&nbsp;<div style="color:#FB393B;font-size:32px;display: inline-block;">{$count['costorder']}</div>&nbsp;&nbsp;(次)</div>
             </div>
@@ -187,7 +188,7 @@
         <div class="modal-content" style="border-radius:0px;min-width:598px !important;">
             <div class="modal-body">
                 <form action="{:U('Operate/cost_add')}" method="post" id="form_add">
-                <h2 style="color:red;text-align: center">成本费用录入</h2>
+                    <h2 style="color:#E34747;text-align: center">成本费用录入</h2>
                 <div style="margin:20px 50px 0px 50px">
                     <span style="font-weight:600;float:left">费用分类:&nbsp;&nbsp;&nbsp;</span>
                     <div data_="1" class="submit_type" style="cursor:pointer;border:2px solid #E8E7E4;width:23%;height:26px;display: inline-block;text-align: center;color:#96928D;">电费缴纳</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -198,7 +199,9 @@
                     <span style="font-weight:600;float:left">费用金额:&nbsp;&nbsp;&nbsp;</span><input type="text" value="" name="price"  style="border:2px solid #E8E7E4;width:29%;float:left" />
                     <span style="color:#96928D">元</span>
                     <div style="clear:both"></div>
-                    <div style="text-align: center;color:red;margin-top:20px;display:none" id="notice_">请填或选择写完整内容!</div>
+                    <div style="text-align: center;color:#E34747;margin-top:20px;display:none" id="notice_">
+                        请填或选择写完整内容!
+                    </div>
                 </div>
 
                 <div style="margin:20px 50px 0px 50px;">
@@ -256,7 +259,7 @@
 
         $('.submit_type').click(function(){
             $('.submit_type').css({'border':'2px solid #E8E7E4','color':'#96928D'});
-            $(this).css({'border':'2px solid red','color':'red'});
+            $(this).css({'border': '2px solid #E34747', 'color': '#E34747'});
             var value=$(this).attr('data_');
             $("input[name='type']").eq(value-1).attr('checked','true');
         });
