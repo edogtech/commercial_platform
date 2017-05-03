@@ -32,8 +32,8 @@ class MaintenanceController extends Controller {
     public function index(){
         /*header*/
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time()); // 显示系统当前时间 
-        
-        $user=mb_substr($_SESSION['admininfo']['uname'],0,4).'***'; // 显示系统当前登录的用户名
+
+        $user = strlen($_SESSION['admininfo']['uname']) > 5 ? mb_substr($_SESSION['admininfo']['uname'], 0, 5) . '***' : $_SESSION['admininfo']['uname'];// 显示系统当前登录的用户名
         $msg=session('admininfo');
         
         /*状态栏*/
@@ -146,8 +146,8 @@ class MaintenanceController extends Controller {
         
 /*header*/
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time()); // 显示系统当前时间
-        
-		$user=mb_substr($_SESSION['admininfo']['uname'],0,4).'***'; // 显示系统当前登录的用户名
+
+        $user = strlen($_SESSION['admininfo']['uname']) > 5 ? mb_substr($_SESSION['admininfo']['uname'], 0, 5) . '***' : $_SESSION['admininfo']['uname']; // 显示系统当前登录的用户名
         $msg=session('admininfo');
         
         /*状态栏*/

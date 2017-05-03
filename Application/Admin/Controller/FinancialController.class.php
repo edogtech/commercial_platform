@@ -16,7 +16,7 @@ class FinancialController extends Controller {
         // 在header显示系统当前时间
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
         // 在header显示系统当前登录的用户名
-        $user=mb_substr($_SESSION['admininfo']['uname'],0,4).'***';
+        $user = strlen($_SESSION['admininfo']['uname']) > 5 ? mb_substr($_SESSION['admininfo']['uname'], 0, 5) . '***' : $_SESSION['admininfo']['uname'];
         $msg=session('admininfo');
 
         //添加检索条件

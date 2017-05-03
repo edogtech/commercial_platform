@@ -25,7 +25,7 @@ param：、、、、
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
 
         // 在header显示系统当前登录的用户名
-        $user=mb_substr($_SESSION['admininfo']['uname'],0,4).'***';
+        $user = strlen($_SESSION['admininfo']['uname']) > 5 ? mb_substr($_SESSION['admininfo']['uname'], 0, 5) . '***' : $_SESSION['admininfo']['uname'];
         $h=$_GET['p']?$_GET['p']:1;
         $msg=session('admininfo');
         $uid=$msg['uid'];
@@ -93,7 +93,7 @@ param：、、、、
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
 
         // 在header显示系统当前登录的用户名
-        $user=mb_substr($_SESSION['admininfo']['uname'],0,4).'***';
+        $user = strlen($_SESSION['admininfo']['uname']) > 5 ? mb_substr($_SESSION['admininfo']['uname'], 0, 5) . '***' : $_SESSION['admininfo']['uname'];
         $searchval=trim(I('get.msearch')==''?'':I('get.msearch','','strip_tags'));
         //echo $searchval;die;
         $msg=session('admininfo');

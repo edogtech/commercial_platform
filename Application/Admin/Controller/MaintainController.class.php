@@ -13,7 +13,7 @@ class MaintainController extends Controller{
 	public function index(){
 		$date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
         // 在header显示系统当前登录的用户名
-        $user=mb_substr($_SESSION['admininfo']['uname'],0,4).'***';
+        $user = strlen($_SESSION['admininfo']['uname']) > 5 ? mb_substr($_SESSION['admininfo']['uname'], 0, 5) . '***' : $_SESSION['admininfo']['uname'];
         $msg=session('admininfo');
         $this->assign(array('curuser'=>$user,'prid'=>$msg['pridlist'],'curdate'=>$date));
 		$this->display();
