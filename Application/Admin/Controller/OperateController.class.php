@@ -67,21 +67,24 @@ class OperateController extends Controller{
 
     public function  work_add(){
 
-        if( empty($_POST['type']) || empty($_POST['price']) ){
+        if( empty($_POST['customer']) || empty($_POST['phone']) || empty($_POST['describe']) ||empty($_POST['type'])){
             $this->error('请填写完整信息');
         }
+        $data['customer']=trim($_POST['customer']);
+        $data['phone']=trim($_POST['phone']);
+        $data['describe']=trim($_POST['describe']);
         $data['type']=trim($_POST['type']);
-        $data['price']=trim($_POST['price']);
         $data['operator']=trim($_POST['operator']);
         $data['mid']=trim($_POST['mid']);
         $data['addtime']=time();
-        $data['order_number']='ECB'.get_micro_time(3).mt_rand(1000,9999);
-        $data['operator_level']=trim($_POST['operator_level']);
+        $data['status']=1;
+        $data['order_number']='EGD'.get_micro_time(3).mt_rand(1000,9999);;
+        $data['feedback']='';
 
-        $res=M('cost_control')->add($data);
+        $res=M('workorder_control')->add($data);
 
         if($res){
-            $this->success('添加成功',U('Operate/cost'));
+            $this->success('添加成功',U('Operate/index'));
         }else{
             $this->error('添加失败');
         }
@@ -340,24 +343,21 @@ class OperateController extends Controller{
 
     public function  cost_add(){
 
-        if( empty($_POST['customer']) || empty($_POST['phone']) || empty($_POST['describe']) ||empty($_POST['type'])){
+        if( empty($_POST['type']) || empty($_POST['price']) ){
             $this->error('请填写完整信息');
         }
-        $data['customer']=trim($_POST['customer']);
-        $data['phone']=trim($_POST['phone']);
-        $data['describe']=trim($_POST['describe']);
         $data['type']=trim($_POST['type']);
+        $data['price']=trim($_POST['price']);
         $data['operator']=trim($_POST['operator']);
         $data['mid']=trim($_POST['mid']);
         $data['addtime']=time();
-        $data['status']=1;
-        $data['order_number']='EGD'.get_micro_time(3).mt_rand(1000,9999);;
-        $data['feedback']='';
+        $data['order_number']='ECB'.get_micro_time(3).mt_rand(1000,9999);
+        $data['operator_level']=trim($_POST['operator_level']);
 
-        $res=M('workorder_control')->add($data);
+        $res=M('cost_control')->add($data);
 
         if($res){
-            $this->success('添加成功',U('Operate/index'));
+            $this->success('添加成功',U('Operate/cost'));
         }else{
             $this->error('添加失败');
         }
@@ -560,5 +560,32 @@ class OperateController extends Controller{
         $this->display();
     }
 
+
+    public function invoice_add(){
+        if(empty($_POST['customer']) || empty($_POST['phone'])  || empty($_POST['header']) || empty($_POST['price']) || empty($_POST['address']) || empty($_POST['type']) ){
+            $this->error('请选择或填写完整参数');
+        }
+
+        $data['order_number']='EFP'.get_micro_time(3).mt_rand(1000,9999);
+        $data['customer']=trim($_POST['customer']);
+        $data['phone']=trim($_POST['phone']);
+        $data['header']=trim($_POST['header']);
+        $data['price']=trim($_POST['price']);
+        $data['address']=trim($_POST['address']);
+        $data['type']=trim($_POST['type']);
+        $data['mid']=trim($_POST['mid']);
+        $data['status']=1;
+        $data['operator']=trim($_POST['operator']);
+        $data['addtime']=time();
+
+        $res=M('invoice_control')->add($data);
+        if($res){
+            $this->success('添加成功');
+        }else{
+            $this->error('添加失败');
+        }
+
+
+    }
 
 }
