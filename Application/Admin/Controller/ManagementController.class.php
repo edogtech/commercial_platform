@@ -37,6 +37,7 @@ param：、、、、
             ->join('user_info on user_info.uid=priv_relation.uid')
             ->page($h.',5')
             ->where(array('user_info.identity'=>$uid))
+            ->order('user_info.addtime desc')
             ->select();
         $count=$mo->table('priv_relation')
             ->field('priv_relation.id,user_info.uname,priv_relation.privilegeid')
@@ -119,7 +120,7 @@ param：、、、、
         ->join("user_info on user_info.uid=priv_relation.uid")
         ->page($i.',5')
         ->where($where)
-        //->order('user_info.addtime desc')
+            ->order('user_info.addtime desc')
         ->select();
         
         // 赋值数据集
