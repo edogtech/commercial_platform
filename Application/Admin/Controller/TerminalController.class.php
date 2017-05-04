@@ -413,23 +413,6 @@ class TerminalController extends Controller {
         // for dubug
 //         echo("电桩ID $pileID 操作是 $actionStr 用户ID $userID");
     }
-    
-    public function displayFee(){
-        $stationID=I('post.stationID');
-        $type=I('post.type');
-        echo 'stationID:'.$stationID;
-        switch ($type) {
-            case 'parking':
-                $field='parking_fee';
-                break;
-            case 'serving':
-                $field='serving_fee';
-                break;
-            case 'charging':
-                $field='charging_fee';
-                break;
-        }
-        $re=$this->ob_station->field($field)->where("id=$stationID")->find();
-    }
+
     
 }
