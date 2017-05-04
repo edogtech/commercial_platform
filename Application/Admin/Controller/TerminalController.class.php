@@ -12,12 +12,8 @@ class TerminalController extends Controller {
         parent::__construct();
         $msg=session('admininfo');
         $prid=$msg['pridlist'];
-        $ck = cookie('identity:');
-        if (!in_array(1, $prid) || empty($ck)) {
-            $this->redirect('Index/index');
-
         if (!in_array(1,$prid)){
-            $this->error('您无此权限！', 'Index/index', 2);
+            $this->error('您无此权限！');
         }
 
         $this->term[user_id]=$msg['identity'];
@@ -29,7 +25,8 @@ class TerminalController extends Controller {
         
 /*header*/        
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time()); // 显示系统当前时间
-        $user = strlen($_SESSION['admininfo']['uname']) > 8 ? mb_substr($_SESSION['admininfo']['uname'], 0, 8) . '***' : $_SESSION['admininfo']['uname']; // 显示系统当前登录的用户名
+        
+		$user=mb_substr($_SESSION['admininfo']['uname'],0,4).'***'; // 显示系统当前登录的用户名
         $msg=session('admininfo');
         
 /*状态栏*/
@@ -70,9 +67,9 @@ class TerminalController extends Controller {
                     break;                        
             }
         }
-
-
-        /*列表及分页*/
+        
+        
+/*列表及分页*/
         $station=I('post.txtStation','','trim');
         $where=array();
         
@@ -113,7 +110,7 @@ class TerminalController extends Controller {
 
 /*header*/
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());  // 显示系统当前时间
-        $user = strlen($_SESSION['admininfo']['uname']) > 8 ? mb_substr($_SESSION['admininfo']['uname'], 0, 8) . '***' : $_SESSION['admininfo']['uname'];
+        $user=mb_substr($_SESSION['admininfo']['uname'],0,4).'***';  // 显示系统当前登录的用户名
         $msg=session('admininfo');
         
 /*状态栏*/
@@ -172,25 +169,19 @@ class TerminalController extends Controller {
         $arrayChg=explode(',', $re['charging_fee']);
         for($i=0;$i<sizeof($arrayChg);$i=$i+3){
             if($clock>=$arrayChg[$i] && $clock<=$arrayChg[$i+1]){
-                $re['charging_fee']=$arrayChg[$i+2].'元/度';
-            }else {
-                $re['charging_fee']='该时间段未设定';
+                $re['charging_fee']=$arrayChg[$i+2];
             }
         }
         $arrayPark=explode(',', $re['parking_fee']);
         for($i=0;$i<sizeof($arrayPark);$i=$i+3){
             if($clock>=$arrayPark[$i] && $clock<=$arrayPark[$i+1]){
-                $re['parking_fee']=$arrayPark[$i+2].'元/小时';
-            }else {
-                $re['parking_fee']='该时间段未设定';
+                $re['parking_fee']=$arrayPark[$i+2];
             }
         }
         $arrayServe=explode(',', $re['serving_fee']);
         for($i=0;$i<sizeof($arrayServe);$i=$i+3){
             if($clock>=$arrayServe[$i] && $clock<=$arrayServe[$i+1]){
-                $re['serving_fee']=$arrayServe[$i+2].'元/度';
-            }else {
-                $re['serving_fee']='该时间段未设定';
+                $re['serving_fee']=$arrayServe[$i+2];
             }
         }
 
@@ -218,31 +209,6 @@ class TerminalController extends Controller {
     }
     
     /*
-     * AJAX回调显示充电/服务/停车费
-     */
-    public function displayFee(){
-        $stationID=I('post.stationID');
-        $type=I('post.type');
-        
-        $map['id']=$stationID;
-        $re=$this->ob_station->field('parking_fee,serving_fee,charging_fee')->where($map)->find();
-        
-        switch ($type) {
-            case 'parking':
-                $return=explode(',',$re['parking_fee']);
-                break;
-            case 'serving':
-                $return=explode(',',$re['serving_fee']);
-                break;
-            case 'charging':
-                $return=explode(',',$re['charging_fee']);
-                break;
-        }
-        
-        echo json_encode($return);
-    }
-    
-    /*
      * 调整充电/服务/停车费
      */
     public function adjustFee(){
@@ -262,55 +228,35 @@ class TerminalController extends Controller {
         $stationID=array_pop($arrayDuration); // 弹出站ID
         $strDuration=(implode(',',$arrayDuration)); // 生成以逗号分隔的时段与价格字符串
         
+//         $ob=M('charge_station');
         $where['id']=$stationID;
-        $res=$this->ob_station->field('name,parking_fee,serving_fee,charging_fee')->where($where)->find();
         
         switch ($category) {
             case 'parking':
                 $data['parking_fee']=$strDuration;
-                $type='1';
-                $prePrice=$res['parking_fee'];
                 break;
             case 'serving':
                 $data['serving_fee']=$strDuration;
-                $type='2';
-                $prePrice=$res['serving_fee'];
                 break;
             case 'charging':
                 $data['charging_fee']=$strDuration;
-                $type='3';
-                $prePrice=$res['charging_fee'];
                 break;
         }
-        // 更新电站调价信息
         $re=$this->ob_station->where($where)->data($data)->save();
-
-        // 向价格管理添加记录
-        $info['station_name']=$res['name'];
-        $info['station_id']=$stationID;
-        $info['order_number']='EJG'.get_micro_time(3).mt_rand(1000,9999);
-        $info['type']=$type;
-        $info['operator']=session('admininfo.uname');
-        $info['addtime']=time();
-        $info['old_price']=$prePrice;
-        $info['new_price']=$strDuration;
-        $info['mid']=session('admininfo.identity');
-
-        $res=M('price_control')->data($info)->add();
-
-        if(empty($re)||empty($res)){
+        
+        if($re){
             //$this->success('修改成功！','index');
             //$this->redirect("Terminal/detail");
-            $this->error("修改失败");
-        }else{
             $this->success('修改成功！');
+        }else{
+            $this->error("修改失败");
         }
         
     }
     
     
     /*
-     * crontab根据时段发送调整充电费命令
+     * crontab安时发送调整充电费命令
      */
     public function adjustChargingFeeCommand(){
 
