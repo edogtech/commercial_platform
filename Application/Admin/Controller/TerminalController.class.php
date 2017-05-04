@@ -15,6 +15,9 @@ class TerminalController extends Controller {
         $ck = cookie('identity:');
         if (!in_array(1, $prid) || empty($ck)) {
             $this->redirect('Index/index');
+
+        if (!in_array(1,$prid)){
+            $this->error('您无此权限！', 'Index/index', 2);
         }
 
         $this->term[user_id]=$msg['identity'];

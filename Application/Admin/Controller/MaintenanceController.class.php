@@ -7,6 +7,8 @@ class MaintenanceController extends Controller {
     private $term; // 条件 商户ID
     private $ob_workorder; // 工单表
     private $ob_station; // 站表
+    private $ob_tmp; // 桩数据临时表
+    private $ob_tmp_err; // 桩数据异常表
     
     public function __construct(){
         parent::__construct();
@@ -36,23 +38,25 @@ class MaintenanceController extends Controller {
 
         $user = strlen($_SESSION['admininfo']['uname']) > 8 ? mb_substr($_SESSION['admininfo']['uname'], 0, 8) . '***' : $_SESSION['admininfo']['uname'];// 显示系统当前登录的用户名
         $msg=session('admininfo');
-        
+
         /*状态栏*/
-        // 工单（总数、待处理、已处理）
+        // 工单（已处理总数、待处理、今日已处理）
         $today=date('Ymd',time());
-        $string="date('Ymd',backtime)";
-        $query="SELECT count(1) AS total,(SELECT count(*)FROM workorder_control WHERE STATUS = 1) AS pending,	(SELECT	count(*) FROM	workorder_control	WHERE	STATUS = 2 AND DATE_FORMAT(NOW(),'%Y%m%d') = $today) AS processed FROM workorder_control where status=2";
+        $query="SELECT count(1) AS total,(SELECT count(*)FROM workorder_control WHERE mid=".$this->condition['mid']." and STATUS = 1) AS pending,(SELECT count(*) FROM	workorder_control WHERE	mid=".$this->condition['mid']." and STATUS = 2 AND DATE_FORMAT(FROM_UNIXTIME(backtime),'%Y%m%d') = $today) AS processed FROM workorder_control where mid=".$this->condition['mid']." and status=2";
         $sheetNum=$this->ob_workorder->query($query);
-        
-        
+      
         /*
          * 故障（总数、待处理、已处理）逻辑
          * 待处理：取err异常表订单数据，根据batch_no检索数据表eledata中是否存在batch_status为3的交易记录，不存在即为待处理异常订单
          * 已处理：如果存在batch_status为3，则此异常订单已解决
          * */
 
-        $field='batch_no';
-        $errSet=$this->ob_tmp_err->field($field)->select();
+        // 取出当前商户名下所有电站的异常交易编号
+        $errSet=$this->ob_station->join('as st left join charge_tmp_eledata_err as err on err.site_no=st.number')
+                 ->field('err.batch_no')
+                 ->where($this->term)
+                 ->select();
+
         foreach ($errSet as $k=>$v){
             $map['batch_no']=$v['batch_no'];
             $tmpSet=$this->ob_tmp->where($map)->order('id desc')->find(); // 取最新交易记录
@@ -152,10 +156,9 @@ class MaintenanceController extends Controller {
         $msg=session('admininfo');
         
         /*状态栏*/
-		// 工单（待处理、已处理、总数）
-		$today=date('Ymd',time());
-		$string="date('Ymd',backtime)";
-        $query="SELECT count(1) AS total,(SELECT count(*)FROM workorder_control WHERE STATUS = 1) AS pending,	(SELECT	count(*) FROM	workorder_control	WHERE	STATUS = 2 AND DATE_FORMAT(NOW(),'%Y%m%d') = $today) AS processed FROM workorder_control where status=2";
+        // 工单（已处理总数、待处理、今日已处理）
+        $today=date('Ymd',time());
+        $query="SELECT count(1) AS total,(SELECT count(*)FROM workorder_control WHERE mid=".$this->condition['mid']." and STATUS = 1) AS pending,(SELECT count(*) FROM	workorder_control WHERE	mid=".$this->condition['mid']." and STATUS = 2 AND DATE_FORMAT(FROM_UNIXTIME(backtime),'%Y%m%d') = $today) AS processed FROM workorder_control where mid=".$this->condition['mid']." and status=2";
         $sheetNum=$this->ob_workorder->query($query);
         
         /*
@@ -163,8 +166,13 @@ class MaintenanceController extends Controller {
          * 待处理：取err异常表订单数据，根据batch_no检索数据表eledata中是否存在batch_status为3的交易记录，不存在即为待处理异常订单
          * 已处理：如果存在batch_status为3，则此异常订单已解决
          * */
-        $field='batch_no';
-        $errSet=$this->ob_tmp_err->field($field)->select();
+        
+        // 取出当前商户名下所有电站的异常交易编号
+        $errSet=$this->ob_station->join('as st left join charge_tmp_eledata_err as err on err.site_no=st.number')
+        ->field('err.batch_no')
+        ->where($this->term)
+        ->select();
+        
         foreach ($errSet as $k=>$v){
             $map['batch_no']=$v['batch_no'];
             $tmpSet=$this->ob_tmp->where($map)->order('id desc')->find(); // 取最新交易记录
