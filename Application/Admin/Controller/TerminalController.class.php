@@ -240,7 +240,7 @@ class TerminalController extends Controller {
                 break;
         }
 
-        echo json_encode($return);
+        echo json_encode($returns);
     }
 
     /*
