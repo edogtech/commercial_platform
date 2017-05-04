@@ -49,7 +49,19 @@ class IndexController extends Controller {
             
         }
     }
-
+    public function code(){
+        ob_clean();
+        $Verify = new \Think\Verify();
+        $Verify->fontSize = 26;
+        $Verify->length   = 4;
+        $Verify->useImgBg = true;
+        $Verify->codeSet = '0123456789';
+        $Verify->imageW = 200;
+        $Verify->imageH = 50;
+    
+        $Verify->entry();
+    }
+    
     public function find_password1(){
        $this->display();
     }
