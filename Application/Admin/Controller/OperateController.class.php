@@ -17,9 +17,10 @@ class OperateController extends Controller{
 	public function index(){
 		$date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
         // 在header显示系统当前登录的用户名
-        $user = strlen($_SESSION['admininfo']['uname']) > 8 ? mb_substr($_SESSION['admininfo']['uname'], 0, 8) . '***' : $_SESSION['admininfo']['uname'];
+        $user = strlen($_SESSION['admininfo']['uname']) > 9 ? mb_substr($_SESSION['admininfo']['uname'], 0, 9) . '***' : $_SESSION['admininfo']['uname'];
         $msg=session('admininfo');
-
+        $com = D('user_merchant')->field('company')->where(array('uid' => $msg['identity']))->find();
+        $company = $com['company'];
         //查询页面内容
         //添加检索条件
         if(!empty(trim($_GET['search']))){
@@ -65,7 +66,7 @@ class OperateController extends Controller{
         $this->assign('lists',$order);
         $this->assign('show',$show);
         $this->assign('count',$count);
-        $this->assign(array('curuser'=>$user,'prid'=>$msg['pridlist'],'curdate'=>$date));
+        $this->assign(array('curuser' => $user, 'prid' => $msg['pridlist'], 'curdate' => $date, 'company' => $company));
 		$this->display();
 	}
 
@@ -208,9 +209,10 @@ class OperateController extends Controller{
     public function cost(){
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
         // 在header显示系统当前登录的用户名
-        $user = strlen($_SESSION['admininfo']['uname']) > 8 ? mb_substr($_SESSION['admininfo']['uname'], 0, 8) . '***' : $_SESSION['admininfo']['uname'];
+        $user = strlen($_SESSION['admininfo']['uname']) > 9 ? mb_substr($_SESSION['admininfo']['uname'], 0, 9) . '***' : $_SESSION['admininfo']['uname'];
         $msg=session('admininfo');
-
+        $com = D('user_merchant')->field('company')->where(array('uid' => $msg['identity']))->find();
+        $company = $com['company'];
         //查询页面内容
         //添加检索条件
 
@@ -253,7 +255,7 @@ class OperateController extends Controller{
         $this->assign('lists',$order);
         $this->assign('show',$show);
         $this->assign('count',$count);
-        $this->assign(array('curuser'=>$user,'prid'=>$msg['pridlist'],'curdate'=>$date));
+        $this->assign(array('curuser' => $user, 'prid' => $msg['pridlist'], 'curdate' => $date, 'company' => $company));
         $this->display();
     }
 
@@ -371,9 +373,10 @@ class OperateController extends Controller{
     public function price(){
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
         // 在header显示系统当前登录的用户名
-        $user = strlen($_SESSION['admininfo']['uname']) > 8 ? mb_substr($_SESSION['admininfo']['uname'], 0, 8) . '***' : $_SESSION['admininfo']['uname'];
+        $user = strlen($_SESSION['admininfo']['uname']) > 9 ? mb_substr($_SESSION['admininfo']['uname'], 0, 9) . '***' : $_SESSION['admininfo']['uname'];
         $msg=session('admininfo');
-
+        $com = D('user_merchant')->field('company')->where(array('uid' => $msg['identity']))->find();
+        $company = $com['company'];
         //查询页面内容
         //添加检索条件
 
@@ -416,7 +419,7 @@ class OperateController extends Controller{
         $this->assign('lists',$order);
         $this->assign('show',$show);
         $this->assign('count',$count);
-        $this->assign(array('curuser'=>$user,'prid'=>$msg['pridlist'],'curdate'=>$date));
+        $this->assign(array('curuser' => $user, 'prid' => $msg['pridlist'], 'curdate' => $date, 'company' => $company));
         $this->display();
     }
 
@@ -512,9 +515,10 @@ class OperateController extends Controller{
     public function invoice(){
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
         // 在header显示系统当前登录的用户名
-        $user = strlen($_SESSION['admininfo']['uname']) > 8 ? mb_substr($_SESSION['admininfo']['uname'], 0, 8) . '***' : $_SESSION['admininfo']['uname'];
+        $user = strlen($_SESSION['admininfo']['uname']) > 9 ? mb_substr($_SESSION['admininfo']['uname'], 0, 9) . '***' : $_SESSION['admininfo']['uname'];
         $msg=session('admininfo');
-
+        $com = D('user_merchant')->field('company')->where(array('uid' => $msg['identity']))->find();
+        $company = $com['company'];
         //查询页面内容
         //添加检索条件
         if(!empty(trim($_GET['search']))){
@@ -560,7 +564,7 @@ class OperateController extends Controller{
         $this->assign('lists',$order);
         $this->assign('show',$show);
         $this->assign('count',$count);
-        $this->assign(array('curuser'=>$user,'prid'=>$msg['pridlist'],'curdate'=>$date));
+        $this->assign(array('curuser' => $user, 'prid' => $msg['pridlist'], 'curdate' => $date, 'company' => $company));
         $this->display();
     }
 

@@ -26,9 +26,11 @@ param：、、、、
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
 
         // 在header显示系统当前登录的用户名
-        $user = strlen($_SESSION['admininfo']['uname']) > 8 ? mb_substr($_SESSION['admininfo']['uname'], 0, 8) . '***' : $_SESSION['admininfo']['uname'];
+        $user = strlen($_SESSION['admininfo']['uname']) > 9 ? mb_substr($_SESSION['admininfo']['uname'], 0, 9) . '***' : $_SESSION['admininfo']['uname'];
         $h=$_GET['p']?$_GET['p']:1;
         $msg=session('admininfo');
+        $com = D('user_merchant')->field('company')->where(array('uid' => $msg['identity']))->find();
+        $company = $com['company'];
         $uid=$msg['uid'];
         //print_r($msg['pridlist']);die;
         //$D('UserMerchant')->field('uname')->find();
@@ -84,8 +86,7 @@ param：、、、、
         $this->assign('umsg',$msg);
         $this->assign('arr',$arr);
         $this->assign('page',$show);
-        $this->assign('curdate',$date);
-        $this->assign('curuser',$user);
+        $this->assign(array('curdate' => $date, 'curuser' => $user, 'company' => $company));
         $this->display('Management/mindex');
     }
     //搜索
@@ -95,10 +96,12 @@ param：、、、、
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
 
         // 在header显示系统当前登录的用户名
-        $user = strlen($_SESSION['admininfo']['uname']) > 8 ? mb_substr($_SESSION['admininfo']['uname'], 0, 8) . '***' : $_SESSION['admininfo']['uname'];
+        $user = strlen($_SESSION['admininfo']['uname']) > 9 ? mb_substr($_SESSION['admininfo']['uname'], 0, 9) . '***' : $_SESSION['admininfo']['uname'];
         $searchval=trim(I('get.msearch')==''?'':I('get.msearch','','strip_tags'));
         //echo $searchval;die;
         $msg=session('admininfo');
+        $com = D('user_merchant')->field('company')->where(array('uid' => $msg['identity']))->find();
+        $company = $com['company'];
         $uid=$msg['uid'];
         if($searchval=='请输入内容'){
             $searchval='';
@@ -166,8 +169,7 @@ param：、、、、
         $this->assign('arr',$arr);
         $this->assign('page',$show);
         $this->assign('zsearch',$searchval);
-        $this->assign('curdate',$date);
-        $this->assign('curuser',$user);
+        $this->assign(array('curdate' => $date, 'curuser' => $user, 'company' => $company));
         $this->display('Management/msearch');
     }
    //添加管理员qqq

@@ -36,9 +36,10 @@ class MaintenanceController extends Controller {
         /*header*/
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time()); // 显示系统当前时间 
 
-        $user = strlen($_SESSION['admininfo']['uname']) > 8 ? mb_substr($_SESSION['admininfo']['uname'], 0, 8) . '***' : $_SESSION['admininfo']['uname'];// 显示系统当前登录的用户名
+        $user = strlen($_SESSION['admininfo']['uname']) > 9 ? mb_substr($_SESSION['admininfo']['uname'], 0, 9) . '***' : $_SESSION['admininfo']['uname'];// 显示系统当前登录的用户名
         $msg=session('admininfo');
-
+        $com = D('user_merchant')->field('company')->where(array('uid' => $msg['identity']))->find();
+        $company = $com['company'];
         /*状态栏*/
         // 工单（已处理总数、待处理、今日已处理）
         $today=date('Ymd',time());
@@ -138,7 +139,7 @@ class MaintenanceController extends Controller {
         $this->assign('failureNum',$failureNum);
         $this->assign('lists',$list);
         $this->assign("show",$show);
-        $this->assign(array('curuser'=>$user,'prid'=>$msg['pridlist'],'curdate'=>$date));
+        $this->assign(array('curuser' => $user, 'prid' => $msg['pridlist'], 'curdate' => $date, 'company' => $company));
         $this->display();
     }
     
@@ -152,9 +153,10 @@ class MaintenanceController extends Controller {
 /*header*/
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time()); // 显示系统当前时间
 
-        $user = strlen($_SESSION['admininfo']['uname']) > 8 ? mb_substr($_SESSION['admininfo']['uname'], 0, 8) . '***' : $_SESSION['admininfo']['uname']; // 显示系统当前登录的用户名
+        $user = strlen($_SESSION['admininfo']['uname']) > 9 ? mb_substr($_SESSION['admininfo']['uname'], 0, 9) . '***' : $_SESSION['admininfo']['uname']; // 显示系统当前登录的用户名
         $msg=session('admininfo');
-        
+        $com = D('user_merchant')->field('company')->where(array('uid' => $msg['identity']))->find();
+        $company = $com['company'];
         /*状态栏*/
         // 工单（已处理总数、待处理、今日已处理）
         $today=date('Ymd',time());
@@ -217,7 +219,7 @@ class MaintenanceController extends Controller {
         foreach ($list as $k=>$v) {
             $list[$k]['sequence']=$k+1; // 列表序号
         }
-        $this->assign(array('curuser'=>$user,'prid'=>$msg['pridlist'],'curdate'=>$date));
+        $this->assign(array('curuser' => $user, 'prid' => $msg['pridlist'], 'curdate' => $date, 'company' => $company));
         $this->assign('sheetNum',$sheetNum);
         $this->assign('failureNum',$failureNum);
         $this->assign('lists',$list);

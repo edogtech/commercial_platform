@@ -26,8 +26,10 @@ class TerminalController extends Controller {
         
 /*header*/        
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time()); // 显示系统当前时间
-        $user = strlen($_SESSION['admininfo']['uname']) > 8 ? mb_substr($_SESSION['admininfo']['uname'], 0, 8) . '***' : $_SESSION['admininfo']['uname']; // 显示系统当前登录的用户名
+        $user = strlen($_SESSION['admininfo']['uname']) > 9 ? mb_substr($_SESSION['admininfo']['uname'], 0, 9) . '***' : $_SESSION['admininfo']['uname']; // 显示系统当前登录的用户名
         $msg=session('admininfo');
+        $com = D('user_merchant')->field('company')->where(array('uid' => $msg['identity']))->find();
+        $company = $com['company'];
         
 /*状态栏*/
 //         $ob=M('charge_pile');
@@ -99,8 +101,7 @@ class TerminalController extends Controller {
         $this->assign('prid',$msg['pridlist']);
         $this->assign('curdate',$date);
         $this->assign('curuser',$user);
-        $this->assign('pilesinfo',$pile);
-
+        $this->assign(array('pilesinfo' => $pile, 'company' => $company));
         $this->assign('lists',$list);
         $this->assign("show",$show);
         $this->display();
@@ -110,8 +111,10 @@ class TerminalController extends Controller {
 
 /*header*/
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());  // 显示系统当前时间
-        $user = strlen($_SESSION['admininfo']['uname']) > 8 ? mb_substr($_SESSION['admininfo']['uname'], 0, 8) . '***' : $_SESSION['admininfo']['uname'];
+        $user = strlen($_SESSION['admininfo']['uname']) > 9 ? mb_substr($_SESSION['admininfo']['uname'], 0, 9) . '***' : $_SESSION['admininfo']['uname'];
         $msg=session('admininfo');
+        $com = D('user_merchant')->field('company')->where(array('uid' => $msg['identity']))->find();
+        $company = $com['company'];
         
 /*状态栏*/
 //         $ob=M('charge_pile');
@@ -211,7 +214,7 @@ class TerminalController extends Controller {
 
         $this->assign('st',$re); // 站信息
         $this->assign('pilestatus',$pileStatus); // 桩状态
-        $this->assign('lists',$pileInfo); // 桩信息
+        $this->assign(array('lists' => $pileInfo, 'company' => $company)); // 桩信息
         $this->assign("show",$show);
         $this->display();
         
