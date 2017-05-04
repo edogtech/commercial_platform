@@ -6,8 +6,9 @@ class FinancialController extends Controller {
         parent::__construct();
         $msg=session('admininfo');
         $prid=$msg['pridlist'];
-        if (!in_array(2,$prid)){
-            $this->error('您无此权限！', '../Index/index', 2);
+        $ck = cookie('identity:');
+        if (!in_array(2, $prid) || empty($ck)) {
+            $this->redirect('Index/index');
         }
     }
     //关于我们页面的展示

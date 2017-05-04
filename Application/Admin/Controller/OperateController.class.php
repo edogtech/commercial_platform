@@ -2,12 +2,16 @@
 namespace Admin\Controller;
 use Think\Controller;
 class OperateController extends Controller{
+    /*
+    @经营管理
+    */
 	public function __construct(){
         parent::__construct();
         $msg=session('admininfo');
         $prid=$msg['pridlist'];
-        if (!in_array(3,$prid)){
-            $this->error('您无此权限！', '../Index/index', 2);
+        $ck = cookie('identity:');
+        if (!in_array(3, $prid) || empty($ck)) {
+            $this->redirect('Index/index');
         }
     }
 	public function index(){

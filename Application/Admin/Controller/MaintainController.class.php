@@ -6,7 +6,8 @@ class MaintainController extends Controller{
         parent::__construct();
         $msg=session('admininfo');
         $prid=$msg['pridlist'];
-        if (!in_array(4,$prid)){
+        $ck = cookie('identity:');
+        if (!in_array(4, $prid) || empty($ck)) {
             $this->error('您无此权限！', '../Index/index', 2);
         }
     }

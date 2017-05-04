@@ -14,9 +14,10 @@ param：、、、、
         $msg=session('admininfo');
         $uname=$msg['uname'];
         $uid=$msg['uid'];
+        $ck = cookie('identity:');
         $issole=D('UserMerchant')->where(array('uname'=>$uname,'uid'=>$uid))->find();
-        if (empty($issole)) {
-            $this->error('您无此权限！', '../Index/index', 2);
+        if (empty($issole) || empty($ck)) {
+            $this->redirect('Index/index');
         }
     }
     public function mindex(){
