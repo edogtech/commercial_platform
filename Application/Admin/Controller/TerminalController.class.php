@@ -168,18 +168,21 @@ class TerminalController extends Controller {
         $clock=date('H',time());
         $arrayChg=explode(',', $re['charging_fee']);
         for($i=0;$i<sizeof($arrayChg);$i=$i+3){
+            $re['charging_fee']='0'; // 如果当前时间不在设定的时间段内
             if($clock>=$arrayChg[$i] && $clock<=$arrayChg[$i+1]){
                 $re['charging_fee']=$arrayChg[$i+2];
             }
         }
         $arrayPark=explode(',', $re['parking_fee']);
         for($i=0;$i<sizeof($arrayPark);$i=$i+3){
+            $re['parking_fee']='0';
             if($clock>=$arrayPark[$i] && $clock<=$arrayPark[$i+1]){
                 $re['parking_fee']=$arrayPark[$i+2];
             }
         }
         $arrayServe=explode(',', $re['serving_fee']);
         for($i=0;$i<sizeof($arrayServe);$i=$i+3){
+            $re['serving_fee']='0';
             if($clock>=$arrayServe[$i] && $clock<=$arrayServe[$i+1]){
                 $re['serving_fee']=$arrayServe[$i+2];
             }
@@ -359,6 +362,22 @@ class TerminalController extends Controller {
 //         echo("电桩ID $pileID 操作是 $actionStr 用户ID $userID");
     }
     
-  
+    public function displayFee(){
+        $stationID=I('post.stationID');
+        $type=I('post.type');
+        echo 'stationID:'.$stationID;
+        switch ($type) {
+            case 'parking':
+                $field='parking_fee';
+                break;
+            case 'serving':
+                $field='serving_fee';
+                break;
+            case 'charging':
+                $field='charging_fee';
+                break;
+        }
+        $re=$this->ob_station->field($field)->where("id=$stationID")->find();
+    }
     
 }

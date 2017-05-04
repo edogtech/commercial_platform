@@ -43,12 +43,13 @@ $(function(){
 		$('#divAdjustFee').css('display','block'); // 弹窗
 		$("#test").css('display','block');
 			
-//		var stationID=$(this).attr("stationID"); // 显示费用
-//		var url="/commercial_platform/index.php/Admin/Terminal/displayFee";
-//		$.post(url,{stationID:stationID,type:adjustFeeCategory},function(result,status){
-//			var data=$.parseJSON(result);
-//			console.log(data);
-//		})
+		var stationID=$(this).attr("stationID"); // 显示费用
+
+		var url="/commercial_platform/index.php/Admin/Terminal/displayFee";
+		$.post(url,{stationID:stationID,type:adjustFeeCategory},function(result,status){
+			var data=$.parseJSON(result);
+			console.log(data);
+		})
 		
 	})
 	

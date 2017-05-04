@@ -2,7 +2,7 @@
 //数据库配置
 $arr1 = array(
     'DB_TYPE'           => 'mysql',
-    'DB_HOST'           => '121.42.53.24',
+    'DB_HOST'           => 'localhost',
     'DB_NAME'           => 'db_commercial',
     'DB_USER'           => 'comm',
     'DB_PWD'            => 'comm',
