@@ -26,7 +26,7 @@ param：、、、、
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
 
         // 在header显示系统当前登录的用户名
-        $user = strlen($_SESSION['admininfo']['uname']) > 9 ? mb_substr($_SESSION['admininfo']['uname'], 0, 9) . '***' : $_SESSION['admininfo']['uname'];
+        $user = mb_strlen($_SESSION['admininfo']['uname']) > 9 ? mb_substr($_SESSION['admininfo']['uname'], 0, 6) . '***' : $_SESSION['admininfo']['uname'];
         $h=$_GET['p']?$_GET['p']:1;
         $msg=session('admininfo');
         $com = D('user_merchant')->field('company')->where(array('uid' => $msg['identity']))->find();
@@ -96,7 +96,7 @@ param：、、、、
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time());
 
         // 在header显示系统当前登录的用户名
-        $user = strlen($_SESSION['admininfo']['uname']) > 9 ? mb_substr($_SESSION['admininfo']['uname'], 0, 9) . '***' : $_SESSION['admininfo']['uname'];
+        $user = mb_strlen($_SESSION['admininfo']['uname']) > 9 ? mb_substr($_SESSION['admininfo']['uname'], 0, 6) . '***' : $_SESSION['admininfo']['uname'];
         $searchval=trim(I('get.msearch')==''?'':I('get.msearch','','strip_tags'));
         //echo $searchval;die;
         $msg=session('admininfo');

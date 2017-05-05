@@ -36,7 +36,7 @@ class MaintenanceController extends Controller {
         /*header*/
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time()); // 显示系统当前时间 
 
-        $user = strlen($_SESSION['admininfo']['uname']) > 9 ? mb_substr($_SESSION['admininfo']['uname'], 0, 9) . '***' : $_SESSION['admininfo']['uname'];// 显示系统当前登录的用户名
+        $user = mb_strlen($_SESSION['admininfo']['uname']) > 9 ? mb_substr($_SESSION['admininfo']['uname'], 0, 6) . '***' : $_SESSION['admininfo']['uname'];// 显示系统当前登录的用户名
         $msg=session('admininfo');
         $com = D('user_merchant')->field('company')->where(array('uid' => $msg['identity']))->find();
         $company = $com['company'];
@@ -153,7 +153,7 @@ class MaintenanceController extends Controller {
 /*header*/
         $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time()); // 显示系统当前时间
 
-        $user = strlen($_SESSION['admininfo']['uname']) > 9 ? mb_substr($_SESSION['admininfo']['uname'], 0, 9) . '***' : $_SESSION['admininfo']['uname']; // 显示系统当前登录的用户名
+        $user = mb_strlen($_SESSION['admininfo']['uname']) > 9 ? mb_substr($_SESSION['admininfo']['uname'], 0, 6) . '***' : $_SESSION['admininfo']['uname']; // 显示系统当前登录的用户名
         $msg=session('admininfo');
         $com = D('user_merchant')->field('company')->where(array('uid' => $msg['identity']))->find();
         $company = $com['company'];
