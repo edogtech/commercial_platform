@@ -1,18 +1,23 @@
 
 	<!--标题栏-->
 	<div class="header" style="float:left;height:80px;overflow:hidden;">
-		<div style=" float:left;font-size:18px; margin-left:2%;margin-top:25px;width:260px;word-wrap:break-word;text-align:center">
+		<div style="float:left;height:80px;width:300px;padding-left:1%">
+			<div style=" float:left;font-size:18px; margin-left:2%;margin-top:25px;width:280px;word-wrap:break-word;text-align:center">
 			<label>
 				<block name="curuser">{$company}</block>
 			</label>
 		</div>
+		</div>
+		<div style="float:right;height:80px;width:800px;padding-right:10px;">
 		<div style=" float:left;font-size:15px; margin-left:5%;margin-top:30px;">
 			<label><block name="curdate" >{$curdate}</block></label>
 		</div>
-		<div style=" float:left;font-size:15px; margin-left:5%;margin-top:17px; ">
+
+
+			<div style=" float:left;font-size:15px; margin-left:5%;margin-top:17px; ">
 			<img src="__PUBLIC__/pic/user_head.png" style="width:45px;"/>
 		</div>
-		<div style=" float:left;font-size:14px; margin-left:1%;margin-top:27px;width:110px;word-wrap:break-word;">
+			<div style=" float:left;font-size:15px; margin-left:1%;margin-top:28px;width:120px;word-wrap:break-word;">
 			<label><block name="curuser" >{$curuser}</block></label>
 		</div>
 		<div style=" float:left;font-size:15px; margin-left:3%;margin-top:35px; ">
@@ -40,6 +45,7 @@
 		</div>
 		<div style=" float:left;font-size:15px; margin-left:1%;padding-top:30px; ">
 			<a href="{:U('Index/loginout')}">退出</a>
+		</div>
 		</div>
 	
 	</div>

@@ -86,12 +86,24 @@
 	<!--状态栏-->
 	<div class="status" style="float:left">
 		<div class="status-left" style="float:left" >
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">总桩数：{$pilesinfo['totalQty']}</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">直流桩：{$pilesinfo['dcQty']}</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">交流桩：{$pilesinfo['acQty']}</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">今日充电次数：{$pilesinfo['times']}</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">工作：{$pilesinfo['occupyQty']}</div>	
-			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">空闲：{$pilesinfo['idleQty']}</div>
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">
+				总桩数：{:empty($pilesinfo['totalQty'])?0:$pilesinfo['totalQty']}
+			</div>
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">
+				直流桩：{:empty($pilesinfo['dcQty'])?0:$pilesinfo['dcQty']}
+			</div>
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">
+				交流桩：{:empty($pilesinfo['acQty'])?0:$pilesinfo['acQty']}
+			</div>
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">
+				今日充电次数：{:empty($pilesinfo['times'])?0:$pilesinfo['times']}
+			</div>
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">
+				工作：{:empty($pilesinfo['occupyQty'])?0:$pilesinfo['occupyQty']}
+			</div>
+			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">
+				空闲：{:empty($pilesinfo['idleQty'])?0:$pilesinfo['idleQty']}
+			</div>
 			<div style="float:left;font-size:13px;color:white;padding-top:10px;margin-left:7%;">
 				故障：{:empty($pilesinfo['faultQty'])?0:$pilesinfo['faultQty']}
 			</div>

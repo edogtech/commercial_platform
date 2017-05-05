@@ -188,12 +188,15 @@
         <div class="modal-content" style="border-radius:0px;min-width:598px !important;">
             <div class="modal-body">
                 <form action="{:U('Operate/cost_add')}" method="post" id="form_add">
-                    <h2 style="color:#E34747;text-align: center">成本费用录入</h2>
+                    <h3 style="color:#E34747;text-align: center">成本费用录入</h3>
                 <div style="margin:20px 50px 0px 50px">
                     <span style="font-weight:600;float:left">费用分类:&nbsp;&nbsp;&nbsp;</span>
                     <div data_="1" class="submit_type" style="cursor:pointer;border:2px solid #E8E7E4;width:23%;height:26px;display: inline-block;text-align: center;color:#96928D;">电费缴纳</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div data_="2" class="submit_type" style="cursor:pointer;border:2px solid #E8E7E4;width:23%;height:26px;display:inline-block;text-align: center;color:#96928D;">维护费用</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div data_="3" class="submit_type" style="cursor:pointer;border:2px solid #E8E7E4;width:23%;height:26px;display:inline-block;text-align: center;color:#96928D;">其他问题</div>
+                    <div data_="3" class="submit_type"
+                         style="cursor:pointer;border:2px solid #E8E7E4;width:23%;height:26px;display:inline-block;text-align: center;color:#96928D;">
+                        其他费用
+                    </div>
                 </div>
                 <div style="margin:20px 50px 80px 50px; ">
                     <span style="font-weight:600;float:left">费用金额:&nbsp;&nbsp;&nbsp;</span><input type="text" value="" name="price"  style="border:2px solid #E8E7E4;width:29%;float:left" />
