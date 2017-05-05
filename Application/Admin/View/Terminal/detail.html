@@ -196,7 +196,7 @@
 		<!-- 桩信息 -->
 		<div style="width:100%;margin-top:1%;margin-left:25px;background-color:;float:left;">
 			<volist name="lists" id="vo">
-				<div style="width:23%;height:140px;float:left;background-color:white;margin-right:10px;margin-bottom:8px;">
+				<div style="width:23%;height:140px;float:left;background-color:white;margin-right:10px;margin-bottom:8px;-webkit-box-shadow: #666 0px 0px 10px;-moz-box-shadow: #666 0px 0px 10px;box-shadow: #666 0px 0px 10px;">
 					<!-- 左上 -->
 					<div style="height:60%;width:70%;float:left;border-right:1px solid;border-bottom:1px solid;border-color:#e8e8e8;padding-left:5%;padding-top:3%">
 						<!-- 图标  -->
@@ -244,7 +244,9 @@
 					</div>
 					<!-- 右下 -->
 					<div class="wrapper" style="height:40%;width:30%;float:left;font-size:12px;text-align:center;border-left:1px solid;border-top:1px solid;border-color:#e8e8e8;">
-						<div class="DivControlPile" value={$vo['pile_no']} style="display:table-cell;vertical-align:middle;cursor:pointer;">启/停</div>
+						<div class="DivControlPile" value={$vo['pile_no']}
+							 style="display:table-cell;vertical-align:middle;cursor:pointer;">操作
+						</div>
 					</div>
 				</div>
 				<!-- <if condition="$count">
