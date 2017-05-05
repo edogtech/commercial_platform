@@ -279,9 +279,11 @@ class MaintenanceController extends Controller {
         }elseif (!empty($startTime) && !empty($endTime)){
             $where['w.addtime']=array('between',"$startTime,$endTime");
         }
-        
-       $where=array_merge($where,$this->condition);
-
+        if (empty($where)) {
+            $where['mid'] = $this->condition['mid'];
+        } else {
+            $where = array_merge($where, $this->condition);
+        }
         // 查询数据
        $field='id,order_number,customer,operator,phone,type,describe,addtime,telephone,status';
        $res=$this->ob_workorder->field($field)->where($where)->order('status')->select();
@@ -308,7 +310,7 @@ class MaintenanceController extends Controller {
         $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(20);
         $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
         $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(30);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(12);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
         $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(12);
         $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(12);
         $line=2;
@@ -332,7 +334,7 @@ class MaintenanceController extends Controller {
                     $objPHPExcel->getActiveSheet()->setCellValue('E'.$line,'其他问题');
                     break;                    
             }
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.$line,$v['addtime']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F' . $line, date('Y-m-d H:i:s', $v['addtime']));
             $objPHPExcel->getActiveSheet()->setCellValue('G'.$line,$v['operator']);
             switch ($v['status'])
             {
