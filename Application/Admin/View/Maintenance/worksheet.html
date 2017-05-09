@@ -203,7 +203,11 @@
 	                            	</div>
 	                            </case>
 	                            <case value="2">
-	                            	<div>已解决<img src="__PUBLIC__/pic/examine.png" style="width:20px;padding-left:3px;"/></div>
+                                    <div class="DivPending" style="cursor:pointer;color:red;" sheetID="{$vo['id']}"
+                                         customer="{$vo['customer']}" phone="{$vo['phone']}" type="{$vo['type']}"
+                                         describe="{$vo['describe']}" addtime="{$vo['addtime']|date='Y-m-d H:i:s',###}">
+                                        已解决<img src="__PUBLIC__/pic/examine.png" style="width:20px;padding-left:3px;"/>
+                                    </div>
 	                            </case>
 	                        </switch>
                         </td>
