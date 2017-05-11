@@ -28,6 +28,9 @@ class IndexController extends Controller {
                 $shows = D('PrivInfo')->field('paction')->where(array('pid' => $substrpid))->find();
                 $this->assign('prid', $prid);
                 $showdisp = $shows['paction'];
+                if(empty($showdisp)){
+                    $showdisp='Index/defaultt';
+                }
                 $this->redirect("$showdisp");
             }else{
                 $userinfo = M("user_merchant")->field('uid,uname,upswd,privilegeid')->where(array('uname' => $username, 'upswd' => $memuser['upswd']))->find();
@@ -44,10 +47,25 @@ class IndexController extends Controller {
                 $show = D('PrivInfo')->field('paction')->where(array('pid' => $strpid))->find();
                 $this->assign('prid', $prid);
                 $showdis = $show['paction'];
+                if(empty($showdis)){
+                    $showdis='Index/defaultt';
+                }
                 $this->redirect("$showdis");
             }
             
         }
+    }
+    public function defaultt(){
+        /*header*/        
+        $date= date("Y年m月d日" ,time()).' 星期'.getWeek(time()); // 显示系统当前时间
+        $user = mb_strlen($_SESSION['admininfo']['uname']) > 9 ? mb_substr($_SESSION['admininfo']['uname'], 0, 6) . '***' : $_SESSION['admininfo']['uname']; // 显示系统当前登录的用户名
+        $msg=session('admininfo');
+        $com = D('user_merchant')->field('company')->where(array('uid' => $msg['identity']))->find();
+        $company = $com['company'];
+        $this->assign('curdate',$date);
+        $this->assign('curuser',$user);
+        $this->assign(array('prid'=>$msg['pridlist'], 'company' => $company));
+        $this->display('Index/defaultt');
     }
     public function code(){
         ob_clean();
@@ -308,6 +326,9 @@ class IndexController extends Controller {
                 $shows=D('PrivInfo')->field('paction')->where(array('pid'=>$substrpid))->find();
                 $this->assign('prid',$prid);
                 $showdisp=$shows['paction'];
+                if(empty($showdisp)){
+                    $showdisp='Index/defaultt';
+                }
                 $this->redirect("$showdisp");
 
             }else{
@@ -361,6 +382,9 @@ class IndexController extends Controller {
                 $show=D('PrivInfo')->field('paction')->where(array('pid'=>$strpid))->find();
                 $this->assign('prid',$prid);
                 $showdis=$show['paction'];
+                if(empty($showdis)){
+                    $showdis='Index/defaultt';
+                }
                 $this->redirect("$showdis");
 
             }else{
