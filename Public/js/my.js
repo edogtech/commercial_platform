@@ -39,17 +39,46 @@ $(function(){
 		$('#feeCaption').html("停车费调价");
 		$('#feeCaption2').html("停车费");
 		$('.unit').html("&nbsp;元/小时");
+
+		var stationID=$(this).attr("stationID"); // 显示费用
+
+		var url="/commercial/index.php/Admin/Terminal/displayFee";
+		$.post(url,{stationID:stationID,type:adjustFeeCategory},function(result,status){
+			//var data=$.parseJSON(result);
+			if (result[0]!==undefined) {
+				$("#txtAdjustFee11").val(result[0][0]);
+				$("#txtAdjustFee12").val(result[0][1]);
+				$("#txtAdjustFee13").val(result[0][2]);
+			}else{
+				$("#txtAdjustFee11").val('');
+				$("#txtAdjustFee12").val('');
+				$("#txtAdjustFee13").val('');
+			}
+			
+			if (result[1]!==undefined) {
+				$("#txtAdjustFee21").val(result[1][0]);
+				$("#txtAdjustFee22").val(result[1][1]);
+				$("#txtAdjustFee23").val(result[1][2]);
+			}else{
+				$("#txtAdjustFee21").val('');
+				$("#txtAdjustFee22").val('');
+				$("#txtAdjustFee23").val('');
+			}
+			if (result[2]!==undefined) {
+				//alert(result[2])
+				$("#txtAdjustFee31").val(result[2][0]);
+				$("#txtAdjustFee32").val(result[2][1]);
+				$("#txtAdjustFee33").val(result[2][2]);
+			}else{
+				$("#txtAdjustFee31").val('');
+				$("#txtAdjustFee32").val('');
+				$("#txtAdjustFee33").val('');
+			}
+		},'json');
 		
 		$('#divAdjustFee').css('display','block'); // 弹窗
 		$("#test").css('display','block');
 			
-		var stationID=$(this).attr("stationID"); // 显示费用
-
-		var url="/commercial_platform/index.php/Admin/Terminal/displayFee";
-		$.post(url,{stationID:stationID,type:adjustFeeCategory},function(result,status){
-			var data=$.parseJSON(result);
-			console.log(data);
-		})
 		
 	})
 	
@@ -60,6 +89,42 @@ $(function(){
 		$('#feeCaption2').html("服务费");
 		$('.unit').html("&nbsp;元/度");
 		
+		var stationID=$(this).attr("stationID"); // 显示费用
+
+		var url="/commercial/index.php/Admin/Terminal/displayFee";
+		$.post(url,{stationID:stationID,type:adjustFeeCategory},function(result,status){
+			//var data=$.parseJSON(result);
+			if (result[0]!==undefined) {
+				$("#txtAdjustFee11").val(result[0][0]);
+				$("#txtAdjustFee12").val(result[0][1]);
+				$("#txtAdjustFee13").val(result[0][2]);
+			}else{
+				$("#txtAdjustFee11").val('');
+				$("#txtAdjustFee12").val('');
+				$("#txtAdjustFee13").val('');
+			}
+			
+			if (result[1]!==undefined) {
+				$("#txtAdjustFee21").val(result[1][0]);
+				$("#txtAdjustFee22").val(result[1][1]);
+				$("#txtAdjustFee23").val(result[1][2]);
+			}else{
+				$("#txtAdjustFee21").val('');
+				$("#txtAdjustFee22").val('');
+				$("#txtAdjustFee23").val('');
+			}
+			if (result[2]!==undefined) {
+				//alert(result[2])
+				$("#txtAdjustFee31").val(result[2][0]);
+				$("#txtAdjustFee32").val(result[2][1]);
+				$("#txtAdjustFee33").val(result[2][2]);
+			}else{
+				$("#txtAdjustFee31").val('');
+				$("#txtAdjustFee32").val('');
+				$("#txtAdjustFee33").val('');
+			}
+		},'json');
+
 		$('#divAdjustFee').css('display','block');
 		$("#test").css('display','block');
 		
@@ -71,6 +136,42 @@ $(function(){
 		$('#feeCaption').html("充电费调价");
 		$('#feeCaption2').html("充电费");
 		$('.unit').html("&nbsp;元/度");
+
+		var stationID=$(this).attr("stationID"); // 显示费用
+
+		var url="/commercial/index.php/Admin/Terminal/displayFee";
+		$.post(url,{stationID:stationID,type:adjustFeeCategory},function(result,status){
+			//var data=$.parseJSON(result);
+			if (result[0]!==undefined) {
+				$("#txtAdjustFee11").val(result[0][0]);
+				$("#txtAdjustFee12").val(result[0][1]);
+				$("#txtAdjustFee13").val(result[0][2]);
+			}else{
+				$("#txtAdjustFee11").val('');
+				$("#txtAdjustFee12").val('');
+				$("#txtAdjustFee13").val('');
+			}
+			
+			if (result[1]!==undefined) {
+				$("#txtAdjustFee21").val(result[1][0]);
+				$("#txtAdjustFee22").val(result[1][1]);
+				$("#txtAdjustFee23").val(result[1][2]);
+			}else{
+				$("#txtAdjustFee21").val('');
+				$("#txtAdjustFee22").val('');
+				$("#txtAdjustFee23").val('');
+			}
+			if (result[2]!==undefined) {
+				//alert(result[2])
+				$("#txtAdjustFee31").val(result[2][0]);
+				$("#txtAdjustFee32").val(result[2][1]);
+				$("#txtAdjustFee33").val(result[2][2]);
+			}else{
+				$("#txtAdjustFee31").val('');
+				$("#txtAdjustFee32").val('');
+				$("#txtAdjustFee33").val('');
+			}
+		},'json');
 		
 		$('#divAdjustFee').css('display','block');
 		$("#test").css('display','block');

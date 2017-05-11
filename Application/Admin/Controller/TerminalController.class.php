@@ -234,16 +234,25 @@ class TerminalController extends Controller {
         switch ($type) {
             case 'parking':
                 $return = explode(',', $re['parking_fee']);
+                @empty(array_slice($return,0,3))?'':$arr[]=array_slice($return,0,3);
+                @empty(array_slice($return,3,3))?'':$arr[]=array_slice($return,3,3);
+                @empty(array_slice($return,6,6))?'':$arr[]=array_slice($return,6,3);
                 break;
             case 'serving':
                 $return = explode(',', $re['serving_fee']);
+                @empty(array_slice($return,0,3))?'':$arr[]=array_slice($return,0,3);
+                @empty(array_slice($return,3,3))?'':$arr[]=array_slice($return,3,3);
+                @empty(array_slice($return,6,6))?'':$arr[]=array_slice($return,6,3);
                 break;
             case 'charging':
                 $return = explode(',', $re['charging_fee']);
+                @empty(array_slice($return,0,3))?'':$arr[]=array_slice($return,0,3);
+                @empty(array_slice($return,3,3))?'':$arr[]=array_slice($return,3,3);
+                @empty(array_slice($return,6,6))?'':$arr[]=array_slice($return,6,3);
                 break;
         }
 
-        echo json_encode($returns);
+        echo json_encode($arr);
     }
 
     /*
