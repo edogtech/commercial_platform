@@ -334,7 +334,7 @@ $(function(){
 		$("#spanDot").append("<img src='/commercial/Public/pic/doting.gif' width='25px'/>");
 		
 		$.post(url,{pileID:pileID,actionStr:actionStr,userID:userID},function(data,status){
-			
+			alert(data)
 //			$("#spanDot").html(data); //for dubug
 			switch(data){
 				case("1"):

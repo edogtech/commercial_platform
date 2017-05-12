@@ -117,7 +117,7 @@ function send_frame($commandArray){
     $socket = socket_create(AF_INET, SOCK_STREAM, getprotobyname("tcp"));  // 创建Socket
 
     $authFrame='';
-    if (socket_connect($socket, "192.168.1.100", 8234)) {  //连接
+    if (socket_connect($socket, "121.42.53.24", 8234)) {  //连接
         for ($i = 0; $i < count($authStrArray); $i++) {
             $authFrame.=chr(hexdec($authStrArray[$i])); // 组中为一帧数据一次性发送
         }
