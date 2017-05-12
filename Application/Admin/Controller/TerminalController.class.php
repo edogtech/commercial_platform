@@ -170,32 +170,47 @@ class TerminalController extends Controller {
         // 当前时段充电费、服务费、停车费用
         $clock=date('H',time());
         $arrayChg=array_filter(explode(',', $re['charging_fee']));
-        for($i=0;$i<sizeof($arrayChg);$i=$i+3){
-            $re['charging_fee']='0'; // 如果当前时间不在设定的时间段内
-            if($clock>=$arrayChg[$i] && $clock<=$arrayChg[$i+1]){
-                $re['charging_fee'] = $arrayChg[$i + 2] . '元/度';
-            } else {
-                $re['charging_fee'] = '该时间段未设定';
+        if (@empty($arrayChg)) {
+            $re['charging_fee'] = '该时间段未设定';
+        }else{
+            for($i=0;$i<sizeof($arrayChg);$i=$i+3){
+                $re['charging_fee']='0'; // 如果当前时间不在设定的时间段内
+                if($clock>=$arrayChg[$i] && $clock<=$arrayChg[$i+1]){
+                    $re['charging_fee'] = $arrayChg[$i + 2] . '元/度';
+                } else {
+                    $re['charging_fee'] = '该时间段未设定';
+                }
             }
         }
+        
         $arrayPark=array_filter(explode(',', $re['parking_fee']));
-        for($i=0;$i<sizeof($arrayPark);$i=$i+3){
-            $re['parking_fee']='0';
-            if($clock>=$arrayPark[$i] && $clock<=$arrayPark[$i+1]){
-                $re['parking_fee'] = $arrayPark[$i + 2] . '元/小时';
-            } else {
-                $re['parking_fee'] = '该时间段未设定';
+        if(@empty($arrayPark)){
+            $re['parking_fee'] = '该时间段未设定';
+        }else{
+            for($i=0;$i<sizeof($arrayPark);$i=$i+3){
+                $re['parking_fee']='0';
+                if($clock>=$arrayPark[$i] && $clock<=$arrayPark[$i+1]){
+                    $re['parking_fee'] = $arrayPark[$i + 2] . '元/小时';
+                } else {
+                    $re['parking_fee'] = '该时间段未设定';
+                }
             }
         }
+        
         $arrayServe=array_filter(explode(',', $re['serving_fee']));
-        for($i=0;$i<sizeof($arrayServe);$i=$i+3){
-            $re['serving_fee']='0';
-            if($clock>=$arrayServe[$i] && $clock<=$arrayServe[$i+1]){
-                $re['serving_fee'] = $arrayServe[$i + 2] . '元/度';
-            } else {
-                $re['serving_fee'] = '该时间段未设定';
+        if(@empty($arrayServe)){
+            $re['serving_fee'] = '该时间段未设定';
+        }else{
+            for($i=0;$i<sizeof($arrayServe);$i=$i+3){
+                $re['serving_fee']='0';
+                if($clock>=$arrayServe[$i] && $clock<=$arrayServe[$i+1]){
+                    $re['serving_fee'] = $arrayServe[$i + 2] . '元/度';
+                } else {
+                    $re['serving_fee'] = '该时间段未设定';
+                }
             }
         }
+        
 
         // 该电站中桩状态
 //         $ob_pile=M('charge_pile');
