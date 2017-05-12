@@ -178,7 +178,7 @@ class TerminalController extends Controller {
                 $re['charging_fee'] = '该时间段未设定';
             }
         }
-        $arrayPark=explode(',', $re['parking_fee']);
+        $arrayPark=array_filter(explode(',', $re['parking_fee']));
         for($i=0;$i<sizeof($arrayPark);$i=$i+3){
             $re['parking_fee']='0';
             if($clock>=$arrayPark[$i] && $clock<=$arrayPark[$i+1]){
@@ -187,7 +187,7 @@ class TerminalController extends Controller {
                 $re['parking_fee'] = '该时间段未设定';
             }
         }
-        $arrayServe=explode(',', $re['serving_fee']);
+        $arrayServe=array(explode(',', $re['serving_fee']));
         for($i=0;$i<sizeof($arrayServe);$i=$i+3){
             $re['serving_fee']='0';
             if($clock>=$arrayServe[$i] && $clock<=$arrayServe[$i+1]){
