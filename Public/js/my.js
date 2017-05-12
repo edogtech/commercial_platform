@@ -253,7 +253,8 @@ $(function(){
 		
 		// 验证正整数
 		var exitFlag=false;
-		var myRegExp = /^[0-9]*[1-9][0-9]*$/ 
+		//var myRegExp = /^[0-9]*[1-9][0-9]*$/
+		var myRegExp = /^(?![^12].)(?!2[4-9])\d{1,2}$/;
 		
 		$(".chkReg").each(function(i, field){
 			var chkval=field.value;

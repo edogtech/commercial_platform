@@ -164,12 +164,12 @@ class TerminalController extends Controller {
 //         $ob=M('charge_station');
         $where['id']=I('get.id'); // 电站ID
         $re=$this->ob_station->where($where)->find();
-        $re['address']= mb_substr($re['address'],0,30).'*'; // 电站地址
+        $re['address']= mb_strlen($_SESSION['admininfo']['uname']) > 20 ? mb_substr($re['address'],0,20).'*':mb_substr($re['address'],0,20); // 电站地址
         $re['total']= $re['ac_num']+$re['dc_num']; // 电桩总数
         
         // 当前时段充电费、服务费、停车费用
         $clock=date('H',time());
-        $arrayChg=explode(',', $re['charging_fee']);
+        $arrayChg=array_filter(explode(',', $re['charging_fee']));
         for($i=0;$i<sizeof($arrayChg);$i=$i+3){
             $re['charging_fee']='0'; // 如果当前时间不在设定的时间段内
             if($clock>=$arrayChg[$i] && $clock<=$arrayChg[$i+1]){
@@ -265,7 +265,7 @@ class TerminalController extends Controller {
         
         // $_POST包含三个时段与价格，最后两个元素分别是电桩ID和调价种类
         foreach ($_POST as $key=>$val) {
-            if(!empty($val)){
+            if($val!==0){
                 $arrayDuration[$i]=$val;
                 $i++;
             }
