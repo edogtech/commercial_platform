@@ -54,7 +54,7 @@
                             <div class="col-xs-1"></div>
                         </div>
 
-                        <div class="form-group" style="margin-top:5%">
+                        <div class="form-group" style="margin-top:5%;height:100px;">
                             <label for="input3" class="col-xs-3 control-label">图形码</label>
                             <div class="col-sm-5 col-xs-8">
                                 <input type="text" name="code" class="form-control" id="input3" placeholder="请输入图形码">
@@ -99,6 +99,13 @@
             <div class="col-md-12">电狗科技Copyright 2017.All ALL Right Reserved</div>
             <div class="col-md-12">京ICP备16062384号</div>
         </div>
+        <script>
+                var clearid=setInterval(function ahidden(){
+                    $("#notice").css('display','none');
+                    clearInterval(clearid);
+                },3000);
+                
+        </script>
     </div>
 </body>
 </html>
