@@ -398,7 +398,7 @@ class IndexController extends Controller {
         require_once  './Public/jsms-api-php-client-master/src/JSMS.php';
 
         $appKey = '459d9bee0bac542534a6fd57';
-        $masterSecret = '35e380846e272cfe8ca678ee';
+        $masterSecret = '442e18a3f4b7c4c4cb66be9b';
         $phone = trim($_POST['send_phone']);
 
         //防止在控制台连续调用短时间内多次发送
